@@ -1,1 +1,4777 @@
+openapi: 3.0.0
+info:
+  title: ""
+  version: 3.0.0
+paths:
 
+  /callback:
+    get:
+      operationId: callback
+      x-vertx-event-bus: serratus-api-enUS-callback
+      description: >+
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+
+  /logout:
+    get:
+      operationId: logout
+      x-vertx-event-bus: serratus-api-enUS-logout
+      description: >+
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+
+  /csv/run/import:
+    put:
+      operationId: csvSequenceRunImport
+      description: >+
+      requestBody:
+        required: true
+        content:
+          text/csv:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+
+  /api/biosample:
+    post:
+      operationId: postBioSample
+      x-vertx-event-bus: serratus-api-enUS-BioSample
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - BioSample
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/POSTBioSampleRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/POSTBioSampleResponse'
+    patch:
+      operationId: patchBioSample
+      x-vertx-event-bus: serratus-api-enUS-BioSample
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - BioSample
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PATCHBioSampleRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PATCHBioSampleResponse'
+    get:
+      operationId: searchBioSample
+      x-vertx-event-bus: serratus-api-enUS-BioSample
+      description: >+
+      summary: >+
+      tags:
+        - BioSample
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchBioSampleResponse'
+  /api/biosample/import:
+    put:
+      operationId: putimportBioSample
+      x-vertx-event-bus: serratus-api-enUS-BioSample
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - BioSample
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PUTImportBioSampleRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PUTImportBioSampleResponse'
+  /api/biosample/{id}:
+    get:
+      operationId: getBioSample
+      x-vertx-event-bus: serratus-api-enUS-BioSample
+      description: >+
+      summary: >+
+      tags:
+        - BioSample
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/GETBioSampleResponse'
+  /biosample:
+    get:
+      operationId: searchpageBioSample
+      x-vertx-event-bus: serratus-api-enUS-BioSample
+      description: >+
+      summary: >+
+      tags:
+        - BioSample
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageBioSampleResponse'
+  /biosample/{id}:
+    get:
+      operationId: searchpageBioSampleId
+      x-vertx-event-bus: serratus-api-enUS-BioSample
+      description: >+
+      summary: >+
+      tags:
+        - BioSample
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageBioSampleResponse'
+  /api/run:
+    post:
+      operationId: postSequenceRun
+      x-vertx-event-bus: serratus-api-enUS-SequenceRun
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - Sequence Run
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/POSTSequenceRunRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/POSTSequenceRunResponse'
+    patch:
+      operationId: patchSequenceRun
+      x-vertx-event-bus: serratus-api-enUS-SequenceRun
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - Sequence Run
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PATCHSequenceRunRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PATCHSequenceRunResponse'
+    get:
+      operationId: searchSequenceRun
+      x-vertx-event-bus: serratus-api-enUS-SequenceRun
+      description: >+
+      summary: >+
+      tags:
+        - Sequence Run
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchSequenceRunResponse'
+  /api/run/import:
+    put:
+      operationId: putimportSequenceRun
+      x-vertx-event-bus: serratus-api-enUS-SequenceRun
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - Sequence Run
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PUTImportSequenceRunRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PUTImportSequenceRunResponse'
+  /api/run/{id}:
+    get:
+      operationId: getSequenceRun
+      x-vertx-event-bus: serratus-api-enUS-SequenceRun
+      description: >+
+      summary: >+
+      tags:
+        - Sequence Run
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/GETSequenceRunResponse'
+  /run:
+    get:
+      operationId: searchpageSequenceRun
+      x-vertx-event-bus: serratus-api-enUS-SequenceRun
+      description: >+
+      summary: >+
+      tags:
+        - Sequence Run
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageSequenceRunResponse'
+  /run/{id}:
+    get:
+      operationId: searchpageSequenceRunId
+      x-vertx-event-bus: serratus-api-enUS-SequenceRun
+      description: >+
+      summary: >+
+      tags:
+        - Sequence Run
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageSequenceRunResponse'
+  /api/taxonomy:
+    post:
+      operationId: postTaxonomy
+      x-vertx-event-bus: serratus-api-enUS-Taxonomy
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - Taxonomy
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/POSTTaxonomyRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/POSTTaxonomyResponse'
+    patch:
+      operationId: patchTaxonomy
+      x-vertx-event-bus: serratus-api-enUS-Taxonomy
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - Taxonomy
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PATCHTaxonomyRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PATCHTaxonomyResponse'
+    get:
+      operationId: searchTaxonomy
+      x-vertx-event-bus: serratus-api-enUS-Taxonomy
+      description: >+
+      summary: >+
+      tags:
+        - Taxonomy
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchTaxonomyResponse'
+  /api/taxonomy/import:
+    put:
+      operationId: putimportTaxonomy
+      x-vertx-event-bus: serratus-api-enUS-Taxonomy
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - Taxonomy
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PUTImportTaxonomyRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PUTImportTaxonomyResponse'
+  /api/taxonomy/{id}:
+    get:
+      operationId: getTaxonomy
+      x-vertx-event-bus: serratus-api-enUS-Taxonomy
+      description: >+
+      summary: >+
+      tags:
+        - Taxonomy
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/GETTaxonomyResponse'
+  /taxonomy:
+    get:
+      operationId: searchpageTaxonomy
+      x-vertx-event-bus: serratus-api-enUS-Taxonomy
+      description: >+
+      summary: >+
+      tags:
+        - Taxonomy
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageTaxonomyResponse'
+  /taxonomy/{id}:
+    get:
+      operationId: searchpageTaxonomyId
+      x-vertx-event-bus: serratus-api-enUS-Taxonomy
+      description: >+
+      summary: >+
+      tags:
+        - Taxonomy
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageTaxonomyResponse'
+  /api/user:
+    get:
+      operationId: searchSiteUser
+      x-vertx-event-bus: serratus-api-enUS-SiteUser
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - User
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchSiteUserResponse'
+    patch:
+      operationId: patchSiteUser
+      x-vertx-event-bus: serratus-api-enUS-SiteUser
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - User
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PATCHSiteUserRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PATCHSiteUserResponse'
+    post:
+      operationId: postSiteUser
+      x-vertx-event-bus: serratus-api-enUS-SiteUser
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - User
+      requestBody:
+        description: >+
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/POSTSiteUserRequest'
+      responses:
+        '200':
+          description: >+
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/POSTSiteUserResponse'
+  /user:
+    get:
+      operationId: searchpageSiteUser
+      x-vertx-event-bus: serratus-api-enUS-SiteUser
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - User
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageSiteUserResponse'
+  /user/{id}:
+    get:
+      operationId: searchpageSiteUserId
+      x-vertx-event-bus: serratus-api-enUS-SiteUser
+      security:
+        - openIdConnect:
+          - DefaultAuthScope
+      description: >+
+      summary: >+
+      tags:
+        - User
+      parameters:
+        - name: vertx-web.session
+          in: cookie
+          schema:
+            type: string
+        - name: sessionIdBefore
+          in: cookie
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: >+
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: q
+          description: ''
+          required: false
+          schema:
+            type: string
+            default: '*:*'
+        - in: query
+          name: fq
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: fl
+          description: ''
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: start
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - in: query
+          name: rows
+          description: ''
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 0
+        - in: query
+          name: var
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+                type: string
+        - in: query
+          name: facet
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - in: query
+          name: facet.range.start
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.end
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range.gap
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.pivot
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.range
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: facet.field
+          description: ''
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: cursorMark
+          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: softCommit
+          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: commitWithin
+          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: >+
+          content:
+            text/html; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/SearchPageSiteUserResponse'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    openIdConnect:
+      type: openIdConnect
+      openIdConnectUrl: https://sso.computate.org/auth/realms/COMPUTATE.ORG/.well-known/openid-configuration
+  requestBodies:
+    POSTBioSampleRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/POSTBioSampleRequest'
+    POSTBioSampleResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/POSTBioSampleResponse'
+    PATCHBioSampleRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PATCHBioSampleRequest'
+    PATCHBioSampleResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PATCHBioSampleResponse'
+    SearchBioSampleResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchBioSampleResponse'
+    PUTImportBioSampleRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PUTImportBioSampleRequest'
+    PUTImportBioSampleResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PUTImportBioSampleResponse'
+    GETBioSampleResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/GETBioSampleResponse'
+    SearchPageBioSampleResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchPageBioSampleResponse'
+    POSTSequenceRunRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/POSTSequenceRunRequest'
+    POSTSequenceRunResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/POSTSequenceRunResponse'
+    PATCHSequenceRunRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PATCHSequenceRunRequest'
+    PATCHSequenceRunResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PATCHSequenceRunResponse'
+    SearchSequenceRunResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchSequenceRunResponse'
+    PUTImportSequenceRunRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PUTImportSequenceRunRequest'
+    PUTImportSequenceRunResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PUTImportSequenceRunResponse'
+    GETSequenceRunResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/GETSequenceRunResponse'
+    SearchPageSequenceRunResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchPageSequenceRunResponse'
+    POSTTaxonomyRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/POSTTaxonomyRequest'
+    POSTTaxonomyResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/POSTTaxonomyResponse'
+    PATCHTaxonomyRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PATCHTaxonomyRequest'
+    PATCHTaxonomyResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PATCHTaxonomyResponse'
+    SearchTaxonomyResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchTaxonomyResponse'
+    PUTImportTaxonomyRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PUTImportTaxonomyRequest'
+    PUTImportTaxonomyResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PUTImportTaxonomyResponse'
+    GETTaxonomyResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/GETTaxonomyResponse'
+    SearchPageTaxonomyResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchPageTaxonomyResponse'
+    SearchSiteUserResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchSiteUserResponse'
+    PATCHSiteUserRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PATCHSiteUserRequest'
+    PATCHSiteUserResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/PATCHSiteUserResponse'
+    POSTSiteUserRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/POSTSiteUserRequest'
+    POSTSiteUserResponse:
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/POSTSiteUserResponse'
+    SearchPageSiteUserResponse:
+      content:
+        text/html; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/SearchPageSiteUserResponse'
+  schemas:
+    POSTBioSampleRequest:
+      allOf:
+        - type: object
+          properties:
+            bioSampleId:
+              type: string
+            bioSampleIsolate:
+              type: string
+            bioSampleHost:
+              type: string
+            bioSampleLabHost:
+              type: string
+            bioSampleIsolationSource:
+              type: string
+            bioSampleGeographicLocation:
+              type: string
+            bioSampleLatitudeLongitude:
+              type: string
+            bioSampleReferenceForBioMaterial:
+              type: string
+            bioSampleMaterialProcessing:
+              type: string
+            bioSampleMaterialIdentifiers:
+              type: string
+            bioSampleDisease:
+              type: string
+            bioSampleHostTissueSampled:
+              type: string
+            bioSampleCollectedBy:
+              type: string
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    POSTBioSampleResponse:
+      allOf:
+        - type: object
+          properties:
+            bioSampleId:
+              type: string
+            bioSampleIsolate:
+              type: string
+            bioSampleHost:
+              type: string
+            bioSampleLabHost:
+              type: string
+            bioSampleIsolationSource:
+              type: string
+            bioSampleGeographicLocation:
+              type: string
+            bioSampleLatitudeLongitude:
+              type: string
+            bioSampleReferenceForBioMaterial:
+              type: string
+            bioSampleMaterialProcessing:
+              type: string
+            bioSampleMaterialIdentifiers:
+              type: string
+            bioSampleDisease:
+              type: string
+            bioSampleHostTissueSampled:
+              type: string
+            bioSampleCollectedBy:
+              type: string
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    PATCHBioSampleRequest:
+      allOf:
+        - type: object
+          properties:
+            setBioSampleId:
+              type: string
+              nullable: true
+            removeBioSampleId:
+              type: string
+            removeAllBioSampleId:
+              type: string
+            setBioSampleIsolate:
+              type: string
+              nullable: true
+            removeBioSampleIsolate:
+              type: string
+            removeAllBioSampleIsolate:
+              type: string
+            setBioSampleHost:
+              type: string
+              nullable: true
+            removeBioSampleHost:
+              type: string
+            removeAllBioSampleHost:
+              type: string
+            setBioSampleLabHost:
+              type: string
+              nullable: true
+            removeBioSampleLabHost:
+              type: string
+            removeAllBioSampleLabHost:
+              type: string
+            setBioSampleIsolationSource:
+              type: string
+              nullable: true
+            removeBioSampleIsolationSource:
+              type: string
+            removeAllBioSampleIsolationSource:
+              type: string
+            setBioSampleGeographicLocation:
+              type: string
+              nullable: true
+            removeBioSampleGeographicLocation:
+              type: string
+            removeAllBioSampleGeographicLocation:
+              type: string
+            setBioSampleLatitudeLongitude:
+              type: string
+              nullable: true
+            removeBioSampleLatitudeLongitude:
+              type: string
+            removeAllBioSampleLatitudeLongitude:
+              type: string
+            setBioSampleReferenceForBioMaterial:
+              type: string
+              nullable: true
+            removeBioSampleReferenceForBioMaterial:
+              type: string
+            removeAllBioSampleReferenceForBioMaterial:
+              type: string
+            setBioSampleMaterialProcessing:
+              type: string
+              nullable: true
+            removeBioSampleMaterialProcessing:
+              type: string
+            removeAllBioSampleMaterialProcessing:
+              type: string
+            setBioSampleMaterialIdentifiers:
+              type: string
+              nullable: true
+            removeBioSampleMaterialIdentifiers:
+              type: string
+            removeAllBioSampleMaterialIdentifiers:
+              type: string
+            setBioSampleDisease:
+              type: string
+              nullable: true
+            removeBioSampleDisease:
+              type: string
+            removeAllBioSampleDisease:
+              type: string
+            setBioSampleHostTissueSampled:
+              type: string
+              nullable: true
+            removeBioSampleHostTissueSampled:
+              type: string
+            removeAllBioSampleHostTissueSampled:
+              type: string
+            setBioSampleCollectedBy:
+              type: string
+              nullable: true
+            removeBioSampleCollectedBy:
+              type: string
+            removeAllBioSampleCollectedBy:
+              type: string
+            setTaxonomyId:
+              type: string
+              nullable: true
+            removeTaxonomyId:
+              type: string
+            removeAllTaxonomyId:
+              type: string
+            setTaxonomyName:
+              type: string
+              nullable: true
+            removeTaxonomyName:
+              type: string
+            removeAllTaxonomyName:
+              type: string
+            setTaxonomyUniqueName:
+              type: string
+              nullable: true
+            removeTaxonomyUniqueName:
+              type: string
+            removeAllTaxonomyUniqueName:
+              type: string
+            setTaxonomyNameClass:
+              type: string
+              nullable: true
+            removeTaxonomyNameClass:
+              type: string
+            removeAllTaxonomyNameClass:
+              type: string
+    PATCHBioSampleResponse:
+      allOf:
+        - type: object
+          properties:
+            setBioSampleId:
+              type: string
+              nullable: true
+            removeBioSampleId:
+              type: string
+            removeAllBioSampleId:
+              type: string
+            setBioSampleIsolate:
+              type: string
+              nullable: true
+            removeBioSampleIsolate:
+              type: string
+            removeAllBioSampleIsolate:
+              type: string
+            setBioSampleHost:
+              type: string
+              nullable: true
+            removeBioSampleHost:
+              type: string
+            removeAllBioSampleHost:
+              type: string
+            setBioSampleLabHost:
+              type: string
+              nullable: true
+            removeBioSampleLabHost:
+              type: string
+            removeAllBioSampleLabHost:
+              type: string
+            setBioSampleIsolationSource:
+              type: string
+              nullable: true
+            removeBioSampleIsolationSource:
+              type: string
+            removeAllBioSampleIsolationSource:
+              type: string
+            setBioSampleGeographicLocation:
+              type: string
+              nullable: true
+            removeBioSampleGeographicLocation:
+              type: string
+            removeAllBioSampleGeographicLocation:
+              type: string
+            setBioSampleLatitudeLongitude:
+              type: string
+              nullable: true
+            removeBioSampleLatitudeLongitude:
+              type: string
+            removeAllBioSampleLatitudeLongitude:
+              type: string
+            setBioSampleReferenceForBioMaterial:
+              type: string
+              nullable: true
+            removeBioSampleReferenceForBioMaterial:
+              type: string
+            removeAllBioSampleReferenceForBioMaterial:
+              type: string
+            setBioSampleMaterialProcessing:
+              type: string
+              nullable: true
+            removeBioSampleMaterialProcessing:
+              type: string
+            removeAllBioSampleMaterialProcessing:
+              type: string
+            setBioSampleMaterialIdentifiers:
+              type: string
+              nullable: true
+            removeBioSampleMaterialIdentifiers:
+              type: string
+            removeAllBioSampleMaterialIdentifiers:
+              type: string
+            setBioSampleDisease:
+              type: string
+              nullable: true
+            removeBioSampleDisease:
+              type: string
+            removeAllBioSampleDisease:
+              type: string
+            setBioSampleHostTissueSampled:
+              type: string
+              nullable: true
+            removeBioSampleHostTissueSampled:
+              type: string
+            removeAllBioSampleHostTissueSampled:
+              type: string
+            setBioSampleCollectedBy:
+              type: string
+              nullable: true
+            removeBioSampleCollectedBy:
+              type: string
+            removeAllBioSampleCollectedBy:
+              type: string
+            setTaxonomyId:
+              type: string
+              nullable: true
+            removeTaxonomyId:
+              type: string
+            removeAllTaxonomyId:
+              type: string
+            setTaxonomyName:
+              type: string
+              nullable: true
+            removeTaxonomyName:
+              type: string
+            removeAllTaxonomyName:
+              type: string
+            setTaxonomyUniqueName:
+              type: string
+              nullable: true
+            removeTaxonomyUniqueName:
+              type: string
+            removeAllTaxonomyUniqueName:
+              type: string
+            setTaxonomyNameClass:
+              type: string
+              nullable: true
+            removeTaxonomyNameClass:
+              type: string
+            removeAllTaxonomyNameClass:
+              type: string
+    SearchBioSampleResponse:
+      allOf:
+        - type: array
+          items:
+            type: object
+            properties:
+              bioSampleId:
+                type: string
+              bioSampleIsolate:
+                type: string
+              bioSampleHost:
+                type: string
+              bioSampleLabHost:
+                type: string
+              bioSampleIsolationSource:
+                type: string
+              bioSampleGeographicLocation:
+                type: string
+              bioSampleLatitudeLongitude:
+                type: string
+              bioSampleReferenceForBioMaterial:
+                type: string
+              bioSampleMaterialProcessing:
+                type: string
+              bioSampleMaterialIdentifiers:
+                type: string
+              bioSampleDisease:
+                type: string
+              bioSampleHostTissueSampled:
+                type: string
+              bioSampleCollectedBy:
+                type: string
+              taxonomyId:
+                type: string
+              taxonomyName:
+                type: string
+              taxonomyUniqueName:
+                type: string
+              taxonomyNameClass:
+                type: string
+    PUTImportBioSampleRequest:
+      allOf:
+        - type: object
+          properties:
+            bioSampleId:
+              type: string
+            bioSampleIsolate:
+              type: string
+            bioSampleHost:
+              type: string
+            bioSampleLabHost:
+              type: string
+            bioSampleIsolationSource:
+              type: string
+            bioSampleGeographicLocation:
+              type: string
+            bioSampleLatitudeLongitude:
+              type: string
+            bioSampleReferenceForBioMaterial:
+              type: string
+            bioSampleMaterialProcessing:
+              type: string
+            bioSampleMaterialIdentifiers:
+              type: string
+            bioSampleDisease:
+              type: string
+            bioSampleHostTissueSampled:
+              type: string
+            bioSampleCollectedBy:
+              type: string
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    PUTImportBioSampleResponse:
+      allOf:
+        - type: object
+          properties:
+            bioSampleId:
+              type: string
+            bioSampleIsolate:
+              type: string
+            bioSampleHost:
+              type: string
+            bioSampleLabHost:
+              type: string
+            bioSampleIsolationSource:
+              type: string
+            bioSampleGeographicLocation:
+              type: string
+            bioSampleLatitudeLongitude:
+              type: string
+            bioSampleReferenceForBioMaterial:
+              type: string
+            bioSampleMaterialProcessing:
+              type: string
+            bioSampleMaterialIdentifiers:
+              type: string
+            bioSampleDisease:
+              type: string
+            bioSampleHostTissueSampled:
+              type: string
+            bioSampleCollectedBy:
+              type: string
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    GETBioSampleResponse:
+      allOf:
+        - type: object
+          properties:
+            bioSampleId:
+              type: string
+            bioSampleIsolate:
+              type: string
+            bioSampleHost:
+              type: string
+            bioSampleLabHost:
+              type: string
+            bioSampleIsolationSource:
+              type: string
+            bioSampleGeographicLocation:
+              type: string
+            bioSampleLatitudeLongitude:
+              type: string
+            bioSampleReferenceForBioMaterial:
+              type: string
+            bioSampleMaterialProcessing:
+              type: string
+            bioSampleMaterialIdentifiers:
+              type: string
+            bioSampleDisease:
+              type: string
+            bioSampleHostTissueSampled:
+              type: string
+            bioSampleCollectedBy:
+              type: string
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    SearchPageBioSampleResponse:
+      allOf:
+        - type: string
+    POSTSequenceRunRequest:
+      allOf:
+        - type: object
+          properties:
+            runId:
+              type: string
+            runReleaseDate:
+              type: string
+            runLoadDate:
+              type: string
+            projectId:
+              type: string
+            bioSampleId:
+              type: string
+            bioSampleIsolate:
+              type: string
+            bioSampleHost:
+              type: string
+            bioSampleLabHost:
+              type: string
+            bioSampleIsolationSource:
+              type: string
+            bioSampleGeographicLocation:
+              type: string
+            bioSampleLatitudeLongitude:
+              type: string
+            bioSampleReferenceForBioMaterial:
+              type: string
+            bioSampleMaterialProcessing:
+              type: string
+            bioSampleMaterialIdentifiers:
+              type: string
+            bioSampleDisease:
+              type: string
+            bioSampleHostTissueSampled:
+              type: string
+            bioSampleCollectedBy:
+              type: string
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    POSTSequenceRunResponse:
+      allOf:
+        - type: object
+          properties:
+            runId:
+              type: string
+            runReleaseDate:
+              type: string
+            runLoadDate:
+              type: string
+            projectId:
+              type: string
+            bioSampleId:
+              type: string
+            bioSampleIsolate:
+              type: string
+            bioSampleHost:
+              type: string
+            bioSampleLabHost:
+              type: string
+            bioSampleIsolationSource:
+              type: string
+            bioSampleGeographicLocation:
+              type: string
+            bioSampleLatitudeLongitude:
+              type: string
+            bioSampleReferenceForBioMaterial:
+              type: string
+            bioSampleMaterialProcessing:
+              type: string
+            bioSampleMaterialIdentifiers:
+              type: string
+            bioSampleDisease:
+              type: string
+            bioSampleHostTissueSampled:
+              type: string
+            bioSampleCollectedBy:
+              type: string
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    PATCHSequenceRunRequest:
+      allOf:
+        - type: object
+          properties:
+            setRunId:
+              type: string
+              nullable: true
+            removeRunId:
+              type: string
+            removeAllRunId:
+              type: string
+            setRunReleaseDate:
+              type: string
+              nullable: true
+            removeRunReleaseDate:
+              type: string
+            removeAllRunReleaseDate:
+              type: string
+            setRunLoadDate:
+              type: string
+              nullable: true
+            removeRunLoadDate:
+              type: string
+            removeAllRunLoadDate:
+              type: string
+            setProjectId:
+              type: string
+              nullable: true
+            removeProjectId:
+              type: string
+            removeAllProjectId:
+              type: string
+            setBioSampleId:
+              type: string
+              nullable: true
+            removeBioSampleId:
+              type: string
+            removeAllBioSampleId:
+              type: string
+            setBioSampleIsolate:
+              type: string
+              nullable: true
+            removeBioSampleIsolate:
+              type: string
+            removeAllBioSampleIsolate:
+              type: string
+            setBioSampleHost:
+              type: string
+              nullable: true
+            removeBioSampleHost:
+              type: string
+            removeAllBioSampleHost:
+              type: string
+            setBioSampleLabHost:
+              type: string
+              nullable: true
+            removeBioSampleLabHost:
+              type: string
+            removeAllBioSampleLabHost:
+              type: string
+            setBioSampleIsolationSource:
+              type: string
+              nullable: true
+            removeBioSampleIsolationSource:
+              type: string
+            removeAllBioSampleIsolationSource:
+              type: string
+            setBioSampleGeographicLocation:
+              type: string
+              nullable: true
+            removeBioSampleGeographicLocation:
+              type: string
+            removeAllBioSampleGeographicLocation:
+              type: string
+            setBioSampleLatitudeLongitude:
+              type: string
+              nullable: true
+            removeBioSampleLatitudeLongitude:
+              type: string
+            removeAllBioSampleLatitudeLongitude:
+              type: string
+            setBioSampleReferenceForBioMaterial:
+              type: string
+              nullable: true
+            removeBioSampleReferenceForBioMaterial:
+              type: string
+            removeAllBioSampleReferenceForBioMaterial:
+              type: string
+            setBioSampleMaterialProcessing:
+              type: string
+              nullable: true
+            removeBioSampleMaterialProcessing:
+              type: string
+            removeAllBioSampleMaterialProcessing:
+              type: string
+            setBioSampleMaterialIdentifiers:
+              type: string
+              nullable: true
+            removeBioSampleMaterialIdentifiers:
+              type: string
+            removeAllBioSampleMaterialIdentifiers:
+              type: string
+            setBioSampleDisease:
+              type: string
+              nullable: true
+            removeBioSampleDisease:
+              type: string
+            removeAllBioSampleDisease:
+              type: string
+            setBioSampleHostTissueSampled:
+              type: string
+              nullable: true
+            removeBioSampleHostTissueSampled:
+              type: string
+            removeAllBioSampleHostTissueSampled:
+              type: string
+            setBioSampleCollectedBy:
+              type: string
+              nullable: true
+            removeBioSampleCollectedBy:
+              type: string
+            removeAllBioSampleCollectedBy:
+              type: string
+            setTaxonomyId:
+              type: string
+              nullable: true
+            removeTaxonomyId:
+              type: string
+            removeAllTaxonomyId:
+              type: string
+            setTaxonomyName:
+              type: string
+              nullable: true
+            removeTaxonomyName:
+              type: string
+            removeAllTaxonomyName:
+              type: string
+            setTaxonomyUniqueName:
+              type: string
+              nullable: true
+            removeTaxonomyUniqueName:
+              type: string
+            removeAllTaxonomyUniqueName:
+              type: string
+            setTaxonomyNameClass:
+              type: string
+              nullable: true
+            removeTaxonomyNameClass:
+              type: string
+            removeAllTaxonomyNameClass:
+              type: string
+    PATCHSequenceRunResponse:
+      allOf:
+        - type: object
+          properties:
+            setRunId:
+              type: string
+              nullable: true
+            removeRunId:
+              type: string
+            removeAllRunId:
+              type: string
+            setRunReleaseDate:
+              type: string
+              nullable: true
+            removeRunReleaseDate:
+              type: string
+            removeAllRunReleaseDate:
+              type: string
+            setRunLoadDate:
+              type: string
+              nullable: true
+            removeRunLoadDate:
+              type: string
+            removeAllRunLoadDate:
+              type: string
+            setProjectId:
+              type: string
+              nullable: true
+            removeProjectId:
+              type: string
+            removeAllProjectId:
+              type: string
+            setBioSampleId:
+              type: string
+              nullable: true
+            removeBioSampleId:
+              type: string
+            removeAllBioSampleId:
+              type: string
+            setBioSampleIsolate:
+              type: string
+              nullable: true
+            removeBioSampleIsolate:
+              type: string
+            removeAllBioSampleIsolate:
+              type: string
+            setBioSampleHost:
+              type: string
+              nullable: true
+            removeBioSampleHost:
+              type: string
+            removeAllBioSampleHost:
+              type: string
+            setBioSampleLabHost:
+              type: string
+              nullable: true
+            removeBioSampleLabHost:
+              type: string
+            removeAllBioSampleLabHost:
+              type: string
+            setBioSampleIsolationSource:
+              type: string
+              nullable: true
+            removeBioSampleIsolationSource:
+              type: string
+            removeAllBioSampleIsolationSource:
+              type: string
+            setBioSampleGeographicLocation:
+              type: string
+              nullable: true
+            removeBioSampleGeographicLocation:
+              type: string
+            removeAllBioSampleGeographicLocation:
+              type: string
+            setBioSampleLatitudeLongitude:
+              type: string
+              nullable: true
+            removeBioSampleLatitudeLongitude:
+              type: string
+            removeAllBioSampleLatitudeLongitude:
+              type: string
+            setBioSampleReferenceForBioMaterial:
+              type: string
+              nullable: true
+            removeBioSampleReferenceForBioMaterial:
+              type: string
+            removeAllBioSampleReferenceForBioMaterial:
+              type: string
+            setBioSampleMaterialProcessing:
+              type: string
+              nullable: true
+            removeBioSampleMaterialProcessing:
+              type: string
+            removeAllBioSampleMaterialProcessing:
+              type: string
+            setBioSampleMaterialIdentifiers:
+              type: string
+              nullable: true
+            removeBioSampleMaterialIdentifiers:
+              type: string
+            removeAllBioSampleMaterialIdentifiers:
+              type: string
+            setBioSampleDisease:
+              type: string
+              nullable: true
+            removeBioSampleDisease:
+              type: string
+            removeAllBioSampleDisease:
+              type: string
+            setBioSampleHostTissueSampled:
+              type: string
+              nullable: true
+            removeBioSampleHostTissueSampled:
+              type: string
+            removeAllBioSampleHostTissueSampled:
+              type: string
+            setBioSampleCollectedBy:
+              type: string
+              nullable: true
+            removeBioSampleCollectedBy:
+              type: string
+            removeAllBioSampleCollectedBy:
+              type: string
+            setTaxonomyId:
+              type: string
+              nullable: true
+            removeTaxonomyId:
+              type: string
+            removeAllTaxonomyId:
+              type: string
+            setTaxonomyName:
+              type: string
+              nullable: true
+            removeTaxonomyName:
+              type: string
+            removeAllTaxonomyName:
+              type: string
+            setTaxonomyUniqueName:
+              type: string
+              nullable: true
+            removeTaxonomyUniqueName:
+              type: string
+            removeAllTaxonomyUniqueName:
+              type: string
+            setTaxonomyNameClass:
+              type: string
+              nullable: true
+            removeTaxonomyNameClass:
+              type: string
+            removeAllTaxonomyNameClass:
+              type: string
+    SearchSequenceRunResponse:
+      allOf:
+        - type: array
+          items:
+            type: object
+            properties:
+              runId:
+                type: string
+              runReleaseDate:
+                type: string
+              runLoadDate:
+                type: string
+              projectId:
+                type: string
+              bioSampleId:
+                type: string
+              bioSampleIsolate:
+                type: string
+              bioSampleHost:
+                type: string
+              bioSampleLabHost:
+                type: string
+              bioSampleIsolationSource:
+                type: string
+              bioSampleGeographicLocation:
+                type: string
+              bioSampleLatitudeLongitude:
+                type: string
+              bioSampleReferenceForBioMaterial:
+                type: string
+              bioSampleMaterialProcessing:
+                type: string
+              bioSampleMaterialIdentifiers:
+                type: string
+              bioSampleDisease:
+                type: string
+              bioSampleHostTissueSampled:
+                type: string
+              bioSampleCollectedBy:
+                type: string
+              taxonomyId:
+                type: string
+              taxonomyName:
+                type: string
+              taxonomyUniqueName:
+                type: string
+              taxonomyNameClass:
+                type: string
+    PUTImportSequenceRunRequest:
+      allOf:
+        - type: object
+          properties:
+            runId:
+              type: string
+            runReleaseDate:
+              type: string
+            runLoadDate:
+              type: string
+            projectId:
+              type: string
+            bioSampleId:
+              type: string
+            bioSampleIsolate:
+              type: string
+            bioSampleHost:
+              type: string
+            bioSampleLabHost:
+              type: string
+            bioSampleIsolationSource:
+              type: string
+            bioSampleGeographicLocation:
+              type: string
+            bioSampleLatitudeLongitude:
+              type: string
+            bioSampleReferenceForBioMaterial:
+              type: string
+            bioSampleMaterialProcessing:
+              type: string
+            bioSampleMaterialIdentifiers:
+              type: string
+            bioSampleDisease:
+              type: string
+            bioSampleHostTissueSampled:
+              type: string
+            bioSampleCollectedBy:
+              type: string
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    PUTImportSequenceRunResponse:
+      allOf:
+        - type: object
+          properties:
+            runId:
+              type: string
+            runReleaseDate:
+              type: string
+            runLoadDate:
+              type: string
+            projectId:
+              type: string
+            bioSampleId:
+              type: string
+            bioSampleIsolate:
+              type: string
+            bioSampleHost:
+              type: string
+            bioSampleLabHost:
+              type: string
+            bioSampleIsolationSource:
+              type: string
+            bioSampleGeographicLocation:
+              type: string
+            bioSampleLatitudeLongitude:
+              type: string
+            bioSampleReferenceForBioMaterial:
+              type: string
+            bioSampleMaterialProcessing:
+              type: string
+            bioSampleMaterialIdentifiers:
+              type: string
+            bioSampleDisease:
+              type: string
+            bioSampleHostTissueSampled:
+              type: string
+            bioSampleCollectedBy:
+              type: string
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    GETSequenceRunResponse:
+      allOf:
+        - type: object
+          properties:
+            runId:
+              type: string
+            runReleaseDate:
+              type: string
+            runLoadDate:
+              type: string
+            projectId:
+              type: string
+            bioSampleId:
+              type: string
+            bioSampleIsolate:
+              type: string
+            bioSampleHost:
+              type: string
+            bioSampleLabHost:
+              type: string
+            bioSampleIsolationSource:
+              type: string
+            bioSampleGeographicLocation:
+              type: string
+            bioSampleLatitudeLongitude:
+              type: string
+            bioSampleReferenceForBioMaterial:
+              type: string
+            bioSampleMaterialProcessing:
+              type: string
+            bioSampleMaterialIdentifiers:
+              type: string
+            bioSampleDisease:
+              type: string
+            bioSampleHostTissueSampled:
+              type: string
+            bioSampleCollectedBy:
+              type: string
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    SearchPageSequenceRunResponse:
+      allOf:
+        - type: string
+    POSTTaxonomyRequest:
+      allOf:
+        - type: object
+          properties:
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    POSTTaxonomyResponse:
+      allOf:
+        - type: object
+          properties:
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    PATCHTaxonomyRequest:
+      allOf:
+        - type: object
+          properties:
+            setTaxonomyId:
+              type: string
+              nullable: true
+            removeTaxonomyId:
+              type: string
+            removeAllTaxonomyId:
+              type: string
+            setTaxonomyName:
+              type: string
+              nullable: true
+            removeTaxonomyName:
+              type: string
+            removeAllTaxonomyName:
+              type: string
+            setTaxonomyUniqueName:
+              type: string
+              nullable: true
+            removeTaxonomyUniqueName:
+              type: string
+            removeAllTaxonomyUniqueName:
+              type: string
+            setTaxonomyNameClass:
+              type: string
+              nullable: true
+            removeTaxonomyNameClass:
+              type: string
+            removeAllTaxonomyNameClass:
+              type: string
+    PATCHTaxonomyResponse:
+      allOf:
+        - type: object
+          properties:
+            setTaxonomyId:
+              type: string
+              nullable: true
+            removeTaxonomyId:
+              type: string
+            removeAllTaxonomyId:
+              type: string
+            setTaxonomyName:
+              type: string
+              nullable: true
+            removeTaxonomyName:
+              type: string
+            removeAllTaxonomyName:
+              type: string
+            setTaxonomyUniqueName:
+              type: string
+              nullable: true
+            removeTaxonomyUniqueName:
+              type: string
+            removeAllTaxonomyUniqueName:
+              type: string
+            setTaxonomyNameClass:
+              type: string
+              nullable: true
+            removeTaxonomyNameClass:
+              type: string
+            removeAllTaxonomyNameClass:
+              type: string
+    SearchTaxonomyResponse:
+      allOf:
+        - type: array
+          items:
+            type: object
+            properties:
+              taxonomyId:
+                type: string
+              taxonomyName:
+                type: string
+              taxonomyUniqueName:
+                type: string
+              taxonomyNameClass:
+                type: string
+    PUTImportTaxonomyRequest:
+      allOf:
+        - type: object
+          properties:
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    PUTImportTaxonomyResponse:
+      allOf:
+        - type: object
+          properties:
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    GETTaxonomyResponse:
+      allOf:
+        - type: object
+          properties:
+            taxonomyId:
+              type: string
+            taxonomyName:
+              type: string
+            taxonomyUniqueName:
+              type: string
+            taxonomyNameClass:
+              type: string
+    SearchPageTaxonomyResponse:
+      allOf:
+        - type: string
+    SearchSiteUserResponse:
+      allOf:
+        - type: array
+          items:
+            type: object
+            properties:
+              userKeys:
+                type: array
+                items:
+                  type: string
+              userId:
+                type: string
+              userName:
+                type: string
+              userEmail:
+                type: string
+              userFirstName:
+                type: string
+              userLastName:
+                type: string
+              userFullName:
+                type: string
+    PATCHSiteUserRequest:
+      allOf:
+        - type: object
+          properties:
+            setUserKeys:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeUserKeys:
+              type: string
+            removeAllUserKeys:
+              type: array
+              items:
+                type: string
+            addUserKeys:
+              type: string
+            addAllUserKeys:
+              type: array
+              items:
+                type: string
+            setUserId:
+              type: string
+              nullable: true
+            removeUserId:
+              type: string
+            removeAllUserId:
+              type: string
+            setUserName:
+              type: string
+              nullable: true
+            removeUserName:
+              type: string
+            removeAllUserName:
+              type: string
+            setUserEmail:
+              type: string
+              nullable: true
+            removeUserEmail:
+              type: string
+            removeAllUserEmail:
+              type: string
+            setUserFirstName:
+              type: string
+              nullable: true
+            removeUserFirstName:
+              type: string
+            removeAllUserFirstName:
+              type: string
+            setUserLastName:
+              type: string
+              nullable: true
+            removeUserLastName:
+              type: string
+            removeAllUserLastName:
+              type: string
+            setUserFullName:
+              type: string
+              nullable: true
+            removeUserFullName:
+              type: string
+            removeAllUserFullName:
+              type: string
+    PATCHSiteUserResponse:
+      allOf:
+        - type: object
+          properties:
+            setUserKeys:
+              type: array
+              nullable: true
+              items:
+                type: string
+            removeUserKeys:
+              type: string
+            removeAllUserKeys:
+              type: array
+              items:
+                type: string
+            addUserKeys:
+              type: string
+            addAllUserKeys:
+              type: array
+              items:
+                type: string
+            setUserId:
+              type: string
+              nullable: true
+            removeUserId:
+              type: string
+            removeAllUserId:
+              type: string
+            setUserName:
+              type: string
+              nullable: true
+            removeUserName:
+              type: string
+            removeAllUserName:
+              type: string
+            setUserEmail:
+              type: string
+              nullable: true
+            removeUserEmail:
+              type: string
+            removeAllUserEmail:
+              type: string
+            setUserFirstName:
+              type: string
+              nullable: true
+            removeUserFirstName:
+              type: string
+            removeAllUserFirstName:
+              type: string
+            setUserLastName:
+              type: string
+              nullable: true
+            removeUserLastName:
+              type: string
+            removeAllUserLastName:
+              type: string
+            setUserFullName:
+              type: string
+              nullable: true
+            removeUserFullName:
+              type: string
+            removeAllUserFullName:
+              type: string
+    POSTSiteUserRequest:
+      allOf:
+        - type: object
+          properties:
+            userKeys:
+              type: array
+              items:
+                type: string
+            userId:
+              type: string
+            userName:
+              type: string
+            userEmail:
+              type: string
+            userFirstName:
+              type: string
+            userLastName:
+              type: string
+            userFullName:
+              type: string
+    POSTSiteUserResponse:
+      allOf:
+        - type: object
+          properties:
+            userKeys:
+              type: array
+              items:
+                type: string
+            userId:
+              type: string
+            userName:
+              type: string
+            userEmail:
+              type: string
+            userFirstName:
+              type: string
+            userLastName:
+              type: string
+            userFullName:
+              type: string
+    SearchPageSiteUserResponse:
+      allOf:
+        - type: string
