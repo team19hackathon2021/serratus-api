@@ -85,22 +85,6 @@ cd /usr/local/src/serratus-api && ansible-playbook install.yml -K
 * Browse to the directory: /usr/local/src/serratus-api
 * Click [ Finish ]
 
-## Setup an Eclipse Debug/Run configuration to regenerate the OpenAPI spec
-
-* In Eclipse, go to File -> Debug Configurations...
-* Right click on Java Application -> New Configuration
-* Name: serratus-api AppOpenApi3
-* Project: serratus-api
-* Main class: io.serratus.api.enus.vertx.AppOpenApi3
-
-### In the Environment tab
-
-Setup the following variables to setup the Vert.x verticle. 
-
-* CONFIG_PATH: /usr/local/src/serratus-api/config/serratus-api.yml
-
-Click [ Apply ] and [ Debug ] to regenerate the OpenAPI spec. 
-
 ## Setup an Eclipse Debug/Run configuration to run and debug serratus-api
 
 * In Eclipse, go to File -> Debug Configurations...
