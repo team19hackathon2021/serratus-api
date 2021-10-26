@@ -55,7 +55,7 @@ sudo pip3 install psycopg2-binary
 
 ```bash
 sudo install -d -o $USER -g $USER /usr/local/src/serratus-api
-git clone git@github.com:serratus-api/serratus-api.git /usr/local/src/serratus-api
+git clone git@github.com:team19hackathon2021/serratus-api.git /usr/local/src/serratus-api
 ```
 
 ## Setup the environment using the requirements.yml file
