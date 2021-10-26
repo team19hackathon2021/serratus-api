@@ -1,4 +1,11 @@
-- computate.computate_postgres
-- computate.computate_zookeeper
-- computate.computate_solr
-- computate.computate_project
+---
+roles:
+  # Install a role from Ansible Galaxy.
+  - computate.computate_postgres
+  - computate.computate_zookeeper
+  - computate.computate_solr
+  - computate.computate_project
+
+collections:
+  # Install a collection from Ansible Galaxy.
+  - containers.podman
