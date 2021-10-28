@@ -529,8 +529,8 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 
 			handlebars.registerHelpers(ConditionalHelpers.class);
 			handlebars.registerHelpers(StringHelpers.class);
-//			handlebars.registerHelpers(AuthHelpers.class);
-//			handlebars.registerHelpers(DateHelpers.class);
+			handlebars.registerHelpers(AuthHelpers.class);
+			handlebars.registerHelpers(DateHelpers.class);
 
 			router.get("/").handler(a -> {
 				a.reroute("/template/home-page");

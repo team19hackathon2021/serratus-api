@@ -71,22 +71,6 @@ CREATE TABLE SequenceRun(
 	, runLoadDate timestamp with time zone
 	, projectId text
 	, bioSampleId text
-	, bioSampleIsolate text
-	, bioSampleHost text
-	, bioSampleLabHost text
-	, bioSampleIsolationSource text
-	, bioSampleGeographicLocation text
-	, bioSampleLatitudeLongitude text
-	, bioSampleReferenceForBioMaterial text
-	, bioSampleMaterialProcessing text
-	, bioSampleMaterialIdentifiers text
-	, bioSampleDisease text
-	, bioSampleHostTissueSampled text
-	, bioSampleCollectedBy text
-	, taxonomyId text
-	, taxonomyName text
-	, taxonomyUniqueName text
-	, taxonomyNameClass text
 	);
 CREATE TABLE Taxonomy(
 	pk bigserial primary key
