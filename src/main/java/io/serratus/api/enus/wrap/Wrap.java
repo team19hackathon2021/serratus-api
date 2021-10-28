@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
+ * Keyword: classSimpleNameWrap
+ * Map.hackathonMission: to create a new Java class Wrap to help with initialization of Java objects and pass back newly initialized class objects or null. 
+ * Map.hackathonColumn: Develop Base Classes
+ * Map.hackathonLabels: Java
  **/
 
 public class Wrap<DEV> {

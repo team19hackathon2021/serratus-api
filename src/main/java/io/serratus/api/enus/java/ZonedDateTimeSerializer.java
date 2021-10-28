@@ -9,8 +9,11 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 /**
+ * Keyword: classSimpleNameZonedDateTimeSerializer
+ * Map.hackathonMission: to create a new Java class ZonedDateTimeSerializer do convert a ZonedDateTime to a String. 
+ * Map.hackathonColumn: Develop Base Classes
+ * Map.hackathonLabels: Java
  **/
-
 public class ZonedDateTimeSerializer extends JsonSerializer<ZonedDateTime> {
 	
 	public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'['VV']'";

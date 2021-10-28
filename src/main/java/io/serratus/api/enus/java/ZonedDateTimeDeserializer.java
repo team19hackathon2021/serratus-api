@@ -8,8 +8,11 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
 /**
+ * Keyword: classSimpleNameZonedDateTimeDeserializer
+ * Map.hackathonMission: to create a new Java class ZonedDateTimeDeserializer do convert a String to a ZonedDateTime. 
+ * Map.hackathonColumn: Develop Base Classes
+ * Map.hackathonLabels: Java
  **/
-
 public class ZonedDateTimeDeserializer extends JsonDeserializer<ZonedDateTime> {
 	
 	public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'['VV']'";

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.curator.RetryPolicy;
@@ -15,6 +17,7 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue.Consumer;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.StartupEvent;
@@ -39,18 +42,23 @@ import io.vertx.pgclient.PgPool;
 import io.vertx.spi.cluster.zookeeper.ZookeeperClusterManager;
 import io.vertx.sqlclient.PoolOptions;
 
+@QuarkusMain
+@ApplicationScoped
 /**
- **/
-
+ * Map.hackathonMission: to create a new Java class to run the application as a Quarkus application. 
+ * Map.hackathonColumn: Quarkus app development
+ * Map.hackathonLabels: Java,Quarkus
+ */
 public class QuarkusApp extends QuarkusAppGen<Object> {
 	private static final Logger LOG = LoggerFactory.getLogger(QuarkusApp.class);
+	@Inject
 	Vertx vertx;
 
 	public static void main(String...args) {
 		Quarkus.run(args);
 	}
 	
-	public void init(StartupEvent ev) {
+	public void init(@Observes StartupEvent ev) {
 		JsonObject zkConfig = new JsonObject();
 		String zookeeperHostName = System.getenv(ConfigKeys.ZOOKEEPER_HOST_NAME);
 		Integer zookeeperPort = Integer.parseInt(Optional.ofNullable(System.getenv(ConfigKeys.ZOOKEEPER_PORT)).orElse("2181"));
@@ -165,6 +173,10 @@ public class QuarkusApp extends QuarkusAppGen<Object> {
 	}
 
 	
+	/**	
+	 * Val.Complete.enUS:The config was configured successfully. 
+	 * Val.Fail.enUS:Could not configure the config(). 
+	 **/
 	public Future<JsonObject> configureConfig(Vertx vertx) {
 		Promise<JsonObject> promise = Promise.promise();
 
@@ -199,6 +211,19 @@ public class QuarkusApp extends QuarkusAppGen<Object> {
 	}
 
 	
+	/**	
+	 * 
+	 * Val.ConnectionError.enUS:Could not open the database client connection. 
+	 * Val.ConnectionSuccess.enUS:The database client connection was successful. 
+	 * 
+	 * Val.InitError.enUS:Could not initialize the database tables. 
+	 * Val.InitSuccess.enUS:The database tables were created successfully. 
+	 * 
+	 *	Configure shared database connections across the cluster for massive scaling of the application. 
+	 *	Return a promise that configures a shared database client connection. 
+	 *	Load the database configuration into a shared io.vertx.ext.jdbc.JDBCClient for a scalable, clustered datasource connection pool. 
+	 *	Initialize the database tables if not already created for the first time. 
+	 **/
 	private static Future<PgPool> configureData(Vertx vertx, JsonObject config) {
 		Promise<PgPool> promise = Promise.promise();
 		try {
