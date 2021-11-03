@@ -1,18 +1,17 @@
 package io.serratus.api.enus.request;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.common.SolrDocument;
+
 import io.serratus.api.enus.request.api.ApiRequest;
 import io.serratus.api.enus.wrap.Wrap;
-import io.serratus.api.enus.writer.AllWriter;
 import io.vertx.core.MultiMap;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -22,8 +21,12 @@ import io.vertx.ext.web.client.WebClient;
 import io.vertx.sqlclient.SqlConnection;
 
 /**
+ * Keyword: classSimpleNameSiteRequest
+ * Map.hackathonMission: to create a new Java class to store information about a given API request to use in building the responses to API and UI requests. 
+ * Map.hackathonColumn: Develop Base Classes
+ * Map.hackathonLabels: Java
+ * Map.hackathonLabelsGen: Java
  **/
-
 public class SiteRequestEnUS extends SiteRequestEnUSGen<Object> {
 	private static final Pattern PATTERN_SESSION = Pattern.compile(".*vertx-web.session=(\\w+).*");
 	protected void _config(Wrap<JsonObject> c) {
@@ -108,6 +111,14 @@ public class SiteRequestEnUS extends SiteRequestEnUSGen<Object> {
 		JsonObject o = Optional.ofNullable(user).map(user -> user.attributes()).map(p -> p.getJsonObject("resource_access")).map(o1 -> o1.getJsonObject(authResource)).orElse(new JsonObject());
 		c.o(o);
 	}
+
+	protected void _userResourceRoles(List<String> o) {
+		JsonArray roles = Optional.ofNullable(userResource).map(o2 -> o2.getJsonArray("roles")).orElse(new JsonArray());
+		roles.stream().forEach(r -> {
+			addUserResourceRoles((String)r);
+		});
+	}
+
 	protected void _solrDocument(Wrap<SolrDocument> c) {  
 	}
 	protected void _pageAdmin(Wrap<Boolean> c) { 

@@ -8,17 +8,18 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.helper.ConditionalHelpers;
 import com.github.jknack.handlebars.helper.StringHelpers;
+
 import io.serratus.api.enus.config.ConfigKeys;
-import io.serratus.api.enus.model.biosample.BioSampleEnUSGenApiService;
 import io.serratus.api.enus.model.run.SequenceRunEnUSGenApiService;
-import io.serratus.api.enus.model.taxonomy.TaxonomyEnUSGenApiService;
 import io.serratus.api.enus.user.SiteUserEnUSGenApiService;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
@@ -59,7 +60,12 @@ import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.PoolOptions;
 
-/**
+/**	
+ *	A Java class to start the Vert.x application as a main method. 
+ * Keyword: classSimpleNameVerticle
+ * Map.hackathonMission: to create a new Java class to run Vert.x verticle that will serve requests to the API and the UI. 
+ * Map.hackathonColumn: Quarkus app development
+ * Map.hackathonLabels: Java,Vert.x
  **/
 
 public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
@@ -70,6 +76,10 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 	
 	private Integer siteInstances;
 	private Integer workerPoolSize;
+
+	/**
+	 * A io.vertx.ext.jdbc.JDBCClient for connecting to the relational database PostgreSQL. 
+	 **/
 	private PgPool pgPool;
 	
 	public PgPool getPgPool() {
@@ -85,8 +95,15 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 	OAuth2Auth oauth2AuthenticationProvider;
 	AuthorizationProvider authorizationProvider;
 	HandlebarsTemplateEngine templateEngine;
-	
-	public void start(Promise<Void> startPromise) {
+
+	/**	
+	 *	This is called by Vert.x when the verticle instance is deployed. 
+	 *	Initialize a new site context object for storing information about the entire site in English. 
+	 *	Setup the startPromise to handle the configuration steps and starting the server. 
+	 **/
+	@Override()
+	public void  start(Promise<Void> startPromise) throws Exception, Exception {
+
 		try {
 			Future<Void> promiseSteps = configureWebClient().compose(a ->
 				configureOpenApi().compose(d -> 
@@ -124,7 +141,20 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 
 		return promise.future();
 	}
-	
+
+	/**	
+	 * 
+	 * Val.ConnectionError.enUS:Could not open the database client connection. 
+	 * Val.ConnectionSuccess.enUS:The database client connection was successful. 
+	 * 
+	 * Val.InitError.enUS:Could not initialize the database tables. 
+	 * Val.InitSuccess.enUS:The database tables were created successfully. 
+	 * 
+	 *	Configure shared database connections across the cluster for massive scaling of the application. 
+	 *	Return a promise that configures a shared database client connection. 
+	 *	Load the database configuration into a shared io.vertx.ext.jdbc.JDBCClient for a scalable, clustered datasource connection pool. 
+	 *	Initialize the database tables if not already created for the first time. 
+	 **/
 	private static Future<PgPool> configureData(Vertx vertx, JsonObject config) {
 		Promise<PgPool> promise = Promise.promise();
 		try {
@@ -155,7 +185,17 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 
 		return promise.future();
 	}
-	
+
+	/**	
+	 * 
+	 * Val.Error.enUS:Could not configure the auth server and API. 
+	 * Val.Success.enUS:The auth server and API was configured successfully. 
+	 * 
+	 *	Configure the connection to the auth server and setup the routes based on the OpenAPI definition. 
+	 *	Setup a callback route when returning from the auth server after successful authentication. 
+	 *	Setup a logout route for logging out completely of the application. 
+	 *	Return a promise that configures the authentication server and OpenAPI. 
+	 **/
 	private Future<Void> configureOpenApi() {
 		Promise<Void> promise = Promise.promise();
 		try {
@@ -311,7 +351,15 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 		
 		return promise.future();
 	}
-	
+
+	/**
+	 * 
+	 * Val.Fail.enUS:Could not configure the shared worker executor. 
+	 * Val.Complete.enUS:The shared worker executor "{}" was configured successfully. 
+	 * 
+	 *	Configure a shared worker executor for running blocking tasks in the background. 
+	 *	Return a promise that configures the shared worker executor. 
+	 **/
 	private Future<Void> configureSharedWorkerExecutor() {
 		Promise<Void> promise = Promise.promise();
 		try {
@@ -326,7 +374,17 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 		}
 		return promise.future();
 	}
-	
+
+	/**	
+	 * Val.Complete.enUS:The health checks were configured successfully. 
+	 * Val.Fail.enUS:Could not configure the health checks. 
+	 * Val.ErrorDatabase.enUS:The database is not configured properly. 
+	 * Val.EmptySolr.enUS:The Solr search engine is empty. 
+	 * Val.ErrorSolr.enUS:The Solr search engine is not configured properly. 
+	 * Val.ErrorVertx.enUS:The Vert.x application is not configured properly. 
+	 *	Configure health checks for the status of the website and it's dependent services. 
+	 *	Return a promise that configures the health checks. 
+	 **/
 	private Future<Void> configureHealthChecks() {
 		Promise<Void> promise = Promise.promise();
 		try {
@@ -380,7 +438,12 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 		}
 		return promise.future();
 	}
-	
+
+	/**	
+	 * Configure websockets for realtime messages. 
+	 * Val.Complete.enUS:Configure websockets succeeded. 
+	 * Val.Fail.enUS:Configure websockets failed. 
+	 **/
 	private Future<Void> configureWebsockets() {
 		Promise<Void> promise = Promise.promise();
 		try {
@@ -397,6 +460,12 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 		}
 		return promise.future();
 	}
+
+	/**	
+	 * Configure sending email. 
+	 * Val.Complete.enUS:Configure sending email succeeded. 
+	 * Val.Fail.enUS:Configure sending email failed. 
+	 **/
 	private Future<Void> configureEmail() {
 		Promise<Void> promise = Promise.promise();
 		try {
@@ -421,7 +490,11 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 		}
 		return promise.future();
 	}
-	
+
+	/**
+	 * Val.Fail.enUS:The API was not configured properly. 
+	 * Val.Complete.enUS:The API was configured properly. 
+	 */
 	private Future<Void> configureApi() {
 		Promise<Void> promise = Promise.promise();
 		try {
@@ -429,8 +502,8 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 
 			SiteUserEnUSGenApiService.registerService(vertx.eventBus(), config(), workerExecutor, pgPool, webClient, oauth2AuthenticationProvider, authorizationProvider, templateEngine, vertx);
 			SequenceRunEnUSGenApiService.registerService(vertx.eventBus(), config(), workerExecutor, pgPool, webClient, oauth2AuthenticationProvider, authorizationProvider, templateEngine, vertx);
-			TaxonomyEnUSGenApiService.registerService(vertx.eventBus(), config(), workerExecutor, pgPool, webClient, oauth2AuthenticationProvider, authorizationProvider, templateEngine, vertx);
-			BioSampleEnUSGenApiService.registerService(vertx.eventBus(), config(), workerExecutor, pgPool, webClient, oauth2AuthenticationProvider, authorizationProvider, templateEngine, vertx);
+//			TaxonomyEnUSGenApiService.registerService(vertx.eventBus(), config(), workerExecutor, pgPool, webClient, oauth2AuthenticationProvider, authorizationProvider, templateEngine, vertx);
+//			BioSampleEnUSGenApiService.registerService(vertx.eventBus(), config(), workerExecutor, pgPool, webClient, oauth2AuthenticationProvider, authorizationProvider, templateEngine, vertx);
 
 			LOG.info(configureApiComplete);
 			promise.complete();
@@ -441,6 +514,10 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 		return promise.future();
 	}
 
+	/**
+	 * Val.Fail.enUS:The UI was not configured properly. 
+	 * Val.Complete.enUS:The UI was configured properly. 
+	 */ 
 	private Future<Void> configureUi() {
 		Promise<Void> promise = Promise.promise();
 		try {
@@ -516,32 +593,16 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 		}
 		return promise.future();
 	}
-	
-	public Future<Void> putVarsInRoutingContext(RoutingContext ctx) {
-		Promise<Void> promise = Promise.promise();
-		try {
-			for(Entry<String, String> entry : ctx.queryParams()) {
-				String paramName = entry.getKey();
-				String paramObject = entry.getValue();
-				String entityVar = null;
-				String valueIndexed = null;
 
-				switch(paramName) {
-					case "var":
-						entityVar = StringUtils.trim(StringUtils.substringBefore((String)paramObject, ":"));
-						valueIndexed = URLDecoder.decode(StringUtils.trim(StringUtils.substringAfter((String)paramObject, ":")), "UTF-8");
-						ctx.put(entityVar, valueIndexed);
-						break;
-				}
-				promise.complete();
-			}
-		} catch(Exception ex) {
-			LOG.error(String.format("putVarsInRoutingContext failed. "), ex);
-			promise.fail(ex);
-		}
-		return promise.future();
-	}
-	
+	/**	
+	 * 
+	 * Val.ErrorServer.enUS:The server is not configured properly. 
+	 * Val.SuccessServer.enUS:The HTTP server is running: %s
+	 * Val.BeforeServer.enUS:HTTP server starting: %s
+	 * Val.Ssl.enUS:Configuring SSL: %s
+	 * 
+	 *	Start the Vert.x server. 
+	 **/
 	private Future<Void> startServer() {
 		Promise<Void> promise = Promise.promise();
 
@@ -575,8 +636,15 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 
 		return promise.future();
 	}
-	
-	public void stop(Promise<Void> promise) {
+
+	/**	
+	 *	This is called by Vert.x when the verticle instance is undeployed. 
+	 *	Setup the stopPromise to handle tearing down the server. 
+	 * Val.Fail.enUS:Could not close the database client connection. 
+	 * Val.Complete.enUS:The database client connection was closed. 
+	 **/
+	@Override()
+	public void  stop(Promise<Void> promise) throws Exception, Exception {
 		if(pgPool != null) {
 			pgPool.close().onSuccess(a -> {
 				LOG.info(stopComplete);

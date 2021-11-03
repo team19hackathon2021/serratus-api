@@ -2,12 +2,16 @@ package io.serratus.api.enus.vertx;
 
 
 /**
+ * Keyword: classSimpleNameApiCounter
+ * Map.hackathonMission: to create a new Java class to count the number of API requests are currently being made at the same time for fine tuning memory performance for bulk operations. 
+ * Map.hackathonColumn: Develop Base Classes
+ * Map.hackathonLabels: Java
  **/
-
 public class ApiCounter {
     private Long totalNum;
     private Long queueNum;
     private Long totalNumOld;
+	private Long queueNumOld;
 
 
     public Long getTotalNum() {
