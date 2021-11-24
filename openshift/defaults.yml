@@ -142,7 +142,7 @@ SITE_DB_PASSWORD_ENUS: "{{ POSTGRES_DB_PASSWORD }}"
 # The PostgreSQL database name of the site.
 SITE_DB_NAME_ENUS: "{{ SITE_NAME }}"
 # The Java main class of the site.
-SITE_JAVA_MAIN_CLASS_ENUS: org.choicehumanitarian.reports.enus.vertx.MainVerticle
+SITE_JAVA_MAIN_CLASS_ENUS: io.serratus.api.enus.vertx.MainVerticle
 
 ########################
 # serrtus-api defaults #

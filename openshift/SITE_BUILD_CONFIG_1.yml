@@ -24,10 +24,6 @@ spec:
   source:
     git:
       uri: 'https://github.com/{{ GITHUB_ORG_NAME }}/{{ GITHUB_REPO_NAME }}.git'
-    secrets:
-      - destinationDir: /opt/keystore
-        secret:
-          name: "{{ SITE_NAME }}-keystore"
     type: Git
   strategy:
     sourceStrategy:
