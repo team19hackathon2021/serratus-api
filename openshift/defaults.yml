@@ -111,7 +111,7 @@ SITE_NAMESPACE: "{{ REDHAT_OPENSHIFT_NAMESPACE }}"
 # The base URL where the static files will point to.
 SITE_STATIC_BASE_URL: "https://computate.neocities.org/serratus-api"
 # Where static files are placed in the pod. 
-SITE_STATIC_PATH: "/opt/static"
+SITE_STATIC_PATH: "src/main/resources/webroot"
 # App memory limit. 
 SITE_LIMITS_MEMORY: "500Mi"
 # App cpu limit. 
