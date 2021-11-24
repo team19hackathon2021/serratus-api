@@ -154,6 +154,16 @@ public class ConfigKeys {
 	public static final String SSL_JKS_PASSWORD = "SSL_JKS_PASSWORD";
 
 	/**
+	 * PEM Private Key path for enabling SSL
+	 **/
+	public static final String SSL_KEY_PATH = "SSL_KEY_PATH";
+
+	/**
+	 * PEM Public Certificate path for enabling SSL
+	 **/
+	public static final String SSL_CERT_PATH = "SSL_CERT_PATH";
+
+	/**
 	 * The port to the Auth server. 
 	 **/
 	public static final String AUTH_PORT = "AUTH_PORT";

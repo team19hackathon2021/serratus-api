@@ -13,7 +13,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: '{{ APP_NAME }}:latest'
+      name: '{{ SITE_NAME }}:latest'
   postCommit: {}
   resources:
     limits:
@@ -23,11 +23,11 @@ spec:
   runPolicy: Serial
   source:
     git:
-      uri: 'https://github.com/{{ APP_NAME }}/{{ APP_NAME }}.git'
+      uri: 'https://github.com/{{ GITHUB_ORG_NAME }}/{{ GITHUB_REPO_NAME }}.git'
     secrets:
       - destinationDir: /opt/keystore
         secret:
-          name: "{{ APP_NAME }}-keystore"
+          name: "{{ SITE_NAME }}-keystore"
     type: Git
   strategy:
     sourceStrategy:
