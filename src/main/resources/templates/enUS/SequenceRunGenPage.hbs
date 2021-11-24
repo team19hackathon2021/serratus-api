@@ -1,0 +1,774 @@
+<!--
+hackathonMission: to create an Handlebars HTML template for the code to render a page for RNA sequence runs. 
+hackathonColumn: Develop SequenceRun UI
+hackathonLabels: HTML,Handlebars
+-->
+{{#*inline "htmTitleSequenceRunPage"}}		<!-- inline "htmTitleSequenceRunPage" -->
+		<title>{{#if searchListSequenceRun_}}{{#eq sequenceRunCount int1}}{{#eq params.query.q "*:*"}}sequence run{{else}}sequence run{{/eq}}{{else}}no sequence run found{{/eq}}{{else}}sequence runs{{/if}}</title>
+{{/inline}}
+{{#*inline "htmMetaSequenceRunPage"}}{{> "htmMetaBaseModelPage"}}{{/inline}}
+{{#*inline "htmStyleSequenceRunPage"}}{{> "htmStyleBaseModelPage"}}{{/inline}}
+{{#*inline "htmScriptsSequenceRunPage"}}{{> "htmScriptsBaseModelPage"}}		<!-- inline "htmScriptsSequenceRunPage" -->
+		<script src="{{staticBaseUrl}}/js/enUS/SequenceRunPage.js"></script>
+{{/inline}}
+{{#*inline "htmScriptSequenceRunPage"}}		<!-- inline "htmScriptSequenceRunPage" -->
+		<script>
+			$(document).ready(function() {
+				document.onkeydown = function(evt) {
+					evt = evt || window.event;
+					var isEscape = false;
+					if ('key' in evt) {
+						isEscape = (evt.key === 'Escape' || evt.key === 'Esc');
+					} else {
+						isEscape = (evt.keyCode === 27);
+					}
+					if (isEscape) {
+						$('.w3-modal:visible').hide();
+					}
+				};
+				window.eventBus = new EventBus('/eventbus');
+				var pk = {{#if pk}}{{pk}}{{else}}null{{/if}};
+				if(pk != null) {
+				}
+				websocketSequenceRun(websocketSequenceRunInner);
+			});
+		</script>
+{{/inline}}
+{{#*inline "htmUrlSequenceRun"}}{{pageUri}}?q={{query.q}}&amp;rows={{#if rows}}{{rows}}{{else}}{{pagination.rows}}{{/if}}&amp;rows={{#if start}}{{start}}{{else}}{{pagination.start}}{{/if}}{{#each query.fq}}{{#eq fq this}}{{else}}&fq={{fq}}:{{val}}{{/eq}}{{/each}}{{#each query.sort}}{{#eq sort this}}{{else}}&sort={{var}} {{order}}{{/eq}}{{/each}}{{/inline}}
+{{#*inline "htmHeadSequenceRunPage"}}{{> "htmTitleSequenceRunPage"}}{{> "htmMetaSequenceRunPage"}}{{> "htmStyleSequenceRunPage"}}{{> "htmScriptsSequenceRunPage"}}{{> "htmScriptSequenceRunPage"}}{{/inline}}
+{{#*inline "htmBodyCount0SequenceRunPage"}}		<!-- #*inline "htmBodyCount0SequenceRunPage" -->
+		<h1>
+			<a href="{{pageUri}}" class="w3-bar-item w3-btn w3-center w3-block w3-pale-green w3-hover-pale-green">
+				{{#if contextIconCssClasses}}
+					<i class="contextIconCssClasses site-menu-icon "></i>
+				{{/if}}
+				<span class="">sequence runs</span>
+			</a>
+		</h1>
+		<h2>
+			<span class="w3-bar-item w3-padding w3-center w3-block w3-pale-green">
+				{{#if contextIconCssClasses}}
+					<i class="contextIconCssClasses + " site-menu-icon "></i>
+				{{/if}}
+				<span class="">no sequence run found</span>
+			</span>
+		</h2>
+{{/inline}}
+{{#*inline "htmBodyCount1AllSequenceRunPage"}}		<!-- #*inline "htmBodyCount1AllSequenceRunPage" -->
+		<h1 class="w3-center ">
+			<a href="{{pageUri}}" class="w3-bar-item w3-btn w3-block w3-pale-green w3-hover-pale-green">
+			{{#if contextIconCssClasses}}
+				<i class="contextIconCssClasses site-menu-icon "></i>
+			{{/if}}
+				<span class="">sequence run</span>
+			</a>
+		</h1>
+		<h2 class="w3-center ">
+			<span class"w3-bar-item w3-padding w3-center w3-block w3-pale-green">
+				<span class="">{{sequenceRun_.objectTitle}}</span>
+			</span>
+		</h2>
+{{#block "htmForm"}}{{/block}}
+{{/inline}}
+{{#*inline "htmBodyCount1SequenceRunPage"}}		<!-- #*inline "htmBodyCount1SequenceRunPage" -->
+		<h1>
+			<a href="{{pageUri}}" class="w3-bar-item w3-btn w3-center w3-block w3-pale-green w3-hover-pale-green">
+	{{#if contextIconCssClasses}}
+				<i class="contextIconCssClasses + " site-menu-icon "></i>
+	{{/if}}
+				<span class="">sequence runs</span>
+			</a>
+		</h1>
+		<div>
+	{{#if pagination.pagePrevious}}
+			<a href="{{pageUri}}?start={{pagination.pagePrevious.start}}&amp;rows={{pagination.rows}}">
+				<i class="fas fa-arrow-square-left "></i>
+			</a>
+	{{else}}
+			<i class="fas fa-arrow-square-left w3-opacity "></i>
+	{{/if}}
+	{{#gte pagination.rowsPrevious pagination.1L}}
+			<a href="{{pageUri}}?start={{pagination.start}}&amp;rows={{ pagination.rowsPrevious }}">
+				<i class="fas fa-minus-square "></i>
+			</a>
+	{{else}}
+			<i class="fas fa-minus-square w3-opacity "></i>
+	{{/gte}}
+			<a href="{{pageUri}}?start={{pagination.start}}&amp;rows={{ pagination.rowsNext }}">
+				<i class="fas fa-plus-square "></i>
+			</a>
+	{{#if pagination.pageNext}}
+			<a href="{{pageUri}}?start={{pagination.pageNext.start}}&amp;rows={{pagination.rows}}">
+				<i class="fas fa-arrow-square-right "></i>
+			</a>
+	{{else}}
+			<i class="fas fa-arrow-square-right w3-opacity "></i>
+	{{/if}}
+			<span>{{ pagination.startNum }} - {{ pagination.endNum }} of {{ pagination.foundNum }}</span>
+		</div>
+{{> "table1SequenceRunPage"}}
+{{/inline}}
+{{#*inline "htmBodyAllSequenceRunPage"}}		<!-- #*inline "htmBodyAllSequenceRunPage" -->
+		<h1>
+			<a href="{{pageUri}}" class="w3-bar-item w3-btn w3-center w3-block w3-pale-green w3-hover-pale-green">
+	{{#if contextIconCssClasses}}
+				<i class="contextIconCssClasses + " site-menu-icon "></i>
+	{{/if}}
+				<span class="">sequence runs</span>
+			</a>
+		</h1>
+		<div class="">
+			<div>
+	{{#if pagination.pagePrevious}}
+				<a href="{{pageUri}}?start={{pagination.pagePrevious.start}}&amp;rows={{pagination.rows}}">
+					<i class="fas fa-arrow-square-left "></i>
+				</a>
+	{{else}}
+				<i class="fas fa-arrow-square-left w3-opacity "></i>
+	{{/if}}
+	{{#gte pagination.rowsPrevious pagination.1L}}
+				<a href="{{pageUri}}?start={{pagination.start}}&amp;rows={{ pagination.rowsPrevious }}">
+					<i class="fas fa-minus-square "></i>
+				</a>
+	{{else}}
+				<i class="fas fa-minus-square w3-opacity "></i>
+	{{/gte}}
+				<a href="{{pageUri}}?start={{pagination.start}}&amp;rows={{ pagination.rowsNext }}">
+					<i class="fas fa-plus-square "></i>
+				</a>
+	{{#if pagination.pageNext}}
+				<a href="{{pageUri}}?start={{pagination.pageNext.start}}&amp;rows={{pagination.rows}}">
+					<i class="fas fa-arrow-square-right "></i>
+				</a>
+	{{else}}
+				<i class="fas fa-arrow-square-right w3-opacity "></i>
+	{{/if}}
+				<span>{{ pagination.startNum }} - {{ pagination.endNum }} of {{ pagination.foundNum }}</span>
+			</div>
+{{> "table1SequenceRunPage"}}
+		</div>
+{{/inline}}
+{{#*inline "htmFormSequenceRunPage"}}	{{#if pk}}
+		<!-- #*inline "htmForm" -->
+		<form action="" id="SequenceRunForm" style="display: inline-block; width: 100%; " onsubmit="event.preventDefault(); return false; ">
+			<input name="pk" class="valuePk" type="hidden" value="{{pk}}"/>
+			<input name="focusId" type="hidden"/>
+		</form>
+{{#block "htmForm_searchpageSequenceRun"}}{{/block}}
+	{{/if}}
+{{/inline}}
+{{#*inline "htmFormSequenceRunPage_putimportSequenceRun"}}
+		<button
+			class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-pale-green "
+			onclick="$('#putimportSequenceRunModal').show(); "
+			>
+			<i class="fas fa-file-import "></i>
+			Import sequence runs
+		</button>
+		<div id="putimportSequenceRunModal" class="w3-modal w3-padding-32 ">
+			<div class="w3-modal-content ">
+				<div class="w3-card-4 ">
+					<header class="w3-container w3-pale-green">
+	{{#eq "Page" classApiMethodMethod}}
+						<span class="w3-button w3-display-topright " onclick="$('#putimportSequenceRunModal').hide(); ">×</span>
+	{{/eq}}
+						<h2 class="w3-padding ">Import sequence runs</h2>
+					</header>
+					<div class="" id="putimportSequenceRunFormValues">
+						<div class="w3-cell-row ">
+							<textarea
+								class="PUTImport_searchList w3-input w3-border "
+								style="height: 400px; "
+								placeholder="{ 'searchList': [ { 'pk': ... , 'saves': [ ... ] }, ... ] }"
+								></textarea>
+						</div>
+						<button
+							class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-margin w3-pale-green "
+							onclick="putimportSequenceRun($('#putimportSequenceRunFormValues')); "
+							>Import sequence runs</button>
+					</div>
+				</div>
+			</div>
+		</div>
+{{/inline}}
+{{#*inline "htmFormSequenceRunPage_postSequenceRun"}}
+		<button
+			class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-pale-green "
+			onclick="$('#postSequenceRunModal').show(); "
+			>
+			<i class="fas fa-file-plus "></i>
+			Create a sequence run
+		</button>
+		<div id="postSequenceRunModal" class="w3-modal w3-padding-32 ">
+			<div class="w3-modal-content ">
+				<div class="w3-card-4 ">
+					<header class="w3-container w3-pale-green">
+	{{#eq "Page" classApiMethodMethod}}
+						<span class="w3-button w3-display-topright " onclick="$('#postSequenceRunModal').hide(); ">×</span>
+	{{/eq}}
+						<h2 class="w3-padding ">Create a sequence run</h2>
+					</header>
+					<div class="" id="postSequenceRunFormValues">
+						<div id="postSequenceRunForm">
+							<div class="w3-cell-row ">
+{{> "htmPk" classApiMethodMethod="POST"}}
+{{> "htmCreated" classApiMethodMethod="POST"}}
+{{> "htmModified" classApiMethodMethod="POST"}}
+{{> "htmObjectId" classApiMethodMethod="POST"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmArchived" classApiMethodMethod="POST"}}
+{{> "htmDeleted" classApiMethodMethod="POST"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmRunId" classApiMethodMethod="POST"}}
+{{> "htmRunReleaseDate" classApiMethodMethod="POST"}}
+{{> "htmRunLoadDate" classApiMethodMethod="POST"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmProjectId" classApiMethodMethod="POST"}}
+{{> "htmBioSampleId" classApiMethodMethod="POST"}}
+							</div>
+						</div>
+						<button
+							class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-margin w3-pale-green "
+							onclick="postSequenceRun($('#postSequenceRunForm')); "
+							>Create a sequence run</button>
+					</div>
+				</div>
+			</div>
+		</div>
+{{/inline}}
+{{#*inline "htmFormSequenceRunPage_patchSequenceRun"}}
+		<button
+			class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-pale-green "
+			onclick="$('#patchSequenceRunModal').show(); "
+			>
+			<i class="fas fa-edit "></i>
+			Modify sequence runs
+		</button>
+		<div id="patchSequenceRunModal" class="w3-modal w3-padding-32 ">
+			<div class="w3-modal-content ">
+				<div class="w3-card-4 ">
+					<header class="w3-container w3-pale-green">
+	{{#eq "Page" classApiMethodMethod}}
+						<span class="w3-button w3-display-topright " onclick="$('#patchSequenceRunModal').hide(); ">×</span>
+	{{/eq}}
+						<h2 class="w3-padding ">Modify sequence runs</h2>
+					</header>
+					<div class="" id="patchSequenceRunFormValues">
+							<div class="w3-cell-row ">
+{{> "htmCreated" classApiMethodMethod="PATCH"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmArchived" classApiMethodMethod="PATCH"}}
+{{> "htmDeleted" classApiMethodMethod="PATCH"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmRunId" classApiMethodMethod="PATCH"}}
+{{> "htmRunReleaseDate" classApiMethodMethod="PATCH"}}
+{{> "htmRunLoadDate" classApiMethodMethod="PATCH"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmProjectId" classApiMethodMethod="PATCH"}}
+{{> "htmBioSampleId" classApiMethodMethod="PATCH"}}
+							</div>
+						<button
+							class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-margin w3-pale-green "
+							onclick="patchSequenceRun(null, $('#patchSequenceRunFormValues')); "
+							>Modify sequence runs</button>
+					</div>
+				</div>
+			</div>
+		</div>
+{{/inline}}
+{{#*inline "htmFormSequenceRunPage_searchpageSequenceRun"}}
+		<div id="searchpageSequenceRunModal" class="w3-padding-32 ">
+			<div class="">
+				<div class="w3-card-4 ">
+					<header class="w3-container w3-pale-green">
+	{{#eq "Page" classApiMethodMethod}}
+						<span class="w3-button w3-display-topright " onclick="$('#searchpageSequenceRunModal').hide(); ">×</span>
+	{{/eq}}
+						<h2 class="w3-padding "></h2>
+					</header>
+					<div class="" id="searchpageSequenceRunFormValues">
+						<div id="searchpageSequenceRunForm">
+							<div class="w3-cell-row ">
+{{> "htmPk" classApiMethodMethod="Page"}}
+{{> "htmCreated" classApiMethodMethod="Page"}}
+{{> "htmModified" classApiMethodMethod="Page"}}
+{{> "htmObjectId" classApiMethodMethod="Page"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmArchived" classApiMethodMethod="Page"}}
+{{> "htmDeleted" classApiMethodMethod="Page"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmRunId" classApiMethodMethod="Page"}}
+{{> "htmRunReleaseDate" classApiMethodMethod="Page"}}
+{{> "htmRunLoadDate" classApiMethodMethod="Page"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmProjectId" classApiMethodMethod="Page"}}
+{{> "htmBioSampleId" classApiMethodMethod="Page"}}
+							</div>
+						</div>
+						<button
+							class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-margin w3-pale-green "
+							onclick="searchpageSequenceRun(); "
+							></button>
+					</div>
+				</div>
+			</div>
+		</div>
+{{/inline}}
+{{#*inline "htmBodyStartSequenceRunPage"}}
+{{> "htmBodyStartBaseModelPage"}}
+{{/inline}}
+{{#*inline "htmBodyEndSequenceRunPage"}}
+{{> "htmBodyEndBaseModelPage"}}
+{{/inline}}
+{{#*inline "htmBodySequenceRunPage"}}
+{{#block "htmBodyStart"}}{{/block}}
+	{{#eq sequenceRunCount int0}}
+{{#block "htmBodyCount0"}}{{/block}}
+	{{else}}
+		{{#eq sequenceRunCount int1}}
+			{{#eq params.query.q "*:*"}}
+{{#block "htmBodyCount1All"}}{{/block}}
+			{{else}}
+{{#block "htmBodyCount1"}}{{/block}}
+			{{/eq}}
+		{{else}}
+{{#block "htmBodyAll"}}{{/block}}
+		{{/eq}}
+	{{/eq}}
+{{#block "htmForms"}}{{/block}}
+{{#block "htmBodyEnd"}}{{/block}}
+{{/inline}}
+{{#*inline "table1SequenceRunPage"}}
+		<table class="w3-table w3-bordered w3-striped w3-border w3-hoverable ">
+			{{> table2SequenceRunPage}}
+		</table>
+{{/inline}}
+{{#*inline "table2SequenceRunPage"}}
+		{{> "thead1SequenceRunPage"}}
+		{{> "tbody1SequenceRunPage"}}
+		{{> "tfoot1SequenceRunPage"}}
+	{{/inline}}
+{{#*inline "thead1SequenceRunPage"}}
+		<thead class="w3-pale-green w3-hover-pale-green">
+			{{> thead2SequenceRunPage}}
+		</thead>
+	{{/inline}}
+{{#*inline "thead2SequenceRunPage"}}
+			<tr>
+				<th>created</th>
+				<th></th>
+			</tr>
+{{/inline}}
+{{#*inline "tbody1SequenceRunPage"}}
+		<tbody>
+			{{> tbody2SequenceRunPage}}
+		</tbody>
+{{/inline}}
+{{#*inline "tbody2SequenceRunPage"}}
+		{{#each listSequenceRun}}
+			<tr>
+					<td>
+						<a href="{{pageUrlPk}}">
+							<span class="white-space-pre-wrap ">{{created}}</span>
+						</a>
+					</td>
+					<td>
+						<a href="{{pageUrlPk}}">
+							<i class="far fa-dna "></i>
+							<span class="white-space-pre-wrap ">{{objectTitle}}</span>
+						</a>
+					</td>
+			</tr>
+		{{/each}}
+{{/inline}}
+{{#*inline "tfoot1SequenceRunPage"}}
+		<tfoot class="w3-pale-green w3-hover-pale-green">
+			{{> tfoot2SequenceRunPage}}
+		</tfoot>
+{{/inline}}
+{{#*inline "tfoot2SequenceRunPage"}}
+		<tr>
+			{{#if getColumnCreated}}
+				<td>
+				</td>
+			{{/if}}
+			{{#if getColumnObjectTitle}}
+				<td>
+				</td>
+			{{/if}}
+		</tr>
+	{{/inline}}
+{{#*inline "htmFormsSequenceRunPage"}}
+	{{#ifContainsAnyRoles roles rolesRequired}}
+		{{#eq sequenceRunCount int1}}
+		<button
+			class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-pale-green "
+			id="refreshThisSequenceRunGenPage"
+			onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'pk:{{pk}}' } ], {}, function() { addGlow($('#refreshThisSequenceRunGenPage')); }, function() { addError($('#refreshThisSequenceRunGenPage')); }); return false; ">
+			<i class="fas fa-sync-alt "></i>
+			refresh this sequence run
+		</button>
+		{{/eq}}
+	{{/ifContainsAnyRoles}}
+	{{#ifContainsAnyRoles roles authRolesAdmin}}
+{{#block "htmForm_putimportSequenceRun"}}{{/block}}
+{{#block "htmForm_postSequenceRun"}}{{/block}}
+{{#block "htmForm_patchSequenceRun"}}{{/block}}
+	{{/ifContainsAnyRoles}}
+{{#block "htmSuggested"}}{{/block}}
+{{/inline}}
+{{#*inline "htmSuggestedSequenceRunPage"}}
+			{{#ifContainsAnyRoles roles rolesRequired}}
+					<div class="">
+						<button id="refreshAllSequenceRunGenPage{{id}}" class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-pale-green "
+							onclick="patch{{classSimpleName}}Vals([], {}, function() { addGlow($('#refreshAllSequenceRunGenPage{{id}}')); }, function() { addError($('#refreshAllSequenceRunGenPage{{id}}')); }); "
+							>
+							<i class="fas fa-sync-alt "></i>
+							refresh all the sequence runs
+						</button>
+					</div>
+			{{/ifContainsAnyRoles}}
+			<div class="w3-cell-row ">
+				<div class="w3-cell ">
+					<span>
+						search sequence runs: 
+					</span>
+				</div>
+			</div>
+			<div class="w3-bar ">
+				<input
+					type="text"
+					class="suggestSequenceRun w3-input w3-border w3-bar-item "
+					name="suggestSequenceRun"
+					id="suggestSequenceRun{{id}}"
+					autocomplete="off"
+					oninput="suggestSequenceRunObjectSuggest( [ { 'name': 'q', 'value': 'objectSuggest:' + $(this).val() }, { 'name': 'rows', 'value': '10' }, { 'name': 'fl', 'value': 'pk,pageUrlPk,objectTitle' } ], $('#suggestListSequenceRun{{id}}'), {{pk}}; "
+					onkeyup="if (event.keyCode === 13) { event.preventDefault(); window.location.href = '/api/run?q={{query1}}:' + encodeURIComponent(this.value) + '{{fqs}}{{sorts}}&amp;rows={{start2}}&amp;rows={{rows1}}"
+				{{#if listSequenceRun}}
+					value="{{query2}}"
+				{{/if}}
+				/>
+				<button
+					class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-bar-item w3-pale-green "
+					onclick="window.location.href = '/api/run?q=&quot;, query1, &quot;:' + encodeURIComponent(this.previousElementSibling.value) + '&quot;, fqs, sorts, &quot;&amp;rows=&quot;, start2, &quot;&amp;rows=&quot;, rows1, &quot;'; "
+					>
+					<i class="fas fa-search "></i>
+				</button>
+			<div>
+			<div class="w3-cell-row ">
+				<div class="w3-cell w3-left-align w3-cell-top ">
+					<ul class="w3-ul w3-hoverable " id="suggestListSequenceRun{{id}}">
+					</ul>
+				</div>
+			</div>
+			<div class="">
+				<a href="/api/run" class="">
+					<i class="far fa-dna"></i>
+					see all the sequence runs
+				</a>
+			</div>
+{{/inline}}
+{{> BaseModelPage baseModel_=sequenceRun_}}
+
+{{#*inline "htmRunId"}}
+								<div class="w3-cell w3-cell-top w3-center w3-mobile ">
+									<div class="w3-padding ">
+										<div id="suggest{{classApiMethodMethod}}SequenceRunRunId">
+											<div class="w3-card ">
+												<div class="w3-cell-row w3-pale-green">
+													<label for="{{classApiMethodMethod}}_runId">Run ID</label>
+												</div>
+												<div class="w3-cell-row w3-padding ">
+													<div class="w3-cell ">
+														{{> "inputRunId"}}
+													</div>
+	{{#ifContainsAnyRoles roles rolesRequired}}
+		{{#eq 'Page' classApiMethodMethod}}
+															<div class="w3-cell w3-left-align w3-cell-top ">
+																<button
+																		tabindex="-1"
+																		class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-bar-item w3-pale-green "
+																		onclick="removeGlow($('#{{classApiMethodMethod}}_runId')); $('#{{classApiMethodMethod}}_runId').val(null); patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + $('#SequenceRunForm :input[name=pk]').val() }], 'setRunId', null, function() { addGlow($('#{{classApiMethodMethod}}_runId')); }, function() { addError($('#{{classApiMethodMethod}}_runId')); }); "
+																		>
+																	<i class="far fa-eraser "></i>
+																</button>
+															</div>
+														{{/eq}}
+	{{/ifContainsAnyRoles}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+{{/inline}}
+
+{{#*inline "inputRunId"}}
+		{{#ifContainsAnyRoles roles rolesRequired}}
+														<input
+															type="text"
+															placeholder="Run ID"
+															id="{{classApiMethodMethod}}_runId"
+	{{#eq "Page" classApiMethodMethod}}
+																class="setRunId classSequenceRun inputSequenceRun{{pk}}RunId w3-input w3-border "
+																name="setRunId"
+	{{else}}
+		{{#eq "PATCH" classApiMethodMethod}}
+																class="setRunId classSequenceRun inputSequenceRun{{pk}}RunId w3-input w3-border "
+																name="setRunId"
+		{{else}}
+																class="valueRunId w3-input w3-border classSequenceRun inputSequenceRun{{pk}}RunId w3-input w3-border "
+																name="runId"
+		{{/eq}}
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+																onclick="removeGlow($(this)); "
+																onchange="patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:{{pk}}' }], 'setRunId', $(this).val(), function() { addGlow($('#{{classApiMethodMethod}}_runId')); }, function() { addError($('#{{classApiMethodMethod}}_runId')); }); "
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+															value="{{sequenceRun_.runId}}"
+	{{/eq}}
+														/>
+
+													{{else}}
+															<span class="varSequenceRun{{pk}}RunId ">{{sequenceRun_.runId}}</span>
+		{{/ifContainsAnyRoles}}
+{{/inline}}
+
+{{#*inline "htmRunReleaseDate"}}
+								<div class="w3-cell w3-cell-top w3-center w3-mobile ">
+									<div class="w3-padding ">
+										<div id="suggest{{classApiMethodMethod}}SequenceRunRunReleaseDate">
+											<div class="w3-card ">
+												<div class="w3-cell-row w3-pale-green">
+													<label for="{{classApiMethodMethod}}_runReleaseDate">run release date</label>
+												</div>
+												<div class="w3-cell-row w3-padding ">
+													<div class="w3-cell ">
+														{{> "inputRunReleaseDate"}}
+													</div>
+	{{#ifContainsAnyRoles roles rolesRequired}}
+		{{#eq 'Page' classApiMethodMethod}}
+															<div class="w3-cell w3-left-align w3-cell-top ">
+																<button
+																		tabindex="-1"
+																		class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-bar-item w3-pale-green "
+																		onclick="removeGlow($('#{{classApiMethodMethod}}_runReleaseDate')); $('#{{classApiMethodMethod}}_runReleaseDate').val(null); patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + $('#SequenceRunForm :input[name=pk]').val() }], 'setRunReleaseDate', null, function() { addGlow($('#{{classApiMethodMethod}}_runReleaseDate')); }, function() { addError($('#{{classApiMethodMethod}}_runReleaseDate')); }); "
+																		>
+																	<i class="far fa-eraser "></i>
+																</button>
+															</div>
+														{{/eq}}
+	{{/ifContainsAnyRoles}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+{{/inline}}
+
+{{#*inline "inputRunReleaseDate"}}
+		{{#ifContainsAnyRoles roles rolesRequired}}
+														<input
+																type="text"
+																class="w3-input w3-border datepicker setRunReleaseDate classSequenceRun inputSequenceRun{{pk}}RunReleaseDate w3-input w3-border "
+																placeholder="MM/DD/YYYY HH:MM AM"
+																data-timeformat="MM/dd/yyyy"
+																id="{{classApiMethodMethod}}_runReleaseDate"
+																value="{{sequenceRun_.runReleaseDate}}"
+														{{#eq 'Page' classApiMethodMethod}}
+															onclick="removeGlow($(this)); ";
+															onchange="var t = moment(this.value, 'MM/DD/YYYY'); if(t) { var s = t.format('YYYY-MM-DD'); patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:{{pk}}' }], 'setRunReleaseDate', s, function() { addGlow($('#{{classApiMethodMethod}}_runReleaseDate')); }, function() { addError($('#{{classApiMethodMethod}}_runReleaseDate')); }); } "
+														{{/eq}}
+														/>
+													{{else}}
+															<span class="varSequenceRun{{pk}}RunReleaseDate ">{{sequenceRun_.runReleaseDate}}</span>
+		{{/ifContainsAnyRoles}}
+{{/inline}}
+
+{{#*inline "htmRunLoadDate"}}
+								<div class="w3-cell w3-cell-top w3-center w3-mobile ">
+									<div class="w3-padding ">
+										<div id="suggest{{classApiMethodMethod}}SequenceRunRunLoadDate">
+											<div class="w3-card ">
+												<div class="w3-cell-row w3-pale-green">
+													<label for="{{classApiMethodMethod}}_runLoadDate">run load date/time</label>
+												</div>
+												<div class="w3-cell-row w3-padding ">
+													<div class="w3-cell ">
+														{{> "inputRunLoadDate"}}
+													</div>
+	{{#ifContainsAnyRoles roles rolesRequired}}
+		{{#eq 'Page' classApiMethodMethod}}
+															<div class="w3-cell w3-left-align w3-cell-top ">
+																<button
+																		tabindex="-1"
+																		class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-bar-item w3-pale-green "
+																		onclick="removeGlow($('#{{classApiMethodMethod}}_runLoadDate')); $('#{{classApiMethodMethod}}_runLoadDate').val(null); patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + $('#SequenceRunForm :input[name=pk]').val() }], 'setRunLoadDate', null, function() { addGlow($('#{{classApiMethodMethod}}_runLoadDate')); }, function() { addError($('#{{classApiMethodMethod}}_runLoadDate')); }); "
+																		>
+																	<i class="far fa-eraser "></i>
+																</button>
+															</div>
+														{{/eq}}
+	{{/ifContainsAnyRoles}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+{{/inline}}
+
+{{#*inline "inputRunLoadDate"}}
+		{{#ifContainsAnyRoles roles rolesRequired}}
+														<input
+																type="text"
+																class="w3-input w3-border datepicker setRunLoadDate classSequenceRun inputSequenceRun{{pk}}RunLoadDate w3-input w3-border "
+																placeholder="MM/DD/YYYY HH:MM AM"
+																data-timeformat="MM/dd/yyyy"
+																id="{{classApiMethodMethod}}_runLoadDate"
+																value="{{sequenceRun_.runLoadDate}}"
+														{{#eq 'Page' classApiMethodMethod}}
+															onclick="removeGlow($(this)); ";
+															onchange="var t = moment(this.value, 'MM/DD/YYYY'); if(t) { var s = t.format('YYYY-MM-DD'); patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:{{pk}}' }], 'setRunLoadDate', s, function() { addGlow($('#{{classApiMethodMethod}}_runLoadDate')); }, function() { addError($('#{{classApiMethodMethod}}_runLoadDate')); }); } "
+														{{/eq}}
+														/>
+													{{else}}
+															<span class="varSequenceRun{{pk}}RunLoadDate ">{{sequenceRun_.runLoadDate}}</span>
+		{{/ifContainsAnyRoles}}
+{{/inline}}
+
+{{#*inline "htmProjectId"}}
+								<div class="w3-cell w3-cell-top w3-center w3-mobile ">
+									<div class="w3-padding ">
+										<div id="suggest{{classApiMethodMethod}}SequenceRunProjectId">
+											<div class="w3-card ">
+												<div class="w3-cell-row w3-pale-green">
+													<label for="{{classApiMethodMethod}}_projectId">Project ID</label>
+												</div>
+												<div class="w3-cell-row w3-padding ">
+													<div class="w3-cell ">
+														{{> "inputProjectId"}}
+													</div>
+	{{#ifContainsAnyRoles roles rolesRequired}}
+		{{#eq 'Page' classApiMethodMethod}}
+															<div class="w3-cell w3-left-align w3-cell-top ">
+																<button
+																		tabindex="-1"
+																		class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-bar-item w3-pale-green "
+																		onclick="removeGlow($('#{{classApiMethodMethod}}_projectId')); $('#{{classApiMethodMethod}}_projectId').val(null); patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + $('#SequenceRunForm :input[name=pk]').val() }], 'setProjectId', null, function() { addGlow($('#{{classApiMethodMethod}}_projectId')); }, function() { addError($('#{{classApiMethodMethod}}_projectId')); }); "
+																		>
+																	<i class="far fa-eraser "></i>
+																</button>
+															</div>
+														{{/eq}}
+	{{/ifContainsAnyRoles}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+{{/inline}}
+
+{{#*inline "inputProjectId"}}
+		{{#ifContainsAnyRoles roles rolesRequired}}
+														<input
+															type="text"
+															placeholder="Project ID"
+															id="{{classApiMethodMethod}}_projectId"
+	{{#eq "Page" classApiMethodMethod}}
+																class="setProjectId classSequenceRun inputSequenceRun{{pk}}ProjectId w3-input w3-border "
+																name="setProjectId"
+	{{else}}
+		{{#eq "PATCH" classApiMethodMethod}}
+																class="setProjectId classSequenceRun inputSequenceRun{{pk}}ProjectId w3-input w3-border "
+																name="setProjectId"
+		{{else}}
+																class="valueProjectId w3-input w3-border classSequenceRun inputSequenceRun{{pk}}ProjectId w3-input w3-border "
+																name="projectId"
+		{{/eq}}
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+																onclick="removeGlow($(this)); "
+																onchange="patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:{{pk}}' }], 'setProjectId', $(this).val(), function() { addGlow($('#{{classApiMethodMethod}}_projectId')); }, function() { addError($('#{{classApiMethodMethod}}_projectId')); }); "
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+															value="{{sequenceRun_.projectId}}"
+	{{/eq}}
+														/>
+
+													{{else}}
+															<span class="varSequenceRun{{pk}}ProjectId ">{{sequenceRun_.projectId}}</span>
+		{{/ifContainsAnyRoles}}
+{{/inline}}
+
+{{#*inline "htmBioSampleId"}}
+								<div class="w3-cell w3-cell-top w3-center w3-mobile ">
+									<div class="w3-padding ">
+										<div id="suggest{{classApiMethodMethod}}SequenceRunBioSampleId">
+											<div class="w3-card ">
+												<div class="w3-cell-row w3-pale-green">
+													<label for="{{classApiMethodMethod}}_bioSampleId">BioSample ID</label>
+												</div>
+												<div class="w3-cell-row w3-padding ">
+													<div class="w3-cell ">
+														{{> "inputBioSampleId"}}
+													</div>
+	{{#ifContainsAnyRoles roles rolesRequired}}
+		{{#eq 'Page' classApiMethodMethod}}
+															<div class="w3-cell w3-left-align w3-cell-top ">
+																<button
+																		tabindex="-1"
+																		class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-bar-item w3-pale-green "
+																		onclick="removeGlow($('#{{classApiMethodMethod}}_bioSampleId')); $('#{{classApiMethodMethod}}_bioSampleId').val(null); patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + $('#SequenceRunForm :input[name=pk]').val() }], 'setBioSampleId', null, function() { addGlow($('#{{classApiMethodMethod}}_bioSampleId')); }, function() { addError($('#{{classApiMethodMethod}}_bioSampleId')); }); "
+																		>
+																	<i class="far fa-eraser "></i>
+																</button>
+															</div>
+														{{/eq}}
+	{{/ifContainsAnyRoles}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+{{/inline}}
+
+{{#*inline "inputBioSampleId"}}
+		{{#ifContainsAnyRoles roles rolesRequired}}
+														<input
+															type="text"
+															placeholder="BioSample ID"
+															id="{{classApiMethodMethod}}_bioSampleId"
+	{{#eq "Page" classApiMethodMethod}}
+																class="setBioSampleId classSequenceRun inputSequenceRun{{pk}}BioSampleId w3-input w3-border "
+																name="setBioSampleId"
+	{{else}}
+		{{#eq "PATCH" classApiMethodMethod}}
+																class="setBioSampleId classSequenceRun inputSequenceRun{{pk}}BioSampleId w3-input w3-border "
+																name="setBioSampleId"
+		{{else}}
+																class="valueBioSampleId w3-input w3-border classSequenceRun inputSequenceRun{{pk}}BioSampleId w3-input w3-border "
+																name="bioSampleId"
+		{{/eq}}
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+																onclick="removeGlow($(this)); "
+																onchange="patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:{{pk}}' }], 'setBioSampleId', $(this).val(), function() { addGlow($('#{{classApiMethodMethod}}_bioSampleId')); }, function() { addError($('#{{classApiMethodMethod}}_bioSampleId')); }); "
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+															value="{{sequenceRun_.bioSampleId}}"
+	{{/eq}}
+														/>
+
+													{{else}}
+															<span class="varSequenceRun{{pk}}BioSampleId ">{{sequenceRun_.bioSampleId}}</span>
+		{{/ifContainsAnyRoles}}
+{{/inline}}

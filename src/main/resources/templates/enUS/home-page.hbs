@@ -1,0 +1,41 @@
+{{#partial "hackathon"}}
+<!--
+hackathonMission: to create an Handlebars HTML template for the Serratus home page. 
+hackathonColumn: Develop UI
+hackathonLabels: HTML, Handlebars
+-->
+{{/partial}}
+{{#partial "htmHead"}}{{> htmHeadPageLayout}}{{/partial}}
+{{#partial "htmTitle"}}
+		<title>Serratus</title>
+{{/partial}}
+{{#partial "htmMeta"}}{{> htmMetaPageLayout}}
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<meta name="keywords" content="">
+{{/partial}}
+{{#partial "htmStyle"}}{{> htmStylePageLayout}}{{/partial}}
+{{#partial "htmScripts"}}{{> htmScriptsPageLayout}}
+{{/partial}}
+{{#partial "htmScript"}}{{> htmScriptPageLayout}}
+		<script>//<![CDATA[
+		$(document).ready(function() {
+			window.eventBus = new EventBus('/eventbus');
+		});
+		//]]></script>
+{{/partial}}
+{{#partial "htmBodyStart"}}{{> htmBodyStartPageLayout}}{{/partial}}
+{{#partial "htmBodyEnd"}}{{> htmBodyEndPageLayout}}{{/partial}}
+{{#partial "htmBody"}}{{> htmBodyPageLayout}}
+	<div id='wrap'>
+
+		<div class="w3-2017-navy-peony w3-padding-64 ">
+			<div class="w3-content w3-center ">
+				<div class="row">
+					<h1>Serratus</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+{{/partial}}
+{{> PageLayout}}

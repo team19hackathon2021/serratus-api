@@ -15,7 +15,7 @@ spec:
   host: "{{ SITE_HOST_NAME_ENUS }}"
   port:
     targetPort: http
-{% if 'https://' in SITE_BASE_URL_ENUS %}
+{% if SSL_PASSTHROUGH %}
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: passthrough
