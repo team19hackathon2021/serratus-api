@@ -114,3 +114,91 @@ Setup the following variables to setup the Vert.x verticle.
 * ZOOKEEPER_PORT: 2181
 
 Click [ Apply ] and [ Debug ] to debug the application. 
+
+# Deploy serratus-api to OpenShift with Ansible
+
+To deploy serratus-api to OpenShift with Ansible, you will want to follow the instructions to install Ansible on your system first above "Install Ansible dependencies on Linux". 
+
+## Setup ~/.ansible/roles directory
+
+A default place to install Ansible roles from Ansible Galaxy is in ~/.ansible/roles. Make sure this directory exists: 
+
+```bash
+install -d ~/.ansible/roles
+```
+
+## Clone the Ansible roles for deploying the applications to OpenShift
+
+```bash
+git clone git@github.com:computate-org/computate_postgres_openshift.git ~/.ansible/roles/computate.computate_postgres_openshift
+git clone git@github.com:computate-org/computate_zookeeper_openshift.git ~/.ansible/roles/computate.computate_zookeeper_openshift
+git clone git@github.com:computate-org/computate_solr_openshift.git ~/.ansible/roles/computate.computate_solr_openshift
+git clone git@github.com:computate-org/computate_project_openshift.git ~/.ansible/roles/computate.computate_project_openshift
+```
+
+## Create an ansible vault for your OpenShift.
+
+You can create and edit an encrypted ansible vault with a password for the host secrets for your shared OpenShift inventory to deploy serratus-api.
+It will have you create a password when you save the file for the first time, like using vim to exit. 
+
+```bash
+sudo install -d -o $USER /usr/local/src/serratus-api-ansible
+install -d /usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault
+ansible-vault create /usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault
+ansible-vault edit /usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault
+```
+
+The contents of the vault will contain the secrets needed to override any default values you want to change in the app defaults defined here.
+
+https://github.com/team19hackathon2021/serratus-api/blob/main/openshift/defaults.yml
+
+Here is an example of a vault that I have used to deploy the serratus-api application. 
+You will want to update these values to reflect your OpenShift environment, like the REDHAT_OPENSHIFT_TOKEN which you will need to obtain after logging into OpenShift. 
+Or the REDHAT_OPENSHIFT_STORAGE_CLASS_NAME which might be different than gp2 for you. 
+If so, try creating a persistent volume in the UI to figure out a good storage class for your environment: 
+
+```yaml
+SITE_NAME: serratus-api
+
+REDHAT_OPENSHIFT_HOST: https://api.rh-us-east-1.openshift.com
+REDHAT_OPENSHIFT_TOKEN: OcrtrXzKNKVj0riR2FvfqORgGfnURx98G8zRPd2MUvs
+REDHAT_OPENSHIFT_NAMESPACE: rh-impact
+REDHAT_OPENSHIFT_STORAGE_CLASS_NAME: gp2
+
+POSTGRES_DB_NAME: sampledb
+POSTGRES_DB_USER: computate
+POSTGRES_DB_PASSWORD: qVTaaa23aIkLmw
+POSTGRES_VOLUME_SIZE: 1Gi
+POSTGRES_STORAGE_CLASS_NAME: gp2
+
+ZOOKEEPER_VOLUME_SIZE: 1Gi
+ZOOKEEPER_STORAGE_CLASS_NAME: gp2
+
+SOLR_VOLUME_SIZE: 2Gi
+SOLR_STORAGE_CLASS_NAME: gp2
+
+AUTH_REALM: TEAM19
+AUTH_RESOURCE: team19
+AUTH_SECRET: 0518f65a-f86d-42e8-ad65-00f46920443d
+AUTH_HOST_NAME: sso.computate.org
+AUTH_PORT: 443
+AUTH_SSL: true
+AUTH_TOKEN_URI: "/auth/realms/{{ AUTH_REALM }}/protocol/openid-connect/token"
+```
+
+## Run the Ansible automation to deploy the applications to OpenShift
+
+```bash
+
+ansible-playbook --vault-id @prompt -e @/usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_postgres_openshift/install.yml
+
+ansible-playbook --vault-id @prompt -e @/usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_zookeeper_openshift/install.yml
+
+ansible-playbook --vault-id @prompt -e @/usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_solr_openshift/install.yml
+
+ansible-playbook --vault-id @prompt -e @/usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_project_openshift/install.yml
+```
+
+## See the serratus-api application staged here in OpenShift
+
+https://serratus-api.computate.org/
