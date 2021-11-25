@@ -122,7 +122,7 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			try {
 				siteRequest.setJsonObject(body);
 
-				List<String> roles = Optional.ofNullable(config.getJsonArray(ConfigKeys.AUTH_ROLES_REQUIRED + "_SequenceRun")).orElse(new JsonArray()).getList();
+				List<String> roles = Optional.ofNullable(config.getValue(ConfigKeys.AUTH_ROLES_REQUIRED + "_SequenceRun")).map(v -> v instanceof JsonArray ? (JsonArray)v : new JsonArray(v.toString())).orElse(new JsonArray()).getList();
 				if(
 						!CollectionUtils.containsAny(siteRequest.getUserResourceRoles(), roles)
 						&& !CollectionUtils.containsAny(siteRequest.getUserRealmRoles(), roles)
@@ -255,9 +255,9 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				searchList.setStore(true);
 				searchList.setQuery("*:*");
 				searchList.setC(SequenceRun.class);
-				searchList.addFilterQuery("deleted_indexedstored_boolean:false");
-				searchList.addFilterQuery("archived_indexedstored_boolean:false");
-				searchList.addFilterQuery("inheritPk_indexedstored_string:" + ClientUtils.escapeQueryChars(body.getString("pk")));
+				searchList.addFilterQuery("deleted_docvalues_boolean:false");
+				searchList.addFilterQuery("archived_docvalues_boolean:false");
+				searchList.addFilterQuery("inheritPk_docvalues_string:" + ClientUtils.escapeQueryChars(body.getString("pk")));
 				searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
 					try {
 						if(searchList.size() >= 1) {
@@ -371,7 +371,7 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			try {
 				siteRequest.setJsonObject(body);
 
-				List<String> roles = Optional.ofNullable(config.getJsonArray(ConfigKeys.AUTH_ROLES_REQUIRED + "_SequenceRun")).orElse(new JsonArray()).getList();
+				List<String> roles = Optional.ofNullable(config.getValue(ConfigKeys.AUTH_ROLES_REQUIRED + "_SequenceRun")).map(v -> v instanceof JsonArray ? (JsonArray)v : new JsonArray(v.toString())).orElse(new JsonArray()).getList();
 				if(
 						!CollectionUtils.containsAny(siteRequest.getUserResourceRoles(), roles)
 						&& !CollectionUtils.containsAny(siteRequest.getUserRealmRoles(), roles)
@@ -711,7 +711,7 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 			try {
 				siteRequest.setJsonObject(body);
 
-				List<String> roles = Optional.ofNullable(config.getJsonArray(ConfigKeys.AUTH_ROLES_REQUIRED + "_SequenceRun")).orElse(new JsonArray()).getList();
+				List<String> roles = Optional.ofNullable(config.getValue(ConfigKeys.AUTH_ROLES_REQUIRED + "_SequenceRun")).map(v -> v instanceof JsonArray ? (JsonArray)v : new JsonArray(v.toString())).orElse(new JsonArray()).getList();
 				if(
 						!CollectionUtils.containsAny(siteRequest.getUserResourceRoles(), roles)
 						&& !CollectionUtils.containsAny(siteRequest.getUserRealmRoles(), roles)
@@ -729,7 +729,7 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				} else {
 					searchSequenceRunList(siteRequest, false, true, true).onSuccess(listSequenceRun -> {
 						try {
-							List<String> roles2 = Optional.ofNullable(config.getJsonArray(ConfigKeys.AUTH_ROLES_ADMIN)).orElse(new JsonArray()).getList();
+							List<String> roles2 = Optional.ofNullable(config.getValue(ConfigKeys.AUTH_ROLES_ADMIN)).map(v -> v instanceof JsonArray ? (JsonArray)v : new JsonArray(v.toString())).orElse(new JsonArray()).getList();
 							if(listSequenceRun.getQueryResponse().getResults().getNumFound() > 1
 									&& !CollectionUtils.containsAny(siteRequest.getUserResourceRoles(), roles2)
 									&& !CollectionUtils.containsAny(siteRequest.getUserRealmRoles(), roles2)
@@ -1223,7 +1223,7 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				JsonObject facetFieldsJson = new JsonObject();
 				json.put("facet_fields", facetFieldsJson);
 				for(FacetField facetField : facetFields) {
-					String facetFieldVar = StringUtils.substringBefore(facetField.getName(), "_indexedstored_");
+					String facetFieldVar = StringUtils.substringBefore(facetField.getName(), "_docvalues_");
 					JsonObject facetFieldCounts = new JsonObject();
 					facetFieldsJson.put(facetFieldVar, facetFieldCounts);
 					List<FacetField.Count> facetFieldValues = facetField.getValues();
@@ -1240,7 +1240,7 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				json.put("facet_ranges", rangeJson);
 				for(RangeFacet rangeFacet : facetRanges) {
 					JsonObject rangeFacetJson = new JsonObject();
-					String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_indexedstored_");
+					String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
 					rangeJson.put(rangeFacetVar, rangeFacetJson);
 					JsonObject rangeFacetCountsMap = new JsonObject();
 					rangeFacetJson.put("counts", rangeFacetCountsMap);
@@ -1264,7 +1264,7 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 					String[] entityVars = new String[varsIndexed.length];
 					for(Integer i = 0; i < entityVars.length; i++) {
 						String entityIndexed = varsIndexed[i];
-						entityVars[i] = StringUtils.substringBefore(entityIndexed, "_indexedstored_");
+						entityVars[i] = StringUtils.substringBefore(entityIndexed, "_docvalues_");
 					}
 					JsonArray pivotArray = new JsonArray();
 					facetPivotJson.put(StringUtils.join(entityVars, ","), pivotArray);
@@ -1284,7 +1284,7 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 	public void responsePivotSearchSequenceRun(List<PivotField> pivotFields, JsonArray pivotArray) {
 		for(PivotField pivotField : pivotFields) {
 			String entityIndexed = pivotField.getField();
-			String entityVar = StringUtils.substringBefore(entityIndexed, "_indexedstored_");
+			String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
 			JsonObject pivotJson = new JsonObject();
 			pivotArray.add(pivotJson);
 			pivotJson.put("field", entityVar);
@@ -1297,7 +1297,7 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				pivotJson.put("ranges", rangeJson);
 				for(RangeFacet rangeFacet : pivotRanges) {
 					JsonObject rangeFacetJson = new JsonObject();
-					String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_indexedstored_");
+					String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
 					rangeJson.put(rangeFacetVar, rangeFacetJson);
 					JsonObject rangeFacetCountsObject = new JsonObject();
 					rangeFacetJson.put("counts", rangeFacetCountsObject);
@@ -1364,7 +1364,7 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 	public void searchpageSequenceRunPageInit(SequenceRunPage page, SearchList<SequenceRun> listSequenceRun) {
 	}
 	public String templateSearchPageSequenceRun() {
-		return config.getString(ConfigKeys.TEMPLATE_PATH) + "/enUS/SequenceRunPage";
+		return Optional.ofNullable(config.getString(ConfigKeys.TEMPLATE_PATH)).orElse("templates") + "/enUS/SequenceRunPage";
 	}
 	public Future<ServiceResponse> response200SearchPageSequenceRun(SearchList<SequenceRun> listSequenceRun) {
 		Promise<ServiceResponse> promise = Promise.promise();
@@ -1515,9 +1515,9 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 
 			String id = serviceRequest.getParams().getJsonObject("path").getString("id");
 			if(id != null && NumberUtils.isCreatable(id)) {
-				searchList.addFilterQuery("(pk_indexedstored_long:" + ClientUtils.escapeQueryChars(id) + " OR objectId_indexedstored_string:" + ClientUtils.escapeQueryChars(id) + ")");
+				searchList.addFilterQuery("(pk_docvalues_long:" + ClientUtils.escapeQueryChars(id) + " OR objectId_docvalues_string:" + ClientUtils.escapeQueryChars(id) + ")");
 			} else if(id != null) {
-				searchList.addFilterQuery("objectId_indexedstored_string:" + ClientUtils.escapeQueryChars(id));
+				searchList.addFilterQuery("objectId_docvalues_string:" + ClientUtils.escapeQueryChars(id));
 			}
 
 			serviceRequest.getParams().getJsonObject("query").forEach(paramRequest -> {
@@ -1648,7 +1648,7 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 				}
 			});
 			if("*:*".equals(searchList.getQuery()) && searchList.getSorts().size() == 0) {
-				searchList.addSort("created_indexedstored_date", ORDER.desc);
+				searchList.addSort("created_docvalues_date", ORDER.desc);
 			}
 			searchSequenceRun2(siteRequest, populate, store, modify, searchList);
 			searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {

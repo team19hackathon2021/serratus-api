@@ -1,9 +1,9 @@
 {{#*inline "htmTitleBaseModelPage"}}		<!-- inline "htmTitleBaseModelPage" -->
 		<title>{{#if searchListBaseModel_}}{{#eq baseModelCount int1}}{{#eq params.query.q "*:*"}}{{else}}{{/eq}}{{else}}{{/eq}}{{else}}{{/if}}</title>
 {{/inline}}
-{{#*inline "htmMetaBaseModelPage"}}{{> "htmMeta"}}{{/inline}}
-{{#*inline "htmStyleBaseModelPage"}}{{> "htmStyle"}}{{/inline}}
-{{#*inline "htmScriptsBaseModelPage"}}{{> "htmScripts"}}		<!-- inline "htmScriptsBaseModelPage" -->
+{{#*inline "htmMetaBaseModelPage"}}{{> "htmMetaPageLayout"}}{{/inline}}
+{{#*inline "htmStyleBaseModelPage"}}{{> "htmStylePageLayout"}}{{/inline}}
+{{#*inline "htmScriptsBaseModelPage"}}{{> "htmScriptsPageLayout"}}		<!-- inline "htmScriptsBaseModelPage" -->
 		<script src="{{staticBaseUrl}}/js/enUS/BaseModelPage.js"></script>
 {{/inline}}
 {{#*inline "htmScriptBaseModelPage"}}		<!-- inline "htmScriptBaseModelPage" -->
@@ -153,10 +153,10 @@
 	{{/if}}
 {{/inline}}
 {{#*inline "htmBodyStartBaseModelPage"}}
-{{> "htmBodyStart"}}
+{{> "htmBodyStartPageLayout"}}
 {{/inline}}
 {{#*inline "htmBodyEndBaseModelPage"}}
-{{> "htmBodyEnd"}}
+{{> "htmBodyEndPageLayout"}}
 {{/inline}}
 {{#*inline "htmBodyBaseModelPage"}}
 {{#block "htmBodyStart"}}{{/block}}
@@ -207,7 +207,7 @@
 			<tr>
 					<td>
 						<a href="{{pageUrlPk}}">
-							<span class="white-space-pre-wrap ">{{created}}</span>
+							<span class="white-space-pre-wrap ">{{siteZonedDateTimeFormat created "yyyy-MM-dd'T'HH:mm:ss.SSS'['VV']'" siteLocale}}</span>
 						</a>
 					</td>
 					<td>
@@ -301,7 +301,7 @@
 				</a>
 			</div>
 {{/inline}}
-{{> }}
+{{> PageLayout}}
 
 {{#*inline "htmPk"}}
 								<div class="w3-cell w3-cell-top w3-center w3-mobile ">
@@ -470,14 +470,14 @@
 															id="{{classApiMethodMethod}}_archived"
 	{{/eq}}
 	{{#eq 'Page' classApiMethodMethod}}
-															class="setArchived classBaseModel inputBaseModel{{pk}}Archived w3-input w3-border "
+															class="classBaseModel inputBaseModel{{pk}}Archived w3-input w3-border "
 															name="setArchived"
 	{{else}}
 		{{#eq 'Page' classApiMethodMethod}}
-																class="setArchived classBaseModel inputBaseModel{{pk}}Archived w3-input w3-border "
+																class="classBaseModel inputBaseModel{{pk}}Archived w3-input w3-border "
 																name="setArchived"
 		{{else}}
-																class="valueArchived classBaseModel inputBaseModel{{pk}}Archived w3-input w3-border "
+																class="setArchived valueArchived classBaseModel inputBaseModel{{pk}}Archived w3-input w3-border "
 																name="setArchived"
 		{{/eq}}
 	{{/eq}}
@@ -529,14 +529,14 @@
 															id="{{classApiMethodMethod}}_deleted"
 	{{/eq}}
 	{{#eq 'Page' classApiMethodMethod}}
-															class="setDeleted classBaseModel inputBaseModel{{pk}}Deleted w3-input w3-border "
+															class="classBaseModel inputBaseModel{{pk}}Deleted w3-input w3-border "
 															name="setDeleted"
 	{{else}}
 		{{#eq 'Page' classApiMethodMethod}}
-																class="setDeleted classBaseModel inputBaseModel{{pk}}Deleted w3-input w3-border "
+																class="classBaseModel inputBaseModel{{pk}}Deleted w3-input w3-border "
 																name="setDeleted"
 		{{else}}
-																class="valueDeleted classBaseModel inputBaseModel{{pk}}Deleted w3-input w3-border "
+																class="setDeleted valueDeleted classBaseModel inputBaseModel{{pk}}Deleted w3-input w3-border "
 																name="setDeleted"
 		{{/eq}}
 	{{/eq}}

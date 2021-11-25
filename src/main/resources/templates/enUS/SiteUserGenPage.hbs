@@ -221,10 +221,6 @@ hackathonLabels: HTML,Handlebars
 {{> "htmDeleted" classApiMethodMethod="POST"}}
 							</div>
 						</div>
-						<button
-							class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-margin w3-gray "
-							onclick="postSiteUser($('#postSiteUserForm')); "
-							>Create a site user</button>
 					</div>
 				</div>
 			</div>
@@ -253,10 +249,6 @@ hackathonLabels: HTML,Handlebars
 {{> "htmDeleted" classApiMethodMethod="Page"}}
 							</div>
 						</div>
-						<button
-							class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-margin w3-gray "
-							onclick="searchpageSiteUser(); "
-							></button>
 					</div>
 				</div>
 			</div>
@@ -317,7 +309,7 @@ hackathonLabels: HTML,Handlebars
 			<tr>
 					<td>
 						<a href="{{pageUrlPk}}">
-							<span class="white-space-pre-wrap ">{{created}}</span>
+							<span class="white-space-pre-wrap ">{{siteZonedDateTimeFormat created "yyyy-MM-dd'T'HH:mm:ss.SSS'['VV']'" siteLocale}}</span>
 						</a>
 					</td>
 					<td>

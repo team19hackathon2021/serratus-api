@@ -274,6 +274,104 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	}
 
 	/////////////
+	// authUrl //
+	/////////////
+
+	/**	 The entity authUrl
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String authUrl;
+
+	/**	<br/> The entity authUrl
+	 *  is defined as null before being initialized. 
+	 * <br/><a href="http://localhost:8983/solr/computate/select?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:io.serratus.api.enus.page.PageLayout&fq=classeEtendGen_indexed_boolean:true&fq=entiteVar_enUS_indexed_string:authUrl">Find the entity authUrl in Solr</a>
+	 * <br/>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _authUrl(Wrap<String> w);
+
+	public String getAuthUrl() {
+		return authUrl;
+	}
+	public void setAuthUrl(String o) {
+		this.authUrl = PageLayout.staticSetAuthUrl(siteRequest_, o);
+	}
+	public static String staticSetAuthUrl(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+	protected PageLayout authUrlInit() {
+		Wrap<String> authUrlWrap = new Wrap<String>().var("authUrl");
+		if(authUrl == null) {
+			_authUrl(authUrlWrap);
+			setAuthUrl(authUrlWrap.o);
+		}
+		return (PageLayout)this;
+	}
+
+	public static String staticSolrAuthUrl(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSolrStrAuthUrl(SiteRequestEnUS siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSolrFqAuthUrl(SiteRequestEnUS siteRequest_, String o) {
+		return PageLayout.staticSolrStrAuthUrl(siteRequest_, PageLayout.staticSolrAuthUrl(siteRequest_, PageLayout.staticSetAuthUrl(siteRequest_, o)));
+	}
+
+	///////////////
+	// authRealm //
+	///////////////
+
+	/**	 The entity authRealm
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String authRealm;
+
+	/**	<br/> The entity authRealm
+	 *  is defined as null before being initialized. 
+	 * <br/><a href="http://localhost:8983/solr/computate/select?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:io.serratus.api.enus.page.PageLayout&fq=classeEtendGen_indexed_boolean:true&fq=entiteVar_enUS_indexed_string:authRealm">Find the entity authRealm in Solr</a>
+	 * <br/>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _authRealm(Wrap<String> w);
+
+	public String getAuthRealm() {
+		return authRealm;
+	}
+	public void setAuthRealm(String o) {
+		this.authRealm = PageLayout.staticSetAuthRealm(siteRequest_, o);
+	}
+	public static String staticSetAuthRealm(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+	protected PageLayout authRealmInit() {
+		Wrap<String> authRealmWrap = new Wrap<String>().var("authRealm");
+		if(authRealm == null) {
+			_authRealm(authRealmWrap);
+			setAuthRealm(authRealmWrap.o);
+		}
+		return (PageLayout)this;
+	}
+
+	public static String staticSolrAuthRealm(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSolrStrAuthRealm(SiteRequestEnUS siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSolrFqAuthRealm(SiteRequestEnUS siteRequest_, String o) {
+		return PageLayout.staticSolrStrAuthRealm(siteRequest_, PageLayout.staticSolrAuthRealm(siteRequest_, PageLayout.staticSetAuthRealm(siteRequest_, o)));
+	}
+
+	/////////////
 	// pageUri //
 	/////////////
 
@@ -406,6 +504,259 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			setParams(paramsWrap.o);
 		}
 		return (PageLayout)this;
+	}
+
+	/////////////
+	// userKey //
+	/////////////
+
+	/**	 The entity userKey
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonSerialize(using = ToStringSerializer.class)
+	@JsonInclude(Include.NON_NULL)
+	protected Long userKey;
+
+	/**	<br/> The entity userKey
+	 *  is defined as null before being initialized. 
+	 * <br/><a href="http://localhost:8983/solr/computate/select?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:io.serratus.api.enus.page.PageLayout&fq=classeEtendGen_indexed_boolean:true&fq=entiteVar_enUS_indexed_string:userKey">Find the entity userKey in Solr</a>
+	 * <br/>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _userKey(Wrap<Long> w);
+
+	public Long getUserKey() {
+		return userKey;
+	}
+
+	public void setUserKey(Long userKey) {
+		this.userKey = userKey;
+	}
+	@JsonIgnore
+	public void setUserKey(String o) {
+		this.userKey = PageLayout.staticSetUserKey(siteRequest_, o);
+	}
+	public static Long staticSetUserKey(SiteRequestEnUS siteRequest_, String o) {
+		if(NumberUtils.isParsable(o))
+			return Long.parseLong(o);
+		return null;
+	}
+	protected PageLayout userKeyInit() {
+		Wrap<Long> userKeyWrap = new Wrap<Long>().var("userKey");
+		if(userKey == null) {
+			_userKey(userKeyWrap);
+			setUserKey(userKeyWrap.o);
+		}
+		return (PageLayout)this;
+	}
+
+	public static Long staticSolrUserKey(SiteRequestEnUS siteRequest_, Long o) {
+		return o;
+	}
+
+	public static String staticSolrStrUserKey(SiteRequestEnUS siteRequest_, Long o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSolrFqUserKey(SiteRequestEnUS siteRequest_, String o) {
+		return PageLayout.staticSolrStrUserKey(siteRequest_, PageLayout.staticSolrUserKey(siteRequest_, PageLayout.staticSetUserKey(siteRequest_, o)));
+	}
+
+	//////////////////
+	// userFullName //
+	//////////////////
+
+	/**	 The entity userFullName
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String userFullName;
+
+	/**	<br/> The entity userFullName
+	 *  is defined as null before being initialized. 
+	 * <br/><a href="http://localhost:8983/solr/computate/select?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:io.serratus.api.enus.page.PageLayout&fq=classeEtendGen_indexed_boolean:true&fq=entiteVar_enUS_indexed_string:userFullName">Find the entity userFullName in Solr</a>
+	 * <br/>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _userFullName(Wrap<String> w);
+
+	public String getUserFullName() {
+		return userFullName;
+	}
+	public void setUserFullName(String o) {
+		this.userFullName = PageLayout.staticSetUserFullName(siteRequest_, o);
+	}
+	public static String staticSetUserFullName(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+	protected PageLayout userFullNameInit() {
+		Wrap<String> userFullNameWrap = new Wrap<String>().var("userFullName");
+		if(userFullName == null) {
+			_userFullName(userFullNameWrap);
+			setUserFullName(userFullNameWrap.o);
+		}
+		return (PageLayout)this;
+	}
+
+	public static String staticSolrUserFullName(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSolrStrUserFullName(SiteRequestEnUS siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSolrFqUserFullName(SiteRequestEnUS siteRequest_, String o) {
+		return PageLayout.staticSolrStrUserFullName(siteRequest_, PageLayout.staticSolrUserFullName(siteRequest_, PageLayout.staticSetUserFullName(siteRequest_, o)));
+	}
+
+	//////////////
+	// userName //
+	//////////////
+
+	/**	 The entity userName
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String userName;
+
+	/**	<br/> The entity userName
+	 *  is defined as null before being initialized. 
+	 * <br/><a href="http://localhost:8983/solr/computate/select?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:io.serratus.api.enus.page.PageLayout&fq=classeEtendGen_indexed_boolean:true&fq=entiteVar_enUS_indexed_string:userName">Find the entity userName in Solr</a>
+	 * <br/>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _userName(Wrap<String> w);
+
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String o) {
+		this.userName = PageLayout.staticSetUserName(siteRequest_, o);
+	}
+	public static String staticSetUserName(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+	protected PageLayout userNameInit() {
+		Wrap<String> userNameWrap = new Wrap<String>().var("userName");
+		if(userName == null) {
+			_userName(userNameWrap);
+			setUserName(userNameWrap.o);
+		}
+		return (PageLayout)this;
+	}
+
+	public static String staticSolrUserName(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSolrStrUserName(SiteRequestEnUS siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSolrFqUserName(SiteRequestEnUS siteRequest_, String o) {
+		return PageLayout.staticSolrStrUserName(siteRequest_, PageLayout.staticSolrUserName(siteRequest_, PageLayout.staticSetUserName(siteRequest_, o)));
+	}
+
+	///////////////
+	// userEmail //
+	///////////////
+
+	/**	 The entity userEmail
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String userEmail;
+
+	/**	<br/> The entity userEmail
+	 *  is defined as null before being initialized. 
+	 * <br/><a href="http://localhost:8983/solr/computate/select?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:io.serratus.api.enus.page.PageLayout&fq=classeEtendGen_indexed_boolean:true&fq=entiteVar_enUS_indexed_string:userEmail">Find the entity userEmail in Solr</a>
+	 * <br/>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _userEmail(Wrap<String> w);
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String o) {
+		this.userEmail = PageLayout.staticSetUserEmail(siteRequest_, o);
+	}
+	public static String staticSetUserEmail(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+	protected PageLayout userEmailInit() {
+		Wrap<String> userEmailWrap = new Wrap<String>().var("userEmail");
+		if(userEmail == null) {
+			_userEmail(userEmailWrap);
+			setUserEmail(userEmailWrap.o);
+		}
+		return (PageLayout)this;
+	}
+
+	public static String staticSolrUserEmail(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSolrStrUserEmail(SiteRequestEnUS siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSolrFqUserEmail(SiteRequestEnUS siteRequest_, String o) {
+		return PageLayout.staticSolrStrUserEmail(siteRequest_, PageLayout.staticSolrUserEmail(siteRequest_, PageLayout.staticSetUserEmail(siteRequest_, o)));
+	}
+
+	///////////////
+	// logoutUrl //
+	///////////////
+
+	/**	 The entity logoutUrl
+	 *	 is defined as null before being initialized. 
+	 */
+	@JsonProperty
+	@JsonInclude(Include.NON_NULL)
+	protected String logoutUrl;
+
+	/**	<br/> The entity logoutUrl
+	 *  is defined as null before being initialized. 
+	 * <br/><a href="http://localhost:8983/solr/computate/select?q=*:*&fq=partEstEntite_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:io.serratus.api.enus.page.PageLayout&fq=classeEtendGen_indexed_boolean:true&fq=entiteVar_enUS_indexed_string:logoutUrl">Find the entity logoutUrl in Solr</a>
+	 * <br/>
+	 * @param w is for wrapping a value to assign to this entity during initialization. 
+	 **/
+	protected abstract void _logoutUrl(Wrap<String> w);
+
+	public String getLogoutUrl() {
+		return logoutUrl;
+	}
+	public void setLogoutUrl(String o) {
+		this.logoutUrl = PageLayout.staticSetLogoutUrl(siteRequest_, o);
+	}
+	public static String staticSetLogoutUrl(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+	protected PageLayout logoutUrlInit() {
+		Wrap<String> logoutUrlWrap = new Wrap<String>().var("logoutUrl");
+		if(logoutUrl == null) {
+			_logoutUrl(logoutUrlWrap);
+			setLogoutUrl(logoutUrlWrap.o);
+		}
+		return (PageLayout)this;
+	}
+
+	public static String staticSolrLogoutUrl(SiteRequestEnUS siteRequest_, String o) {
+		return o;
+	}
+
+	public static String staticSolrStrLogoutUrl(SiteRequestEnUS siteRequest_, String o) {
+		return o == null ? null : o.toString();
+	}
+
+	public static String staticSolrFqLogoutUrl(SiteRequestEnUS siteRequest_, String o) {
+		return PageLayout.staticSolrStrLogoutUrl(siteRequest_, PageLayout.staticSolrLogoutUrl(siteRequest_, PageLayout.staticSetLogoutUrl(siteRequest_, o)));
 	}
 
 	///////////
@@ -1259,9 +1610,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 				requestZoneIdInit();
 				requestLocaleIdInit();
 				staticBaseUrlInit();
+				authUrlInit();
+				authRealmInit();
 				pageUriInit();
 				pageMethodInit();
 				paramsInit();
+				userKeyInit();
+				userFullNameInit();
+				userNameInit();
+				userEmailInit();
+				logoutUrlInit();
 				long0Init();
 				long1Init();
 				int0Init();
@@ -1370,12 +1728,26 @@ public abstract class PageLayoutGen<DEV> extends Object {
 				return oPageLayout.requestLocaleId;
 			case "staticBaseUrl":
 				return oPageLayout.staticBaseUrl;
+			case "authUrl":
+				return oPageLayout.authUrl;
+			case "authRealm":
+				return oPageLayout.authRealm;
 			case "pageUri":
 				return oPageLayout.pageUri;
 			case "pageMethod":
 				return oPageLayout.pageMethod;
 			case "params":
 				return oPageLayout.params;
+			case "userKey":
+				return oPageLayout.userKey;
+			case "userFullName":
+				return oPageLayout.userFullName;
+			case "userName":
+				return oPageLayout.userName;
+			case "userEmail":
+				return oPageLayout.userEmail;
+			case "logoutUrl":
+				return oPageLayout.logoutUrl;
 			case "long0":
 				return oPageLayout.long0;
 			case "long1":
@@ -1453,10 +1825,24 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSetRequestLocaleId(siteRequest_, o);
 		case "staticBaseUrl":
 			return PageLayout.staticSetStaticBaseUrl(siteRequest_, o);
+		case "authUrl":
+			return PageLayout.staticSetAuthUrl(siteRequest_, o);
+		case "authRealm":
+			return PageLayout.staticSetAuthRealm(siteRequest_, o);
 		case "pageUri":
 			return PageLayout.staticSetPageUri(siteRequest_, o);
 		case "pageMethod":
 			return PageLayout.staticSetPageMethod(siteRequest_, o);
+		case "userKey":
+			return PageLayout.staticSetUserKey(siteRequest_, o);
+		case "userFullName":
+			return PageLayout.staticSetUserFullName(siteRequest_, o);
+		case "userName":
+			return PageLayout.staticSetUserName(siteRequest_, o);
+		case "userEmail":
+			return PageLayout.staticSetUserEmail(siteRequest_, o);
+		case "logoutUrl":
+			return PageLayout.staticSetLogoutUrl(siteRequest_, o);
 		case "long0":
 			return PageLayout.staticSetLong0(siteRequest_, o);
 		case "long1":
@@ -1501,10 +1887,24 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSolrRequestLocaleId(siteRequest_, (String)o);
 		case "staticBaseUrl":
 			return PageLayout.staticSolrStaticBaseUrl(siteRequest_, (String)o);
+		case "authUrl":
+			return PageLayout.staticSolrAuthUrl(siteRequest_, (String)o);
+		case "authRealm":
+			return PageLayout.staticSolrAuthRealm(siteRequest_, (String)o);
 		case "pageUri":
 			return PageLayout.staticSolrPageUri(siteRequest_, (String)o);
 		case "pageMethod":
 			return PageLayout.staticSolrPageMethod(siteRequest_, (String)o);
+		case "userKey":
+			return PageLayout.staticSolrUserKey(siteRequest_, (Long)o);
+		case "userFullName":
+			return PageLayout.staticSolrUserFullName(siteRequest_, (String)o);
+		case "userName":
+			return PageLayout.staticSolrUserName(siteRequest_, (String)o);
+		case "userEmail":
+			return PageLayout.staticSolrUserEmail(siteRequest_, (String)o);
+		case "logoutUrl":
+			return PageLayout.staticSolrLogoutUrl(siteRequest_, (String)o);
 		case "long0":
 			return PageLayout.staticSolrLong0(siteRequest_, (Long)o);
 		case "long1":
@@ -1549,10 +1949,24 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSolrStrRequestLocaleId(siteRequest_, (String)o);
 		case "staticBaseUrl":
 			return PageLayout.staticSolrStrStaticBaseUrl(siteRequest_, (String)o);
+		case "authUrl":
+			return PageLayout.staticSolrStrAuthUrl(siteRequest_, (String)o);
+		case "authRealm":
+			return PageLayout.staticSolrStrAuthRealm(siteRequest_, (String)o);
 		case "pageUri":
 			return PageLayout.staticSolrStrPageUri(siteRequest_, (String)o);
 		case "pageMethod":
 			return PageLayout.staticSolrStrPageMethod(siteRequest_, (String)o);
+		case "userKey":
+			return PageLayout.staticSolrStrUserKey(siteRequest_, (Long)o);
+		case "userFullName":
+			return PageLayout.staticSolrStrUserFullName(siteRequest_, (String)o);
+		case "userName":
+			return PageLayout.staticSolrStrUserName(siteRequest_, (String)o);
+		case "userEmail":
+			return PageLayout.staticSolrStrUserEmail(siteRequest_, (String)o);
+		case "logoutUrl":
+			return PageLayout.staticSolrStrLogoutUrl(siteRequest_, (String)o);
 		case "long0":
 			return PageLayout.staticSolrStrLong0(siteRequest_, (Long)o);
 		case "long1":
@@ -1597,10 +2011,24 @@ public abstract class PageLayoutGen<DEV> extends Object {
 			return PageLayout.staticSolrFqRequestLocaleId(siteRequest_, o);
 		case "staticBaseUrl":
 			return PageLayout.staticSolrFqStaticBaseUrl(siteRequest_, o);
+		case "authUrl":
+			return PageLayout.staticSolrFqAuthUrl(siteRequest_, o);
+		case "authRealm":
+			return PageLayout.staticSolrFqAuthRealm(siteRequest_, o);
 		case "pageUri":
 			return PageLayout.staticSolrFqPageUri(siteRequest_, o);
 		case "pageMethod":
 			return PageLayout.staticSolrFqPageMethod(siteRequest_, o);
+		case "userKey":
+			return PageLayout.staticSolrFqUserKey(siteRequest_, o);
+		case "userFullName":
+			return PageLayout.staticSolrFqUserFullName(siteRequest_, o);
+		case "userName":
+			return PageLayout.staticSolrFqUserName(siteRequest_, o);
+		case "userEmail":
+			return PageLayout.staticSolrFqUserEmail(siteRequest_, o);
+		case "logoutUrl":
+			return PageLayout.staticSolrFqLogoutUrl(siteRequest_, o);
 		case "long0":
 			return PageLayout.staticSolrFqLong0(siteRequest_, o);
 		case "long1":
@@ -1682,9 +2110,16 @@ public abstract class PageLayoutGen<DEV> extends Object {
 	public static final String VAR_requestZoneId = "requestZoneId";
 	public static final String VAR_requestLocaleId = "requestLocaleId";
 	public static final String VAR_staticBaseUrl = "staticBaseUrl";
+	public static final String VAR_authUrl = "authUrl";
+	public static final String VAR_authRealm = "authRealm";
 	public static final String VAR_pageUri = "pageUri";
 	public static final String VAR_pageMethod = "pageMethod";
 	public static final String VAR_params = "params";
+	public static final String VAR_userKey = "userKey";
+	public static final String VAR_userFullName = "userFullName";
+	public static final String VAR_userName = "userName";
+	public static final String VAR_userEmail = "userEmail";
+	public static final String VAR_logoutUrl = "logoutUrl";
 	public static final String VAR_long0 = "long0";
 	public static final String VAR_long1 = "long1";
 	public static final String VAR_int0 = "int0";

@@ -72,53 +72,17 @@ CREATE TABLE SequenceRun(
 	, projectId text
 	, bioSampleId text
 	);
-CREATE TABLE Taxonomy(
-	pk bigserial primary key
-	, inheritPk text
-	, created timestamp with time zone
-	, archived boolean
-	, deleted boolean
-	, sessionId text
-	, userKey bigint
-	, taxonomyId text
-	, taxonomyName text
-	, taxonomyUniqueName text
-	, taxonomyNameClass text
-	);
-CREATE TABLE BioSample(
-	pk bigserial primary key
-	, inheritPk text
-	, created timestamp with time zone
-	, archived boolean
-	, deleted boolean
-	, sessionId text
-	, userKey bigint
-	, bioSampleId text
-	, bioSampleIsolate text
-	, bioSampleHost text
-	, bioSampleLabHost text
-	, bioSampleIsolationSource text
-	, bioSampleGeographicLocation text
-	, bioSampleLatitudeLongitude text
-	, bioSampleReferenceForBioMaterial text
-	, bioSampleMaterialProcessing text
-	, bioSampleMaterialIdentifiers text
-	, bioSampleDisease text
-	, bioSampleHostTissueSampled text
-	, bioSampleCollectedBy text
-	, taxonomyId text
-	, taxonomyName text
-	, taxonomyUniqueName text
-	, taxonomyNameClass text
-	);
 
 DROP TABLE SiteUser CASCADE;
 DROP TABLE SequenceRun CASCADE;
-DROP TABLE Taxonomy CASCADE;
-DROP TABLE BioSample CASCADE;
 */
 
 	protected static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
+	public static final String configureConfigComplete1 = "The config was configured successfully. ";
+	public static final String configureConfigComplete = configureConfigComplete1;
+	public static final String configureConfigFail1 = "Could not configure the config(). ";
+	public static final String configureConfigFail = configureConfigFail1;
+
 	public static final String configureDataConnectionError1 = "Could not open the database client connection. ";
 	public static final String configureDataConnectionError = configureDataConnectionError1;
 	public static final String configureDataConnectionSuccess1 = "The database client connection was successful. ";
@@ -351,6 +315,6 @@ DROP TABLE BioSample CASCADE;
 		return sb.toString();
 	}
 
-	public static final String[] MainVerticleVals = new String[] { configureDataConnectionError1, configureDataConnectionSuccess1, configureDataInitError1, configureDataInitSuccess1, configureOpenApiError1, configureOpenApiSuccess1, configureSharedWorkerExecutorFail1, configureSharedWorkerExecutorComplete1, configureHealthChecksComplete1, configureHealthChecksFail1, configureHealthChecksErrorDatabase1, configureHealthChecksEmptySolr1, configureHealthChecksErrorSolr1, configureHealthChecksErrorVertx1, configureWebsocketsComplete1, configureWebsocketsFail1, configureEmailComplete1, configureEmailFail1, configureApiFail1, configureApiComplete1, configureUiFail1, configureUiComplete1, startServerErrorServer1, startServerSuccessServer1, startServerBeforeServer1, startServerSsl1, stopFail1, stopComplete1 };
+	public static final String[] MainVerticleVals = new String[] { configureConfigComplete1, configureConfigFail1, configureDataConnectionError1, configureDataConnectionSuccess1, configureDataInitError1, configureDataInitSuccess1, configureOpenApiError1, configureOpenApiSuccess1, configureSharedWorkerExecutorFail1, configureSharedWorkerExecutorComplete1, configureHealthChecksComplete1, configureHealthChecksFail1, configureHealthChecksErrorDatabase1, configureHealthChecksEmptySolr1, configureHealthChecksErrorSolr1, configureHealthChecksErrorVertx1, configureWebsocketsComplete1, configureWebsocketsFail1, configureEmailComplete1, configureEmailFail1, configureApiFail1, configureApiComplete1, configureUiFail1, configureUiComplete1, startServerErrorServer1, startServerSuccessServer1, startServerBeforeServer1, startServerSsl1, stopFail1, stopComplete1 };
 
 }

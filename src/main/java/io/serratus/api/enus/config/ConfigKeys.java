@@ -56,7 +56,7 @@ public class ConfigKeys {
 	/**
 	 * The path to the project of the site cloned from git. 
 	 **/
-	public static final String APP_PATH = "APP_PATH";
+	public static final String SITE_PATH = "SITE_PATH";
 
 	/**
 	 * The path to the basic authentication properties file with users and passwords. 

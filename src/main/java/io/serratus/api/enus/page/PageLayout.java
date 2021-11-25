@@ -1,11 +1,14 @@
 package io.serratus.api.enus.page; 
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import io.serratus.api.enus.config.ConfigKeys;
 import io.serratus.api.enus.request.SiteRequestEnUS;
@@ -44,6 +47,14 @@ public class PageLayout extends PageLayoutGen<Object> {
 		w.o(siteRequest_.getConfig().getString(ConfigKeys.STATIC_BASE_URL));
 	}
 
+	protected void _authUrl(Wrap<String> w) {
+		w.o(siteRequest_.getConfig().getString(ConfigKeys.AUTH_URL));
+	}
+
+	protected void _authRealm(Wrap<String> w) {
+		w.o(siteRequest_.getConfig().getString(ConfigKeys.AUTH_REALM));
+	}
+
 	protected void _pageUri(Wrap<String> w) {
 		w.o(serviceRequest.getExtra().getString("uri"));
 	}
@@ -54,6 +65,31 @@ public class PageLayout extends PageLayoutGen<Object> {
 
 	protected void _params(Wrap<JsonObject> w) {
 		w.o(serviceRequest.getParams());
+	}
+
+	protected void _userKey(Wrap<Long> w) {
+		w.o(siteRequest_.getUserKey());
+	}
+
+	protected void _userFullName(Wrap<String> w) {
+		w.o(siteRequest_.getUserFullName());
+	}
+
+	protected void _userName(Wrap<String> w) {
+		w.o(siteRequest_.getUserFullName());
+	}
+
+	protected void _userEmail(Wrap<String> w) {
+		w.o(siteRequest_.getUserEmail());
+	}
+
+	protected void _logoutUrl(Wrap<String> w) {
+		JsonObject config = siteRequest_.getConfig();
+		try {
+			w.o(config.getString(ConfigKeys.AUTH_URL) + "/realms/" + config.getString(ConfigKeys.AUTH_REALM) + "/protocol/openid-connect/logout?redirect_uri=" + URLEncoder.encode(config.getString(ConfigKeys.SITE_BASE_URL) + "/logout", "UTF-8"));
+		} catch (UnsupportedEncodingException ex) {
+			ExceptionUtils.rethrow(ex);
+		}
 	}
 
 	protected void _long0(Wrap<Long> w) {

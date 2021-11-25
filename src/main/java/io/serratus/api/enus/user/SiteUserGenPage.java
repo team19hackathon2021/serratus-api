@@ -11,7 +11,6 @@ import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.serratus.api.enus.search.SearchList;
 import io.serratus.api.enus.wrap.Wrap;
-import io.serratus.api.enus.page.PageLayout;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.LocalDate;

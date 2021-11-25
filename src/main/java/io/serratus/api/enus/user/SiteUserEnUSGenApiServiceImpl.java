@@ -210,7 +210,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				JsonObject facetFieldsJson = new JsonObject();
 				json.put("facet_fields", facetFieldsJson);
 				for(FacetField facetField : facetFields) {
-					String facetFieldVar = StringUtils.substringBefore(facetField.getName(), "_indexedstored_");
+					String facetFieldVar = StringUtils.substringBefore(facetField.getName(), "_docvalues_");
 					JsonObject facetFieldCounts = new JsonObject();
 					facetFieldsJson.put(facetFieldVar, facetFieldCounts);
 					List<FacetField.Count> facetFieldValues = facetField.getValues();
@@ -227,7 +227,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				json.put("facet_ranges", rangeJson);
 				for(RangeFacet rangeFacet : facetRanges) {
 					JsonObject rangeFacetJson = new JsonObject();
-					String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_indexedstored_");
+					String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
 					rangeJson.put(rangeFacetVar, rangeFacetJson);
 					JsonObject rangeFacetCountsMap = new JsonObject();
 					rangeFacetJson.put("counts", rangeFacetCountsMap);
@@ -251,7 +251,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 					String[] entityVars = new String[varsIndexed.length];
 					for(Integer i = 0; i < entityVars.length; i++) {
 						String entityIndexed = varsIndexed[i];
-						entityVars[i] = StringUtils.substringBefore(entityIndexed, "_indexedstored_");
+						entityVars[i] = StringUtils.substringBefore(entityIndexed, "_docvalues_");
 					}
 					JsonArray pivotArray = new JsonArray();
 					facetPivotJson.put(StringUtils.join(entityVars, ","), pivotArray);
@@ -271,7 +271,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 	public void responsePivotSearchSiteUser(List<PivotField> pivotFields, JsonArray pivotArray) {
 		for(PivotField pivotField : pivotFields) {
 			String entityIndexed = pivotField.getField();
-			String entityVar = StringUtils.substringBefore(entityIndexed, "_indexedstored_");
+			String entityVar = StringUtils.substringBefore(entityIndexed, "_docvalues_");
 			JsonObject pivotJson = new JsonObject();
 			pivotArray.add(pivotJson);
 			pivotJson.put("field", entityVar);
@@ -284,7 +284,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				pivotJson.put("ranges", rangeJson);
 				for(RangeFacet rangeFacet : pivotRanges) {
 					JsonObject rangeFacetJson = new JsonObject();
-					String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_indexedstored_");
+					String rangeFacetVar = StringUtils.substringBefore(rangeFacet.getName(), "_docvalues_");
 					rangeJson.put(rangeFacetVar, rangeFacetJson);
 					JsonObject rangeFacetCountsObject = new JsonObject();
 					rangeFacetJson.put("counts", rangeFacetCountsObject);
@@ -314,7 +314,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				{
 					searchSiteUserList(siteRequest, false, true, true).onSuccess(listSiteUser -> {
 						try {
-							List<String> roles2 = Optional.ofNullable(config.getJsonArray(ConfigKeys.AUTH_ROLES_ADMIN)).orElse(new JsonArray()).getList();
+							List<String> roles2 = Optional.ofNullable(config.getValue(ConfigKeys.AUTH_ROLES_ADMIN)).map(v -> v instanceof JsonArray ? (JsonArray)v : new JsonArray(v.toString())).orElse(new JsonArray()).getList();
 							if(listSiteUser.getQueryResponse().getResults().getNumFound() > 1
 									&& !CollectionUtils.containsAny(siteRequest.getUserResourceRoles(), roles2)
 									&& !CollectionUtils.containsAny(siteRequest.getUserRealmRoles(), roles2)
@@ -1035,7 +1035,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 	public void searchpageSiteUserPageInit(SiteUserPage page, SearchList<SiteUser> listSiteUser) {
 	}
 	public String templateSearchPageSiteUser() {
-		return config.getString(ConfigKeys.TEMPLATE_PATH) + "/enUS/SiteUserPage";
+		return Optional.ofNullable(config.getString(ConfigKeys.TEMPLATE_PATH)).orElse("templates") + "/enUS/SiteUserPage";
 	}
 	public Future<ServiceResponse> response200SearchPageSiteUser(SearchList<SiteUser> listSiteUser) {
 		Promise<ServiceResponse> promise = Promise.promise();
@@ -1186,12 +1186,12 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 
 			String id = serviceRequest.getParams().getJsonObject("path").getString("id");
 			if(id != null && NumberUtils.isCreatable(id)) {
-				searchList.addFilterQuery("(pk_indexedstored_long:" + ClientUtils.escapeQueryChars(id) + " OR objectId_indexedstored_string:" + ClientUtils.escapeQueryChars(id) + ")");
+				searchList.addFilterQuery("(pk_docvalues_long:" + ClientUtils.escapeQueryChars(id) + " OR objectId_docvalues_string:" + ClientUtils.escapeQueryChars(id) + ")");
 			} else if(id != null) {
-				searchList.addFilterQuery("objectId_indexedstored_string:" + ClientUtils.escapeQueryChars(id));
+				searchList.addFilterQuery("objectId_docvalues_string:" + ClientUtils.escapeQueryChars(id));
 			}
 
-			List<String> roles = Optional.ofNullable(config.getJsonArray(ConfigKeys.AUTH_ROLES_REQUIRED + "_SiteUser")).orElse(new JsonArray()).getList();
+			List<String> roles = Optional.ofNullable(config.getValue(ConfigKeys.AUTH_ROLES_REQUIRED + "_SiteUser")).map(v -> v instanceof JsonArray ? (JsonArray)v : new JsonArray(v.toString())).orElse(new JsonArray()).getList();
 			List<String> roleReads = Arrays.asList("");
 			if(
 					!CollectionUtils.containsAny(siteRequest.getUserResourceRoles(), roles)
@@ -1199,8 +1199,8 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 					&& (modify || !CollectionUtils.containsAny(siteRequest.getUserResourceRoles(), roleReads))
 					&& (modify || !CollectionUtils.containsAny(siteRequest.getUserRealmRoles(), roleReads))
 					) {
-				searchList.addFilterQuery("sessionId_indexedstored_string:" + ClientUtils.escapeQueryChars(Optional.ofNullable(siteRequest.getSessionId()).orElse("-----")) + " OR " + "sessionId_indexedstored_string:" + ClientUtils.escapeQueryChars(Optional.ofNullable(siteRequest.getSessionIdBefore()).orElse("-----"))
-						+ " OR userKeys_indexedstored_longs:" + Optional.ofNullable(siteRequest.getUserKey()).orElse(0L));
+				searchList.addFilterQuery("sessionId_docvalues_string:" + ClientUtils.escapeQueryChars(Optional.ofNullable(siteRequest.getSessionId()).orElse("-----")) + " OR " + "sessionId_docvalues_string:" + ClientUtils.escapeQueryChars(Optional.ofNullable(siteRequest.getSessionIdBefore()).orElse("-----"))
+						+ " OR userKeys_docvalues_longs:" + Optional.ofNullable(siteRequest.getUserKey()).orElse(0L));
 			}
 
 			serviceRequest.getParams().getJsonObject("query").forEach(paramRequest -> {
@@ -1331,7 +1331,7 @@ public class SiteUserEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 				}
 			});
 			if("*:*".equals(searchList.getQuery()) && searchList.getSorts().size() == 0) {
-				searchList.addSort("created_indexedstored_date", ORDER.desc);
+				searchList.addSort("created_docvalues_date", ORDER.desc);
 			}
 			searchSiteUser2(siteRequest, populate, store, modify, searchList);
 			searchList.promiseDeepForClass(siteRequest).onSuccess(a -> {
