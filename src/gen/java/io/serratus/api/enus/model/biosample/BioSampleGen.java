@@ -1568,110 +1568,8 @@ public abstract class BioSampleGen<DEV> extends BaseModel {
 	}
 	public void populateBioSample(SolrDocument solrDocument) {
 		BioSample oBioSample = (BioSample)this;
-		saves = (List<String>)solrDocument.get("saves_indexedstored_strings");
+		saves = (List<String>)solrDocument.get("saves_docvalues_strings");
 		if(saves != null) {
-
-			if(saves.contains("bioSampleId")) {
-				String bioSampleId = (String)solrDocument.get("bioSampleId_indexedstored_string");
-				if(bioSampleId != null)
-					oBioSample.setBioSampleId(bioSampleId);
-			}
-
-			if(saves.contains("bioSampleIsolate")) {
-				String bioSampleIsolate = (String)solrDocument.get("bioSampleIsolate_indexedstored_string");
-				if(bioSampleIsolate != null)
-					oBioSample.setBioSampleIsolate(bioSampleIsolate);
-			}
-
-			if(saves.contains("bioSampleHost")) {
-				String bioSampleHost = (String)solrDocument.get("bioSampleHost_indexedstored_string");
-				if(bioSampleHost != null)
-					oBioSample.setBioSampleHost(bioSampleHost);
-			}
-
-			if(saves.contains("bioSampleLabHost")) {
-				String bioSampleLabHost = (String)solrDocument.get("bioSampleLabHost_indexedstored_string");
-				if(bioSampleLabHost != null)
-					oBioSample.setBioSampleLabHost(bioSampleLabHost);
-			}
-
-			if(saves.contains("bioSampleIsolationSource")) {
-				String bioSampleIsolationSource = (String)solrDocument.get("bioSampleIsolationSource_indexedstored_string");
-				if(bioSampleIsolationSource != null)
-					oBioSample.setBioSampleIsolationSource(bioSampleIsolationSource);
-			}
-
-			if(saves.contains("bioSampleGeographicLocation")) {
-				String bioSampleGeographicLocation = (String)solrDocument.get("bioSampleGeographicLocation_indexedstored_string");
-				if(bioSampleGeographicLocation != null)
-					oBioSample.setBioSampleGeographicLocation(bioSampleGeographicLocation);
-			}
-
-			if(saves.contains("bioSampleLatitudeLongitude")) {
-				String bioSampleLatitudeLongitude = (String)solrDocument.get("bioSampleLatitudeLongitude_indexedstored_string");
-				if(bioSampleLatitudeLongitude != null)
-					oBioSample.setBioSampleLatitudeLongitude(bioSampleLatitudeLongitude);
-			}
-
-			if(saves.contains("bioSampleReferenceForBioMaterial")) {
-				String bioSampleReferenceForBioMaterial = (String)solrDocument.get("bioSampleReferenceForBioMaterial_indexedstored_string");
-				if(bioSampleReferenceForBioMaterial != null)
-					oBioSample.setBioSampleReferenceForBioMaterial(bioSampleReferenceForBioMaterial);
-			}
-
-			if(saves.contains("bioSampleMaterialProcessing")) {
-				String bioSampleMaterialProcessing = (String)solrDocument.get("bioSampleMaterialProcessing_indexedstored_string");
-				if(bioSampleMaterialProcessing != null)
-					oBioSample.setBioSampleMaterialProcessing(bioSampleMaterialProcessing);
-			}
-
-			if(saves.contains("bioSampleMaterialIdentifiers")) {
-				String bioSampleMaterialIdentifiers = (String)solrDocument.get("bioSampleMaterialIdentifiers_indexedstored_string");
-				if(bioSampleMaterialIdentifiers != null)
-					oBioSample.setBioSampleMaterialIdentifiers(bioSampleMaterialIdentifiers);
-			}
-
-			if(saves.contains("bioSampleDisease")) {
-				String bioSampleDisease = (String)solrDocument.get("bioSampleDisease_indexedstored_string");
-				if(bioSampleDisease != null)
-					oBioSample.setBioSampleDisease(bioSampleDisease);
-			}
-
-			if(saves.contains("bioSampleHostTissueSampled")) {
-				String bioSampleHostTissueSampled = (String)solrDocument.get("bioSampleHostTissueSampled_indexedstored_string");
-				if(bioSampleHostTissueSampled != null)
-					oBioSample.setBioSampleHostTissueSampled(bioSampleHostTissueSampled);
-			}
-
-			if(saves.contains("bioSampleCollectedBy")) {
-				String bioSampleCollectedBy = (String)solrDocument.get("bioSampleCollectedBy_indexedstored_string");
-				if(bioSampleCollectedBy != null)
-					oBioSample.setBioSampleCollectedBy(bioSampleCollectedBy);
-			}
-
-			if(saves.contains("taxonomyId")) {
-				String taxonomyId = (String)solrDocument.get("taxonomyId_indexedstored_string");
-				if(taxonomyId != null)
-					oBioSample.setTaxonomyId(taxonomyId);
-			}
-
-			if(saves.contains("taxonomyName")) {
-				String taxonomyName = (String)solrDocument.get("taxonomyName_indexedstored_string");
-				if(taxonomyName != null)
-					oBioSample.setTaxonomyName(taxonomyName);
-			}
-
-			if(saves.contains("taxonomyUniqueName")) {
-				String taxonomyUniqueName = (String)solrDocument.get("taxonomyUniqueName_indexedstored_string");
-				if(taxonomyUniqueName != null)
-					oBioSample.setTaxonomyUniqueName(taxonomyUniqueName);
-			}
-
-			if(saves.contains("taxonomyNameClass")) {
-				String taxonomyNameClass = (String)solrDocument.get("taxonomyNameClass_indexedstored_string");
-				if(taxonomyNameClass != null)
-					oBioSample.setTaxonomyNameClass(taxonomyNameClass);
-			}
 		}
 
 		super.populateBaseModel(solrDocument);
@@ -1679,55 +1577,55 @@ public abstract class BioSampleGen<DEV> extends BaseModel {
 
 	public void indexBioSample(SolrInputDocument document) {
 		if(bioSampleId != null) {
-			document.addField("bioSampleId_indexedstored_string", bioSampleId);
+			document.addField("bioSampleId_docvalues_string", bioSampleId);
 		}
 		if(bioSampleIsolate != null) {
-			document.addField("bioSampleIsolate_indexedstored_string", bioSampleIsolate);
+			document.addField("bioSampleIsolate_docvalues_string", bioSampleIsolate);
 		}
 		if(bioSampleHost != null) {
-			document.addField("bioSampleHost_indexedstored_string", bioSampleHost);
+			document.addField("bioSampleHost_docvalues_string", bioSampleHost);
 		}
 		if(bioSampleLabHost != null) {
-			document.addField("bioSampleLabHost_indexedstored_string", bioSampleLabHost);
+			document.addField("bioSampleLabHost_docvalues_string", bioSampleLabHost);
 		}
 		if(bioSampleIsolationSource != null) {
-			document.addField("bioSampleIsolationSource_indexedstored_string", bioSampleIsolationSource);
+			document.addField("bioSampleIsolationSource_docvalues_string", bioSampleIsolationSource);
 		}
 		if(bioSampleGeographicLocation != null) {
-			document.addField("bioSampleGeographicLocation_indexedstored_string", bioSampleGeographicLocation);
+			document.addField("bioSampleGeographicLocation_docvalues_string", bioSampleGeographicLocation);
 		}
 		if(bioSampleLatitudeLongitude != null) {
-			document.addField("bioSampleLatitudeLongitude_indexedstored_string", bioSampleLatitudeLongitude);
+			document.addField("bioSampleLatitudeLongitude_docvalues_string", bioSampleLatitudeLongitude);
 		}
 		if(bioSampleReferenceForBioMaterial != null) {
-			document.addField("bioSampleReferenceForBioMaterial_indexedstored_string", bioSampleReferenceForBioMaterial);
+			document.addField("bioSampleReferenceForBioMaterial_docvalues_string", bioSampleReferenceForBioMaterial);
 		}
 		if(bioSampleMaterialProcessing != null) {
-			document.addField("bioSampleMaterialProcessing_indexedstored_string", bioSampleMaterialProcessing);
+			document.addField("bioSampleMaterialProcessing_docvalues_string", bioSampleMaterialProcessing);
 		}
 		if(bioSampleMaterialIdentifiers != null) {
-			document.addField("bioSampleMaterialIdentifiers_indexedstored_string", bioSampleMaterialIdentifiers);
+			document.addField("bioSampleMaterialIdentifiers_docvalues_string", bioSampleMaterialIdentifiers);
 		}
 		if(bioSampleDisease != null) {
-			document.addField("bioSampleDisease_indexedstored_string", bioSampleDisease);
+			document.addField("bioSampleDisease_docvalues_string", bioSampleDisease);
 		}
 		if(bioSampleHostTissueSampled != null) {
-			document.addField("bioSampleHostTissueSampled_indexedstored_string", bioSampleHostTissueSampled);
+			document.addField("bioSampleHostTissueSampled_docvalues_string", bioSampleHostTissueSampled);
 		}
 		if(bioSampleCollectedBy != null) {
-			document.addField("bioSampleCollectedBy_indexedstored_string", bioSampleCollectedBy);
+			document.addField("bioSampleCollectedBy_docvalues_string", bioSampleCollectedBy);
 		}
 		if(taxonomyId != null) {
-			document.addField("taxonomyId_indexedstored_string", taxonomyId);
+			document.addField("taxonomyId_docvalues_string", taxonomyId);
 		}
 		if(taxonomyName != null) {
-			document.addField("taxonomyName_indexedstored_string", taxonomyName);
+			document.addField("taxonomyName_docvalues_string", taxonomyName);
 		}
 		if(taxonomyUniqueName != null) {
-			document.addField("taxonomyUniqueName_indexedstored_string", taxonomyUniqueName);
+			document.addField("taxonomyUniqueName_docvalues_string", taxonomyUniqueName);
 		}
 		if(taxonomyNameClass != null) {
-			document.addField("taxonomyNameClass_indexedstored_string", taxonomyNameClass);
+			document.addField("taxonomyNameClass_docvalues_string", taxonomyNameClass);
 		}
 		super.indexBaseModel(document);
 
@@ -1736,39 +1634,39 @@ public abstract class BioSampleGen<DEV> extends BaseModel {
 	public static String varIndexedBioSample(String entityVar) {
 		switch(entityVar) {
 			case "bioSampleId":
-				return "bioSampleId_indexedstored_string";
+				return "bioSampleId_docvalues_string";
 			case "bioSampleIsolate":
-				return "bioSampleIsolate_indexedstored_string";
+				return "bioSampleIsolate_docvalues_string";
 			case "bioSampleHost":
-				return "bioSampleHost_indexedstored_string";
+				return "bioSampleHost_docvalues_string";
 			case "bioSampleLabHost":
-				return "bioSampleLabHost_indexedstored_string";
+				return "bioSampleLabHost_docvalues_string";
 			case "bioSampleIsolationSource":
-				return "bioSampleIsolationSource_indexedstored_string";
+				return "bioSampleIsolationSource_docvalues_string";
 			case "bioSampleGeographicLocation":
-				return "bioSampleGeographicLocation_indexedstored_string";
+				return "bioSampleGeographicLocation_docvalues_string";
 			case "bioSampleLatitudeLongitude":
-				return "bioSampleLatitudeLongitude_indexedstored_string";
+				return "bioSampleLatitudeLongitude_docvalues_string";
 			case "bioSampleReferenceForBioMaterial":
-				return "bioSampleReferenceForBioMaterial_indexedstored_string";
+				return "bioSampleReferenceForBioMaterial_docvalues_string";
 			case "bioSampleMaterialProcessing":
-				return "bioSampleMaterialProcessing_indexedstored_string";
+				return "bioSampleMaterialProcessing_docvalues_string";
 			case "bioSampleMaterialIdentifiers":
-				return "bioSampleMaterialIdentifiers_indexedstored_string";
+				return "bioSampleMaterialIdentifiers_docvalues_string";
 			case "bioSampleDisease":
-				return "bioSampleDisease_indexedstored_string";
+				return "bioSampleDisease_docvalues_string";
 			case "bioSampleHostTissueSampled":
-				return "bioSampleHostTissueSampled_indexedstored_string";
+				return "bioSampleHostTissueSampled_docvalues_string";
 			case "bioSampleCollectedBy":
-				return "bioSampleCollectedBy_indexedstored_string";
+				return "bioSampleCollectedBy_docvalues_string";
 			case "taxonomyId":
-				return "taxonomyId_indexedstored_string";
+				return "taxonomyId_docvalues_string";
 			case "taxonomyName":
-				return "taxonomyName_indexedstored_string";
+				return "taxonomyName_docvalues_string";
 			case "taxonomyUniqueName":
-				return "taxonomyUniqueName_indexedstored_string";
+				return "taxonomyUniqueName_docvalues_string";
 			case "taxonomyNameClass":
-				return "taxonomyNameClass_indexedstored_string";
+				return "taxonomyNameClass_docvalues_string";
 			default:
 				return BaseModel.varIndexedBaseModel(entityVar);
 		}
@@ -1798,23 +1696,6 @@ public abstract class BioSampleGen<DEV> extends BaseModel {
 	public void storeBioSample(SolrDocument solrDocument) {
 		BioSample oBioSample = (BioSample)this;
 
-		oBioSample.setBioSampleId(Optional.ofNullable(solrDocument.get("bioSampleId_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleIsolate(Optional.ofNullable(solrDocument.get("bioSampleIsolate_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleHost(Optional.ofNullable(solrDocument.get("bioSampleHost_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleLabHost(Optional.ofNullable(solrDocument.get("bioSampleLabHost_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleIsolationSource(Optional.ofNullable(solrDocument.get("bioSampleIsolationSource_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleGeographicLocation(Optional.ofNullable(solrDocument.get("bioSampleGeographicLocation_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleLatitudeLongitude(Optional.ofNullable(solrDocument.get("bioSampleLatitudeLongitude_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleReferenceForBioMaterial(Optional.ofNullable(solrDocument.get("bioSampleReferenceForBioMaterial_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleMaterialProcessing(Optional.ofNullable(solrDocument.get("bioSampleMaterialProcessing_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleMaterialIdentifiers(Optional.ofNullable(solrDocument.get("bioSampleMaterialIdentifiers_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleDisease(Optional.ofNullable(solrDocument.get("bioSampleDisease_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleHostTissueSampled(Optional.ofNullable(solrDocument.get("bioSampleHostTissueSampled_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setBioSampleCollectedBy(Optional.ofNullable(solrDocument.get("bioSampleCollectedBy_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setTaxonomyId(Optional.ofNullable(solrDocument.get("taxonomyId_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setTaxonomyName(Optional.ofNullable(solrDocument.get("taxonomyName_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setTaxonomyUniqueName(Optional.ofNullable(solrDocument.get("taxonomyUniqueName_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oBioSample.setTaxonomyNameClass(Optional.ofNullable(solrDocument.get("taxonomyNameClass_indexedstored_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeBaseModel(solrDocument);
 	}

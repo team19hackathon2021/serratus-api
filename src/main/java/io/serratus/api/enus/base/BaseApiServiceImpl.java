@@ -153,7 +153,7 @@ public class BaseApiServiceImpl {
 							searchList.setQuery("*:*");
 							searchList.setStore(true);
 							searchList.setC(SiteUser.class);
-							searchList.addFilterQuery("userId_indexedstored_string:" + ClientUtils.escapeQueryChars(userId));
+							searchList.addFilterQuery("userId_docvalues_string:" + ClientUtils.escapeQueryChars(userId));
 							searchList.promiseDeepSearchList(siteRequest).onSuccess(c -> {
 								SiteUser siteUser1 = searchList.getList().stream().findFirst().orElse(null);
 								SiteUserEnUSApiServiceImpl userService = new SiteUserEnUSApiServiceImpl(eventBus, config, workerExecutor, pgPool, webClient, oauth2AuthenticationProvider, authorizationProvider, templateEngine);
@@ -277,8 +277,8 @@ public class BaseApiServiceImpl {
 				searchList.setQuery("*:*");
 				searchList.setStore(true);
 				searchList.setC(BaseModel.class);
-				searchList.addFilterQuery("classSimpleName_indexedstored_string:" + ClientUtils.escapeQueryChars(c2.getSimpleName()));
-				searchList.addFilterQuery((inheritPk ? "inheritPk_indexedstored_string:" : "pk_indexedstored_long:") + ClientUtils.escapeQueryChars(l));
+				searchList.addFilterQuery("classSimpleName_docvalues_string:" + ClientUtils.escapeQueryChars(c2.getSimpleName()));
+				searchList.addFilterQuery((inheritPk ? "inheritPk_docvalues_string:" : "pk_docvalues_long:") + ClientUtils.escapeQueryChars(l));
 				searchList.promiseDeepSearchList(siteRequest).onSuccess(s -> {
 					Long l2 = Optional.ofNullable(searchList.getList().stream().findFirst().orElse(null)).map(a -> a.getPk()).orElse(null);
 					if(l2 != null) {
@@ -434,7 +434,7 @@ public class BaseApiServiceImpl {
 				searchList.setQuery("*:*");
 				searchList.setStore(true);
 				searchList.setC(c);
-				searchList.addFilterQuery((inheritPk ? "inheritPk_indexedstored_string:" : "pk_indexedstored_long:") + pk);
+				searchList.addFilterQuery((inheritPk ? "inheritPk_docvalues_string:" : "pk_docvalues_long:") + pk);
 				searchList.promiseDeepSearchList(siteRequest).onSuccess(s -> {
 					Long l2 = Optional.ofNullable(searchList.getList().stream().findFirst().orElse(null)).map(a -> a.getPk()).orElse(null);
 					promise.complete(l2);

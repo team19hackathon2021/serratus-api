@@ -84,8 +84,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample ID
          */
@@ -94,8 +93,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Isolate
          */
@@ -104,8 +102,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Host
          */
@@ -114,8 +111,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Lab Host
          */
@@ -124,8 +120,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Isolation Source
          */
@@ -134,8 +129,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Collection Date
          */
@@ -144,8 +138,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Latitude and Longitude
          */
@@ -154,8 +147,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Reference for BioMaterial
          */
@@ -164,8 +156,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Material Processing
          */
@@ -174,8 +165,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Material Identifiers
          */
@@ -184,8 +174,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Disease
          */
@@ -194,8 +183,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Host Tissue Sampled
          */
@@ -204,8 +192,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: BioSample Collected By
          */
@@ -214,8 +201,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: Taxonomy ID
          */
@@ -230,7 +216,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
                 SearchList<Taxonomy> l = new SearchList<>();
                 if(taxonomyId != null) {
                         l.setQuery("*:*");
-                        l.addFilterQuery("taxonomyId_indexedstored_string:" + taxonomyId);
+                        l.addFilterQuery("taxonomyId_docvalues_string:" + taxonomyId);
                         l.setC(Taxonomy.class);
                         l.setStore(true);
                 }
@@ -245,8 +231,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: Taxonomy ID
          */
@@ -257,8 +242,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: Taxonomy Unique Name
          */
@@ -269,8 +253,7 @@ public class BioSample extends BioSampleGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: Taxonomy Name Class
          */ 

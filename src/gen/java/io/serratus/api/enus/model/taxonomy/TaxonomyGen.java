@@ -558,32 +558,8 @@ public abstract class TaxonomyGen<DEV> extends BaseModel {
 	}
 	public void populateTaxonomy(SolrDocument solrDocument) {
 		Taxonomy oTaxonomy = (Taxonomy)this;
-		saves = (List<String>)solrDocument.get("saves_indexedstored_strings");
+		saves = (List<String>)solrDocument.get("saves_docvalues_strings");
 		if(saves != null) {
-
-			if(saves.contains("taxonomyId")) {
-				String taxonomyId = (String)solrDocument.get("taxonomyId_indexedstored_string");
-				if(taxonomyId != null)
-					oTaxonomy.setTaxonomyId(taxonomyId);
-			}
-
-			if(saves.contains("taxonomyName")) {
-				String taxonomyName = (String)solrDocument.get("taxonomyName_indexedstored_string");
-				if(taxonomyName != null)
-					oTaxonomy.setTaxonomyName(taxonomyName);
-			}
-
-			if(saves.contains("taxonomyUniqueName")) {
-				String taxonomyUniqueName = (String)solrDocument.get("taxonomyUniqueName_indexedstored_string");
-				if(taxonomyUniqueName != null)
-					oTaxonomy.setTaxonomyUniqueName(taxonomyUniqueName);
-			}
-
-			if(saves.contains("taxonomyNameClass")) {
-				String taxonomyNameClass = (String)solrDocument.get("taxonomyNameClass_indexedstored_string");
-				if(taxonomyNameClass != null)
-					oTaxonomy.setTaxonomyNameClass(taxonomyNameClass);
-			}
 		}
 
 		super.populateBaseModel(solrDocument);
@@ -591,16 +567,16 @@ public abstract class TaxonomyGen<DEV> extends BaseModel {
 
 	public void indexTaxonomy(SolrInputDocument document) {
 		if(taxonomyId != null) {
-			document.addField("taxonomyId_indexedstored_string", taxonomyId);
+			document.addField("taxonomyId_docvalues_string", taxonomyId);
 		}
 		if(taxonomyName != null) {
-			document.addField("taxonomyName_indexedstored_string", taxonomyName);
+			document.addField("taxonomyName_docvalues_string", taxonomyName);
 		}
 		if(taxonomyUniqueName != null) {
-			document.addField("taxonomyUniqueName_indexedstored_string", taxonomyUniqueName);
+			document.addField("taxonomyUniqueName_docvalues_string", taxonomyUniqueName);
 		}
 		if(taxonomyNameClass != null) {
-			document.addField("taxonomyNameClass_indexedstored_string", taxonomyNameClass);
+			document.addField("taxonomyNameClass_docvalues_string", taxonomyNameClass);
 		}
 		super.indexBaseModel(document);
 
@@ -609,13 +585,13 @@ public abstract class TaxonomyGen<DEV> extends BaseModel {
 	public static String varIndexedTaxonomy(String entityVar) {
 		switch(entityVar) {
 			case "taxonomyId":
-				return "taxonomyId_indexedstored_string";
+				return "taxonomyId_docvalues_string";
 			case "taxonomyName":
-				return "taxonomyName_indexedstored_string";
+				return "taxonomyName_docvalues_string";
 			case "taxonomyUniqueName":
-				return "taxonomyUniqueName_indexedstored_string";
+				return "taxonomyUniqueName_docvalues_string";
 			case "taxonomyNameClass":
-				return "taxonomyNameClass_indexedstored_string";
+				return "taxonomyNameClass_docvalues_string";
 			default:
 				return BaseModel.varIndexedBaseModel(entityVar);
 		}
@@ -645,10 +621,6 @@ public abstract class TaxonomyGen<DEV> extends BaseModel {
 	public void storeTaxonomy(SolrDocument solrDocument) {
 		Taxonomy oTaxonomy = (Taxonomy)this;
 
-		oTaxonomy.setTaxonomyId(Optional.ofNullable(solrDocument.get("taxonomyId_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oTaxonomy.setTaxonomyName(Optional.ofNullable(solrDocument.get("taxonomyName_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oTaxonomy.setTaxonomyUniqueName(Optional.ofNullable(solrDocument.get("taxonomyUniqueName_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oTaxonomy.setTaxonomyNameClass(Optional.ofNullable(solrDocument.get("taxonomyNameClass_indexedstored_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeBaseModel(solrDocument);
 	}

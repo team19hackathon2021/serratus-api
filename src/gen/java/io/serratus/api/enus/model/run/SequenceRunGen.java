@@ -680,38 +680,8 @@ public abstract class SequenceRunGen<DEV> extends BaseModel {
 	}
 	public void populateSequenceRun(SolrDocument solrDocument) {
 		SequenceRun oSequenceRun = (SequenceRun)this;
-		saves = (List<String>)solrDocument.get("saves_indexedstored_strings");
+		saves = (List<String>)solrDocument.get("saves_docvalues_strings");
 		if(saves != null) {
-
-			if(saves.contains("runId")) {
-				String runId = (String)solrDocument.get("runId_indexedstored_string");
-				if(runId != null)
-					oSequenceRun.setRunId(runId);
-			}
-
-			if(saves.contains("runReleaseDate")) {
-				Date runReleaseDate = (Date)solrDocument.get("runReleaseDate_indexedstored_date");
-				if(runReleaseDate != null)
-					oSequenceRun.setRunReleaseDate(runReleaseDate);
-			}
-
-			if(saves.contains("runLoadDate")) {
-				Date runLoadDate = (Date)solrDocument.get("runLoadDate_indexedstored_date");
-				if(runLoadDate != null)
-					oSequenceRun.setRunLoadDate(runLoadDate);
-			}
-
-			if(saves.contains("projectId")) {
-				String projectId = (String)solrDocument.get("projectId_indexedstored_string");
-				if(projectId != null)
-					oSequenceRun.setProjectId(projectId);
-			}
-
-			if(saves.contains("bioSampleId")) {
-				String bioSampleId = (String)solrDocument.get("bioSampleId_indexedstored_string");
-				if(bioSampleId != null)
-					oSequenceRun.setBioSampleId(bioSampleId);
-			}
 		}
 
 		super.populateBaseModel(solrDocument);
@@ -719,19 +689,19 @@ public abstract class SequenceRunGen<DEV> extends BaseModel {
 
 	public void indexSequenceRun(SolrInputDocument document) {
 		if(runId != null) {
-			document.addField("runId_indexedstored_string", runId);
+			document.addField("runId_docvalues_string", runId);
 		}
 		if(runReleaseDate != null) {
-			document.addField("runReleaseDate_indexedstored_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(runReleaseDate.toInstant(), ZoneId.of("UTC"))));
+			document.addField("runReleaseDate_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(runReleaseDate.toInstant(), ZoneId.of("UTC"))));
 		}
 		if(runLoadDate != null) {
-			document.addField("runLoadDate_indexedstored_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(runLoadDate.toInstant(), ZoneId.of("UTC"))));
+			document.addField("runLoadDate_docvalues_date", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(ZonedDateTime.ofInstant(runLoadDate.toInstant(), ZoneId.of("UTC"))));
 		}
 		if(projectId != null) {
-			document.addField("projectId_indexedstored_string", projectId);
+			document.addField("projectId_docvalues_string", projectId);
 		}
 		if(bioSampleId != null) {
-			document.addField("bioSampleId_indexedstored_string", bioSampleId);
+			document.addField("bioSampleId_docvalues_string", bioSampleId);
 		}
 		super.indexBaseModel(document);
 
@@ -740,15 +710,15 @@ public abstract class SequenceRunGen<DEV> extends BaseModel {
 	public static String varIndexedSequenceRun(String entityVar) {
 		switch(entityVar) {
 			case "runId":
-				return "runId_indexedstored_string";
+				return "runId_docvalues_string";
 			case "runReleaseDate":
-				return "runReleaseDate_indexedstored_date";
+				return "runReleaseDate_docvalues_date";
 			case "runLoadDate":
-				return "runLoadDate_indexedstored_date";
+				return "runLoadDate_docvalues_date";
 			case "projectId":
-				return "projectId_indexedstored_string";
+				return "projectId_docvalues_string";
 			case "bioSampleId":
-				return "bioSampleId_indexedstored_string";
+				return "bioSampleId_docvalues_string";
 			default:
 				return BaseModel.varIndexedBaseModel(entityVar);
 		}
@@ -778,11 +748,6 @@ public abstract class SequenceRunGen<DEV> extends BaseModel {
 	public void storeSequenceRun(SolrDocument solrDocument) {
 		SequenceRun oSequenceRun = (SequenceRun)this;
 
-		oSequenceRun.setRunId(Optional.ofNullable(solrDocument.get("runId_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oSequenceRun.setRunReleaseDate(Optional.ofNullable(solrDocument.get("runReleaseDate_indexedstored_date")).map(v -> v.toString()).orElse(null));
-		oSequenceRun.setRunLoadDate(Optional.ofNullable(solrDocument.get("runLoadDate_indexedstored_date")).map(v -> v.toString()).orElse(null));
-		oSequenceRun.setProjectId(Optional.ofNullable(solrDocument.get("projectId_indexedstored_string")).map(v -> v.toString()).orElse(null));
-		oSequenceRun.setBioSampleId(Optional.ofNullable(solrDocument.get("bioSampleId_indexedstored_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeBaseModel(solrDocument);
 	}

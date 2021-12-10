@@ -82,8 +82,7 @@ public class Taxonomy extends TaxonomyGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: Taxonomy ID
          */
@@ -92,8 +91,7 @@ public class Taxonomy extends TaxonomyGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: Taxonomy Name
          */
@@ -102,8 +100,7 @@ public class Taxonomy extends TaxonomyGen<BaseModel> {
 
         /**    
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: Taxonomy Unique Name
          */
@@ -112,8 +109,7 @@ public class Taxonomy extends TaxonomyGen<BaseModel> {
 
         /**     
          * {@inheritDoc}
-         * Indexed: true
-         * Stored: true
+         * DocValues: true
          * Define: true
          * DisplayName.enUS: Taxonomy Name Class
          */

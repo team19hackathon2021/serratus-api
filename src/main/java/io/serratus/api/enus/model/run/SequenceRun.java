@@ -84,8 +84,7 @@ public class SequenceRun extends SequenceRunGen<BaseModel> {
 
 	/**    
 	 * {@inheritDoc}
-	 * Indexed: true
-	 * Stored: true
+	 * DocValues: true
 	 * Define: true
 	 * HtmlRow: 3
 	 * HtmlCell: 1
@@ -96,8 +95,7 @@ public class SequenceRun extends SequenceRunGen<BaseModel> {
 
 	/**    
 	 * {@inheritDoc}
-	 * Indexed: true
-	 * Stored: true
+	 * DocValues: true
 	 * Define: true
 	 * HtmlRow: 3
 	 * HtmlCell: 2
@@ -108,8 +106,7 @@ public class SequenceRun extends SequenceRunGen<BaseModel> {
 
 	/**    
 	 * {@inheritDoc}
-	 * Indexed: true
-	 * Stored: true
+	 * DocValues: true
 	 * Define: true
 	 * HtmlRow: 3
 	 * HtmlCell: 3
@@ -120,8 +117,7 @@ public class SequenceRun extends SequenceRunGen<BaseModel> {
 
 	/**    
 	 * {@inheritDoc}
-	 * Indexed: true
-	 * Stored: true
+	 * DocValues: true
 	 * Define: true
 	 * HtmlRow: 4
 	 * HtmlCell: 1
@@ -136,8 +132,7 @@ public class SequenceRun extends SequenceRunGen<BaseModel> {
 
 	/**    
 	 * {@inheritDoc}
-	 * Indexed: true
-	 * Stored: true
+	 * DocValues: true
 	 * Define: true
 	 * HtmlRow: 4
 	 * HtmlCell: 2
@@ -154,7 +149,7 @@ public class SequenceRun extends SequenceRunGen<BaseModel> {
 //		SearchList<BioSample> l = new SearchList<>();
 //		if(bioSampleId != null) {
 //			l.setQuery("*:*");
-//			l.addFilterQuery("bioSampleId_indexedstored_string:" + bioSampleId);
+//			l.addFilterQuery("bioSampleId_docvalues_string:" + bioSampleId);
 //			l.setC(BioSample.class);
 //			l.setStore(true);
 //		}
@@ -371,7 +366,7 @@ public class SequenceRun extends SequenceRunGen<BaseModel> {
 //		SearchList<Taxonomy> l = new SearchList<>();
 //		if(taxonomyId != null) {
 //			l.setQuery("*:*");
-//			l.addFilterQuery("taxonomyId_indexedstored_string:" + taxonomyId);
+//			l.addFilterQuery("taxonomyId_docvalues_string:" + taxonomyId);
 //			l.setC(Taxonomy.class);
 //			l.setStore(true);
 //		}
