@@ -101,7 +101,7 @@ GITHUB_REPO_NAME: "{{ SITE_NAME }}"
 ###############################
 
 # The source code directory of the application
-SITE_SRC: "/usr/local/src/{{ SITE_NAME }}"
+SITE_SRC: "{{ lookup('env', 'HOME') }}/.local/src/{{ SITE_NAME }}"
 # The application OpenShift base URL where application will be deployed.
 SITE_HOST: "{{ REDHAT_OPENSHIFT_HOST }}"
 # The application OpenShift secret token to grant access to OpenShift (https://api.pro-us-east-1.openshift.com/oauth/token/request).

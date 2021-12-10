@@ -1,4 +1,4 @@
-package io.serratus.api.enus.vertx;
+package io.serratus.api.enus.model.biosample;
 
 import io.serratus.api.enus.request.SiteRequestEnUS;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.serratus.api.enus.request.api.ApiRequest;
-import io.serratus.api.enus.vertx.AppSwagger2;
 import io.serratus.api.enus.java.ZonedDateTimeDeserializer;
 import java.math.RoundingMode;
 import org.slf4j.Logger;
@@ -30,6 +29,7 @@ import java.util.Objects;
 import io.vertx.core.json.JsonArray;
 import io.serratus.api.enus.base.BaseModel;
 import io.serratus.api.enus.java.ZonedDateTimeSerializer;
+import io.serratus.api.enus.model.biosample.BioSampleGenPage;
 import org.apache.commons.lang3.math.NumberUtils;
 import io.serratus.api.enus.wrap.Wrap;
 import java.util.Optional;
@@ -37,44 +37,71 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**	
- * <br/><a href="http://localhost:8983/solr/computate/select?q=*:*&fq=partEstClasse_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:io.serratus.api.enus.vertx.AppOpenApi3&fq=classeEtendGen_indexed_boolean:true">Find the class  in Solr. </a>
+ * Map.hackathonMission: to create the a new Java backend class to render the page for BioSamples related to RNA seqence runs. 
+ * Map.hackathonColumn: Develop BioSample UI
+ * Map.hackathonLabels: Java,Vert.x,Handlebars
+ * <br/><a href="http://localhost:8983/solr/computate/select?q=*:*&fq=partEstClasse_indexed_boolean:true&fq=classeNomCanonique_enUS_indexed_string:io.serratus.api.enus.model.biosample.BioSamplePage&fq=classeEtendGen_indexed_boolean:true">Find the class  in Solr. </a>
  * <br/>
  **/
-public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
-	protected static final Logger LOG = LoggerFactory.getLogger(AppOpenApi3.class);
+public abstract class BioSamplePageGen<DEV> extends BioSampleGenPage {
+	protected static final Logger LOG = LoggerFactory.getLogger(BioSamplePage.class);
 
 	//////////////
 	// initDeep //
 	//////////////
 
-	public AppOpenApi3 initDeepAppOpenApi3(SiteRequestEnUS siteRequest_) {
+	public Future<Void> promiseDeepBioSamplePage(SiteRequestEnUS siteRequest_) {
 		setSiteRequest_(siteRequest_);
-		initDeepAppOpenApi3();
-		return (AppOpenApi3)this;
+		return promiseDeepBioSamplePage();
 	}
 
-	public void initDeepAppOpenApi3() {
-		initAppOpenApi3();
-		super.initDeepAppSwagger2(siteRequest_);
+	public Future<Void> promiseDeepBioSamplePage() {
+		Promise<Void> promise = Promise.promise();
+		Promise<Void> promise2 = Promise.promise();
+		promiseBioSamplePage(promise2);
+		promise2.future().onSuccess(a -> {
+			super.promiseDeepBioSampleGenPage(siteRequest_).onSuccess(b -> {
+				promise.complete();
+			}).onFailure(ex -> {
+				promise.fail(ex);
+			});
+		}).onFailure(ex -> {
+			promise.fail(ex);
+		});
+		return promise.future();
 	}
 
-	public void initAppOpenApi3() {
+	public Future<Void> promiseBioSamplePage(Promise<Void> promise) {
+		Future.future(a -> a.complete()).compose(a -> {
+			Promise<Void> promise2 = Promise.promise();
+			try {
+				promise2.complete();
+			} catch(Exception ex) {
+				promise2.fail(ex);
+			}
+			return promise2.future();
+		}).onSuccess(a -> {
+			promise.complete();
+		}).onFailure(ex -> {
+			promise.fail(ex);
+		});
+		return promise.future();
 	}
 
-	@Override public void initDeepForClass(SiteRequestEnUS siteRequest_) {
-		initDeepAppOpenApi3(siteRequest_);
+	@Override public Future<Void> promiseDeepForClass(SiteRequestEnUS siteRequest_) {
+		return promiseDeepBioSamplePage(siteRequest_);
 	}
 
 	/////////////////
 	// siteRequest //
 	/////////////////
 
-	public void siteRequestAppOpenApi3(SiteRequestEnUS siteRequest_) {
-			super.siteRequestAppSwagger2(siteRequest_);
+	public void siteRequestBioSamplePage(SiteRequestEnUS siteRequest_) {
+			super.siteRequestBioSampleGenPage(siteRequest_);
 	}
 
 	public void siteRequestForClass(SiteRequestEnUS siteRequest_) {
-		siteRequestAppOpenApi3(siteRequest_);
+		siteRequestBioSamplePage(siteRequest_);
 	}
 
 	/////////////
@@ -86,7 +113,7 @@ public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
 		Object o = null;
 		for(String v : vars) {
 			if(o == null)
-				o = obtainAppOpenApi3(v);
+				o = obtainBioSamplePage(v);
 			else if(o instanceof BaseModel) {
 				BaseModel baseModel = (BaseModel)o;
 				o = baseModel.obtainForClass(v);
@@ -98,11 +125,11 @@ public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
 		}
 		return o;
 	}
-	public Object obtainAppOpenApi3(String var) {
-		AppOpenApi3 oAppOpenApi3 = (AppOpenApi3)this;
+	public Object obtainBioSamplePage(String var) {
+		BioSamplePage oBioSamplePage = (BioSamplePage)this;
 		switch(var) {
 			default:
-				return super.obtainAppSwagger2(var);
+				return super.obtainBioSampleGenPage(var);
 		}
 	}
 
@@ -115,7 +142,7 @@ public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
 		Object o = null;
 		for(String v : vars) {
 			if(o == null)
-				o = relateAppOpenApi3(v, val);
+				o = relateBioSamplePage(v, val);
 			else if(o instanceof BaseModel) {
 				BaseModel baseModel = (BaseModel)o;
 				o = baseModel.relateForClass(v, val);
@@ -123,11 +150,11 @@ public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
 		}
 		return o != null;
 	}
-	public Object relateAppOpenApi3(String var, Object val) {
-		AppOpenApi3 oAppOpenApi3 = (AppOpenApi3)this;
+	public Object relateBioSamplePage(String var, Object val) {
+		BioSamplePage oBioSamplePage = (BioSamplePage)this;
 		switch(var) {
 			default:
-				return super.relateAppSwagger2(var, val);
+				return super.relateBioSampleGenPage(var, val);
 		}
 	}
 
@@ -136,12 +163,12 @@ public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
 	///////////////
 
 	public static Object staticSetForClass(String entityVar, SiteRequestEnUS siteRequest_, String o) {
-		return staticSetAppOpenApi3(entityVar,  siteRequest_, o);
+		return staticSetBioSamplePage(entityVar,  siteRequest_, o);
 	}
-	public static Object staticSetAppOpenApi3(String entityVar, SiteRequestEnUS siteRequest_, String o) {
+	public static Object staticSetBioSamplePage(String entityVar, SiteRequestEnUS siteRequest_, String o) {
 		switch(entityVar) {
 			default:
-				return AppSwagger2.staticSetAppSwagger2(entityVar,  siteRequest_, o);
+				return BioSampleGenPage.staticSetBioSampleGenPage(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -150,12 +177,12 @@ public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
 	////////////////
 
 	public static Object staticSolrForClass(String entityVar, SiteRequestEnUS siteRequest_, Object o) {
-		return staticSolrAppOpenApi3(entityVar,  siteRequest_, o);
+		return staticSolrBioSamplePage(entityVar,  siteRequest_, o);
 	}
-	public static Object staticSolrAppOpenApi3(String entityVar, SiteRequestEnUS siteRequest_, Object o) {
+	public static Object staticSolrBioSamplePage(String entityVar, SiteRequestEnUS siteRequest_, Object o) {
 		switch(entityVar) {
 			default:
-				return AppSwagger2.staticSolrAppSwagger2(entityVar,  siteRequest_, o);
+				return BioSampleGenPage.staticSolrBioSampleGenPage(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -164,12 +191,12 @@ public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
 	///////////////////
 
 	public static String staticSolrStrForClass(String entityVar, SiteRequestEnUS siteRequest_, Object o) {
-		return staticSolrStrAppOpenApi3(entityVar,  siteRequest_, o);
+		return staticSolrStrBioSamplePage(entityVar,  siteRequest_, o);
 	}
-	public static String staticSolrStrAppOpenApi3(String entityVar, SiteRequestEnUS siteRequest_, Object o) {
+	public static String staticSolrStrBioSamplePage(String entityVar, SiteRequestEnUS siteRequest_, Object o) {
 		switch(entityVar) {
 			default:
-				return AppSwagger2.staticSolrStrAppSwagger2(entityVar,  siteRequest_, o);
+				return BioSampleGenPage.staticSolrStrBioSampleGenPage(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -178,12 +205,12 @@ public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
 	//////////////////
 
 	public static String staticSolrFqForClass(String entityVar, SiteRequestEnUS siteRequest_, String o) {
-		return staticSolrFqAppOpenApi3(entityVar,  siteRequest_, o);
+		return staticSolrFqBioSamplePage(entityVar,  siteRequest_, o);
 	}
-	public static String staticSolrFqAppOpenApi3(String entityVar, SiteRequestEnUS siteRequest_, String o) {
+	public static String staticSolrFqBioSamplePage(String entityVar, SiteRequestEnUS siteRequest_, String o) {
 		switch(entityVar) {
 			default:
-				return AppSwagger2.staticSolrFqAppSwagger2(entityVar,  siteRequest_, o);
+				return BioSampleGenPage.staticSolrFqBioSampleGenPage(entityVar,  siteRequest_, o);
 		}
 	}
 
@@ -197,7 +224,7 @@ public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
 		if(val != null) {
 			for(String v : vars) {
 				if(o == null)
-					o = defineAppOpenApi3(v, val);
+					o = defineBioSamplePage(v, val);
 				else if(o instanceof BaseModel) {
 					BaseModel oBaseModel = (BaseModel)o;
 					o = oBaseModel.defineForClass(v, val);
@@ -206,10 +233,10 @@ public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
 		}
 		return o != null;
 	}
-	public Object defineAppOpenApi3(String var, Object val) {
+	public Object defineBioSamplePage(String var, Object val) {
 		switch(var.toLowerCase()) {
 			default:
-				return super.defineAppSwagger2(var, val);
+				return super.defineBioSampleGenPage(var, val);
 		}
 	}
 
@@ -217,12 +244,12 @@ public abstract class AppOpenApi3Gen<DEV> extends AppSwagger2 {
 	// apiRequest //
 	//////////////////
 
-	public void apiRequestAppOpenApi3() {
+	public void apiRequestBioSamplePage() {
 		ApiRequest apiRequest = Optional.ofNullable(siteRequest_).map(SiteRequestEnUS::getApiRequest_).orElse(null);
 		Object o = Optional.ofNullable(apiRequest).map(ApiRequest::getOriginal).orElse(null);
-		if(o != null && o instanceof AppOpenApi3) {
-			AppOpenApi3 original = (AppOpenApi3)o;
-			super.apiRequestAppSwagger2();
+		if(o != null && o instanceof BioSamplePage) {
+			BioSamplePage original = (BioSamplePage)o;
+			super.apiRequestBioSampleGenPage();
 		}
 	}
 

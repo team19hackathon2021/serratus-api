@@ -1,0 +1,701 @@
+<!--
+hackathonMission: to create an Handlebars HTML template for the code to render a page for taxonomies related to RNA seqence runs. 
+hackathonColumn: Develop Taxonomy UI
+hackathonLabels: HTML,Handlebars
+-->
+{{#*inline "htmTitleTaxonomyPage"}}		<!-- inline "htmTitleTaxonomyPage" -->
+		<title>{{#if searchListTaxonomy_}}{{#eq taxonomyCount int1}}{{#eq params.query.q "*:*"}}taxonomy{{else}}taxonomy{{/eq}}{{else}}no taxonomy found{{/eq}}{{else}}taxonomies{{/if}}</title>
+{{/inline}}
+{{#*inline "htmMetaTaxonomyPage"}}{{> "htmMetaBaseModelPage"}}{{/inline}}
+{{#*inline "htmStyleTaxonomyPage"}}{{> "htmStyleBaseModelPage"}}{{/inline}}
+{{#*inline "htmScriptsTaxonomyPage"}}{{> "htmScriptsBaseModelPage"}}		<!-- inline "htmScriptsTaxonomyPage" -->
+		<script src="{{staticBaseUrl}}/js/enUS/TaxonomyPage.js"></script>
+{{/inline}}
+{{#*inline "htmScriptTaxonomyPage"}}		<!-- inline "htmScriptTaxonomyPage" -->
+		<script>
+			$(document).ready(function() {
+				document.onkeydown = function(evt) {
+					evt = evt || window.event;
+					var isEscape = false;
+					if ('key' in evt) {
+						isEscape = (evt.key === 'Escape' || evt.key === 'Esc');
+					} else {
+						isEscape = (evt.keyCode === 27);
+					}
+					if (isEscape) {
+						$('.w3-modal:visible').hide();
+					}
+				};
+				window.eventBus = new EventBus('/eventbus');
+				var pk = {{#if pk}}{{pk}}{{else}}null{{/if}};
+				if(pk != null) {
+				}
+				websocketTaxonomy(websocketTaxonomyInner);
+			});
+		</script>
+{{/inline}}
+{{#*inline "htmUrlTaxonomy"}}{{pageUri}}?q={{query.q}}&amp;rows={{#if rows}}{{rows}}{{else}}{{pagination.rows}}{{/if}}&amp;rows={{#if start}}{{start}}{{else}}{{pagination.start}}{{/if}}{{#each query.fq}}{{#eq fq this}}{{else}}&fq={{fq}}:{{val}}{{/eq}}{{/each}}{{#each query.sort}}{{#eq sort this}}{{else}}&sort={{var}} {{order}}{{/eq}}{{/each}}{{/inline}}
+{{#*inline "htmHeadTaxonomyPage"}}{{> "htmTitleTaxonomyPage"}}{{> "htmMetaTaxonomyPage"}}{{> "htmStyleTaxonomyPage"}}{{> "htmScriptsTaxonomyPage"}}{{> "htmScriptTaxonomyPage"}}{{/inline}}
+{{#*inline "htmBodyCount0TaxonomyPage"}}		<!-- #*inline "htmBodyCount0TaxonomyPage" -->
+		<h1>
+			<a href="{{pageUri}}" class="w3-bar-item w3-btn w3-center w3-block w3-pale-green w3-hover-pale-green">
+				{{#if contextIconCssClasses}}
+					<i class="contextIconCssClasses site-menu-icon "></i>
+				{{/if}}
+				<span class="">taxonomies</span>
+			</a>
+		</h1>
+		<h2>
+			<span class="w3-bar-item w3-padding w3-center w3-block w3-pale-green">
+				{{#if contextIconCssClasses}}
+					<i class="contextIconCssClasses + " site-menu-icon "></i>
+				{{/if}}
+				<span class="">no taxonomy found</span>
+			</span>
+		</h2>
+{{/inline}}
+{{#*inline "htmBodyCount1AllTaxonomyPage"}}		<!-- #*inline "htmBodyCount1AllTaxonomyPage" -->
+		<h1 class="w3-center ">
+			<a href="{{pageUri}}" class="w3-bar-item w3-btn w3-block w3-pale-green w3-hover-pale-green">
+			{{#if contextIconCssClasses}}
+				<i class="contextIconCssClasses site-menu-icon "></i>
+			{{/if}}
+				<span class="">taxonomy</span>
+			</a>
+		</h1>
+		<h2 class="w3-center ">
+			<span class"w3-bar-item w3-padding w3-center w3-block w3-pale-green">
+				<span class="">{{taxonomy_.objectTitle}}</span>
+			</span>
+		</h2>
+{{#block "htmForm"}}{{/block}}
+{{/inline}}
+{{#*inline "htmBodyCount1TaxonomyPage"}}		<!-- #*inline "htmBodyCount1TaxonomyPage" -->
+		<h1>
+			<a href="{{pageUri}}" class="w3-bar-item w3-btn w3-center w3-block w3-pale-green w3-hover-pale-green">
+	{{#if contextIconCssClasses}}
+				<i class="contextIconCssClasses + " site-menu-icon "></i>
+	{{/if}}
+				<span class="">taxonomies</span>
+			</a>
+		</h1>
+		<div>
+	{{#if pagination.pagePrevious}}
+			<a href="{{pageUri}}?start={{pagination.pagePrevious.start}}&amp;rows={{pagination.rows}}">
+				<i class="fas fa-arrow-square-left "></i>
+			</a>
+	{{else}}
+			<i class="fas fa-arrow-square-left w3-opacity "></i>
+	{{/if}}
+	{{#gte pagination.rowsPrevious pagination.1L}}
+			<a href="{{pageUri}}?start={{pagination.start}}&amp;rows={{ pagination.rowsPrevious }}">
+				<i class="fas fa-minus-square "></i>
+			</a>
+	{{else}}
+			<i class="fas fa-minus-square w3-opacity "></i>
+	{{/gte}}
+			<a href="{{pageUri}}?start={{pagination.start}}&amp;rows={{ pagination.rowsNext }}">
+				<i class="fas fa-plus-square "></i>
+			</a>
+	{{#if pagination.pageNext}}
+			<a href="{{pageUri}}?start={{pagination.pageNext.start}}&amp;rows={{pagination.rows}}">
+				<i class="fas fa-arrow-square-right "></i>
+			</a>
+	{{else}}
+			<i class="fas fa-arrow-square-right w3-opacity "></i>
+	{{/if}}
+			<span>{{ pagination.startNum }} - {{ pagination.endNum }} of {{ pagination.foundNum }}</span>
+		</div>
+{{> "table1TaxonomyPage"}}
+{{/inline}}
+{{#*inline "htmBodyAllTaxonomyPage"}}		<!-- #*inline "htmBodyAllTaxonomyPage" -->
+		<h1>
+			<a href="{{pageUri}}" class="w3-bar-item w3-btn w3-center w3-block w3-pale-green w3-hover-pale-green">
+	{{#if contextIconCssClasses}}
+				<i class="contextIconCssClasses + " site-menu-icon "></i>
+	{{/if}}
+				<span class="">taxonomies</span>
+			</a>
+		</h1>
+		<div class="">
+			<div>
+	{{#if pagination.pagePrevious}}
+				<a href="{{pageUri}}?start={{pagination.pagePrevious.start}}&amp;rows={{pagination.rows}}">
+					<i class="fas fa-arrow-square-left "></i>
+				</a>
+	{{else}}
+				<i class="fas fa-arrow-square-left w3-opacity "></i>
+	{{/if}}
+	{{#gte pagination.rowsPrevious pagination.1L}}
+				<a href="{{pageUri}}?start={{pagination.start}}&amp;rows={{ pagination.rowsPrevious }}">
+					<i class="fas fa-minus-square "></i>
+				</a>
+	{{else}}
+				<i class="fas fa-minus-square w3-opacity "></i>
+	{{/gte}}
+				<a href="{{pageUri}}?start={{pagination.start}}&amp;rows={{ pagination.rowsNext }}">
+					<i class="fas fa-plus-square "></i>
+				</a>
+	{{#if pagination.pageNext}}
+				<a href="{{pageUri}}?start={{pagination.pageNext.start}}&amp;rows={{pagination.rows}}">
+					<i class="fas fa-arrow-square-right "></i>
+				</a>
+	{{else}}
+				<i class="fas fa-arrow-square-right w3-opacity "></i>
+	{{/if}}
+				<span>{{ pagination.startNum }} - {{ pagination.endNum }} of {{ pagination.foundNum }}</span>
+			</div>
+{{> "table1TaxonomyPage"}}
+		</div>
+{{/inline}}
+{{#*inline "htmFormTaxonomyPage"}}	{{#if pk}}
+		<!-- #*inline "htmForm" -->
+		<form action="" id="TaxonomyForm" style="display: inline-block; width: 100%; " onsubmit="event.preventDefault(); return false; ">
+			<input name="pk" class="valuePk" type="hidden" value="{{pk}}"/>
+			<input name="focusId" type="hidden"/>
+		</form>
+{{#block "htmForm_searchpageTaxonomy"}}{{/block}}
+	{{/if}}
+{{/inline}}
+{{#*inline "htmFormTaxonomyPage_putimportTaxonomy"}}
+		<button
+			class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-pale-green "
+			onclick="$('#putimportTaxonomyModal').show(); "
+			>
+			<i class="fas fa-file-import "></i>
+			Import taxonomies
+		</button>
+		<div id="putimportTaxonomyModal" class="w3-modal w3-padding-32 ">
+			<div class="w3-modal-content ">
+				<div class="w3-card-4 ">
+					<header class="w3-container w3-pale-green">
+	{{#eq "Page" classApiMethodMethod}}
+						<span class="w3-button w3-display-topright " onclick="$('#putimportTaxonomyModal').hide(); ">×</span>
+	{{/eq}}
+						<h2 class="w3-padding ">Import taxonomies</h2>
+					</header>
+					<div class="" id="putimportTaxonomyFormValues">
+						<div class="w3-cell-row ">
+							<textarea
+								class="PUTImport_searchList w3-input w3-border "
+								style="height: 400px; "
+								placeholder="{ 'searchList': [ { 'pk': ... , 'saves': [ ... ] }, ... ] }"
+								></textarea>
+						</div>
+						<button
+							class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-margin w3-pale-green "
+							onclick="putimportTaxonomy($('#putimportTaxonomyFormValues')); "
+							>Import taxonomies</button>
+					</div>
+				</div>
+			</div>
+		</div>
+{{/inline}}
+{{#*inline "htmFormTaxonomyPage_postTaxonomy"}}
+		<button
+			class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-pale-green "
+			onclick="$('#postTaxonomyModal').show(); "
+			>
+			<i class="fas fa-file-plus "></i>
+			Create a taxonomy
+		</button>
+		<div id="postTaxonomyModal" class="w3-modal w3-padding-32 ">
+			<div class="w3-modal-content ">
+				<div class="w3-card-4 ">
+					<header class="w3-container w3-pale-green">
+	{{#eq "Page" classApiMethodMethod}}
+						<span class="w3-button w3-display-topright " onclick="$('#postTaxonomyModal').hide(); ">×</span>
+	{{/eq}}
+						<h2 class="w3-padding ">Create a taxonomy</h2>
+					</header>
+					<div class="" id="postTaxonomyFormValues">
+						<div id="postTaxonomyForm">
+							<div class="w3-cell-row ">
+{{> "htmPk" classApiMethodMethod="POST"}}
+{{> "htmCreated" classApiMethodMethod="POST"}}
+{{> "htmModified" classApiMethodMethod="POST"}}
+{{> "htmObjectId" classApiMethodMethod="POST"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmArchived" classApiMethodMethod="POST"}}
+{{> "htmDeleted" classApiMethodMethod="POST"}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+{{/inline}}
+{{#*inline "htmFormTaxonomyPage_patchTaxonomy"}}
+		<button
+			class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-pale-green "
+			onclick="$('#patchTaxonomyModal').show(); "
+			>
+			<i class="fas fa-edit "></i>
+			Modify taxonomies
+		</button>
+		<div id="patchTaxonomyModal" class="w3-modal w3-padding-32 ">
+			<div class="w3-modal-content ">
+				<div class="w3-card-4 ">
+					<header class="w3-container w3-pale-green">
+	{{#eq "Page" classApiMethodMethod}}
+						<span class="w3-button w3-display-topright " onclick="$('#patchTaxonomyModal').hide(); ">×</span>
+	{{/eq}}
+						<h2 class="w3-padding ">Modify taxonomies</h2>
+					</header>
+					<div class="" id="patchTaxonomyFormValues">
+							<div class="w3-cell-row ">
+{{> "htmCreated" classApiMethodMethod="PATCH"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmArchived" classApiMethodMethod="PATCH"}}
+{{> "htmDeleted" classApiMethodMethod="PATCH"}}
+							</div>
+						<button
+							class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-margin w3-pale-green "
+							onclick="patchTaxonomy(null, $('#patchTaxonomyFormValues')); "
+							>Modify taxonomies</button>
+					</div>
+				</div>
+			</div>
+		</div>
+{{/inline}}
+{{#*inline "htmFormTaxonomyPage_searchpageTaxonomy"}}
+		<div id="searchpageTaxonomyModal" class="w3-padding-32 ">
+			<div class="">
+				<div class="w3-card-4 ">
+					<header class="w3-container w3-pale-green">
+	{{#eq "Page" classApiMethodMethod}}
+						<span class="w3-button w3-display-topright " onclick="$('#searchpageTaxonomyModal').hide(); ">×</span>
+	{{/eq}}
+						<h2 class="w3-padding "></h2>
+					</header>
+					<div class="" id="searchpageTaxonomyFormValues">
+						<div id="searchpageTaxonomyForm">
+							<div class="w3-cell-row ">
+{{> "htmPk" classApiMethodMethod="Page"}}
+{{> "htmCreated" classApiMethodMethod="Page"}}
+{{> "htmModified" classApiMethodMethod="Page"}}
+{{> "htmObjectId" classApiMethodMethod="Page"}}
+							</div>
+							<div class="w3-cell-row ">
+{{> "htmArchived" classApiMethodMethod="Page"}}
+{{> "htmDeleted" classApiMethodMethod="Page"}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+{{/inline}}
+{{#*inline "htmBodyStartTaxonomyPage"}}
+{{> "htmBodyStartBaseModelPage"}}
+{{/inline}}
+{{#*inline "htmBodyEndTaxonomyPage"}}
+{{> "htmBodyEndBaseModelPage"}}
+{{/inline}}
+{{#*inline "htmBodyTaxonomyPage"}}
+{{#block "htmBodyStart"}}{{/block}}
+	{{#eq taxonomyCount int0}}
+{{#block "htmBodyCount0"}}{{/block}}
+	{{else}}
+		{{#eq taxonomyCount int1}}
+			{{#eq params.query.q "*:*"}}
+{{#block "htmBodyCount1All"}}{{/block}}
+			{{else}}
+{{#block "htmBodyCount1"}}{{/block}}
+			{{/eq}}
+		{{else}}
+{{#block "htmBodyAll"}}{{/block}}
+		{{/eq}}
+	{{/eq}}
+{{#block "htmForms"}}{{/block}}
+{{#block "htmBodyEnd"}}{{/block}}
+{{/inline}}
+{{#*inline "table1TaxonomyPage"}}
+		<table class="w3-table w3-bordered w3-striped w3-border w3-hoverable ">
+			{{> table2TaxonomyPage}}
+		</table>
+{{/inline}}
+{{#*inline "table2TaxonomyPage"}}
+		{{> "thead1TaxonomyPage"}}
+		{{> "tbody1TaxonomyPage"}}
+		{{> "tfoot1TaxonomyPage"}}
+	{{/inline}}
+{{#*inline "thead1TaxonomyPage"}}
+		<thead class="w3-pale-green w3-hover-pale-green">
+			{{> thead2TaxonomyPage}}
+		</thead>
+	{{/inline}}
+{{#*inline "thead2TaxonomyPage"}}
+			<tr>
+				<th>created</th>
+				<th></th>
+			</tr>
+{{/inline}}
+{{#*inline "tbody1TaxonomyPage"}}
+		<tbody>
+			{{> tbody2TaxonomyPage}}
+		</tbody>
+{{/inline}}
+{{#*inline "tbody2TaxonomyPage"}}
+		{{#each listTaxonomy}}
+			<tr>
+					<td>
+						<a href="{{pageUrlPk}}">
+							<span class="white-space-pre-wrap ">{{siteZonedDateTimeFormat created "yyyy-MM-dd'T'HH:mm:ss.SSS'['VV']'" siteLocale}}</span>
+						</a>
+					</td>
+					<td>
+						<a href="{{pageUrlPk}}">
+							<i class="far fa-project-diagram "></i>
+							<span class="white-space-pre-wrap ">{{objectTitle}}</span>
+						</a>
+					</td>
+			</tr>
+		{{/each}}
+{{/inline}}
+{{#*inline "tfoot1TaxonomyPage"}}
+		<tfoot class="w3-pale-green w3-hover-pale-green">
+			{{> tfoot2TaxonomyPage}}
+		</tfoot>
+{{/inline}}
+{{#*inline "tfoot2TaxonomyPage"}}
+		<tr>
+			{{#if getColumnCreated}}
+				<td>
+				</td>
+			{{/if}}
+			{{#if getColumnObjectTitle}}
+				<td>
+				</td>
+			{{/if}}
+		</tr>
+	{{/inline}}
+{{#*inline "htmFormsTaxonomyPage"}}
+	{{#ifContainsAnyRoles roles rolesRequired}}
+		{{#eq taxonomyCount int1}}
+		<button
+			class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-pale-green "
+			id="refreshThisTaxonomyGenPage"
+			onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'pk:{{pk}}' } ], {}, function() { addGlow($('#refreshThisTaxonomyGenPage')); }, function() { addError($('#refreshThisTaxonomyGenPage')); }); return false; ">
+			<i class="fas fa-sync-alt "></i>
+			refresh this taxonomy
+		</button>
+		{{/eq}}
+	{{/ifContainsAnyRoles}}
+	{{#ifContainsAnyRoles roles authRolesAdmin}}
+{{#block "htmForm_putimportTaxonomy"}}{{/block}}
+{{#block "htmForm_postTaxonomy"}}{{/block}}
+{{#block "htmForm_patchTaxonomy"}}{{/block}}
+	{{/ifContainsAnyRoles}}
+{{#block "htmSuggested"}}{{/block}}
+{{/inline}}
+{{#*inline "htmSuggestedTaxonomyPage"}}
+			{{#ifContainsAnyRoles roles rolesRequired}}
+					<div class="">
+						<button id="refreshAllTaxonomyGenPage{{id}}" class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-pale-green "
+							onclick="patch{{classSimpleName}}Vals([], {}, function() { addGlow($('#refreshAllTaxonomyGenPage{{id}}')); }, function() { addError($('#refreshAllTaxonomyGenPage{{id}}')); }); "
+							>
+							<i class="fas fa-sync-alt "></i>
+							refresh all the taxonomies
+						</button>
+					</div>
+			{{/ifContainsAnyRoles}}
+			<div class="w3-cell-row ">
+				<div class="w3-cell ">
+					<span>
+						search taxonomies: 
+					</span>
+				</div>
+			</div>
+			<div class="w3-bar ">
+				<input
+					type="text"
+					class="suggestTaxonomy w3-input w3-border w3-bar-item "
+					name="suggestTaxonomy"
+					id="suggestTaxonomy{{id}}"
+					autocomplete="off"
+					oninput="suggestTaxonomyObjectSuggest( [ { 'name': 'q', 'value': 'objectSuggest:' + $(this).val() }, { 'name': 'rows', 'value': '10' }, { 'name': 'fl', 'value': 'pk,pageUrlPk,objectTitle' } ], $('#suggestListTaxonomy{{id}}'), {{pk}}; "
+					onkeyup="if (event.keyCode === 13) { event.preventDefault(); window.location.href = '/api/taxonomy?q={{query1}}:' + encodeURIComponent(this.value) + '{{fqs}}{{sorts}}&amp;rows={{start2}}&amp;rows={{rows1}}"
+				{{#if listTaxonomy}}
+					value="{{query2}}"
+				{{/if}}
+				/>
+				<button
+					class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-bar-item w3-pale-green "
+					onclick="window.location.href = '/api/taxonomy?q=&quot;, query1, &quot;:' + encodeURIComponent(this.previousElementSibling.value) + '&quot;, fqs, sorts, &quot;&amp;rows=&quot;, start2, &quot;&amp;rows=&quot;, rows1, &quot;'; "
+					>
+					<i class="fas fa-search "></i>
+				</button>
+			<div>
+			<div class="w3-cell-row ">
+				<div class="w3-cell w3-left-align w3-cell-top ">
+					<ul class="w3-ul w3-hoverable " id="suggestListTaxonomy{{id}}">
+					</ul>
+				</div>
+			</div>
+			<div class="">
+				<a href="/api/taxonomy" class="">
+					<i class="far fa-project-diagram"></i>
+					see all the taxonomies
+				</a>
+			</div>
+{{/inline}}
+{{> BaseModelPage baseModel_=taxonomy_}}
+
+{{#*inline "htmTaxonomyId"}}
+								<div class="w3-cell w3-cell-top w3-center w3-mobile ">
+									<div class="w3-padding ">
+										<div id="suggest{{classApiMethodMethod}}TaxonomyTaxonomyId">
+											<div class="w3-card ">
+												<div class="w3-cell-row w3-pale-green">
+													<label for="{{classApiMethodMethod}}_taxonomyId">Taxonomy ID</label>
+												</div>
+												<div class="w3-cell-row w3-padding ">
+													<div class="w3-cell ">
+														{{> "inputTaxonomyId"}}
+													</div>
+	{{#ifContainsAnyRoles roles rolesRequired}}
+		{{#eq 'Page' classApiMethodMethod}}
+															<div class="w3-cell w3-left-align w3-cell-top ">
+																<button
+																		tabindex="-1"
+																		class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-bar-item w3-pale-green "
+																		onclick="removeGlow($('#{{classApiMethodMethod}}_taxonomyId')); $('#{{classApiMethodMethod}}_taxonomyId').val(null); patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + $('#TaxonomyForm :input[name=pk]').val() }], 'setTaxonomyId', null, function() { addGlow($('#{{classApiMethodMethod}}_taxonomyId')); }, function() { addError($('#{{classApiMethodMethod}}_taxonomyId')); }); "
+																		>
+																	<i class="far fa-eraser "></i>
+																</button>
+															</div>
+														{{/eq}}
+	{{/ifContainsAnyRoles}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+{{/inline}}
+
+{{#*inline "inputTaxonomyId"}}
+		{{#ifContainsAnyRoles roles rolesRequired}}
+														<input
+															type="text"
+															placeholder="Taxonomy ID"
+															id="{{classApiMethodMethod}}_taxonomyId"
+	{{#eq "Page" classApiMethodMethod}}
+																class="setTaxonomyId classTaxonomy inputTaxonomy{{pk}}TaxonomyId w3-input w3-border "
+																name="setTaxonomyId"
+	{{else}}
+		{{#eq "PATCH" classApiMethodMethod}}
+																class="setTaxonomyId classTaxonomy inputTaxonomy{{pk}}TaxonomyId w3-input w3-border "
+																name="setTaxonomyId"
+		{{else}}
+																class="valueTaxonomyId w3-input w3-border classTaxonomy inputTaxonomy{{pk}}TaxonomyId w3-input w3-border "
+																name="taxonomyId"
+		{{/eq}}
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+																onclick="removeGlow($(this)); "
+																onchange="patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:{{pk}}' }], 'setTaxonomyId', $(this).val(), function() { addGlow($('#{{classApiMethodMethod}}_taxonomyId')); }, function() { addError($('#{{classApiMethodMethod}}_taxonomyId')); }); "
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+															value="{{taxonomy_.taxonomyId}}"
+	{{/eq}}
+														/>
+
+													{{else}}
+															<span class="varTaxonomy{{pk}}TaxonomyId ">{{taxonomy_.taxonomyId}}</span>
+		{{/ifContainsAnyRoles}}
+{{/inline}}
+
+{{#*inline "htmTaxonomyName"}}
+								<div class="w3-cell w3-cell-top w3-center w3-mobile ">
+									<div class="w3-padding ">
+										<div id="suggest{{classApiMethodMethod}}TaxonomyTaxonomyName">
+											<div class="w3-card ">
+												<div class="w3-cell-row w3-pale-green">
+													<label for="{{classApiMethodMethod}}_taxonomyName">Taxonomy Name</label>
+												</div>
+												<div class="w3-cell-row w3-padding ">
+													<div class="w3-cell ">
+														{{> "inputTaxonomyName"}}
+													</div>
+	{{#ifContainsAnyRoles roles rolesRequired}}
+		{{#eq 'Page' classApiMethodMethod}}
+															<div class="w3-cell w3-left-align w3-cell-top ">
+																<button
+																		tabindex="-1"
+																		class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-bar-item w3-pale-green "
+																		onclick="removeGlow($('#{{classApiMethodMethod}}_taxonomyName')); $('#{{classApiMethodMethod}}_taxonomyName').val(null); patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + $('#TaxonomyForm :input[name=pk]').val() }], 'setTaxonomyName', null, function() { addGlow($('#{{classApiMethodMethod}}_taxonomyName')); }, function() { addError($('#{{classApiMethodMethod}}_taxonomyName')); }); "
+																		>
+																	<i class="far fa-eraser "></i>
+																</button>
+															</div>
+														{{/eq}}
+	{{/ifContainsAnyRoles}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+{{/inline}}
+
+{{#*inline "inputTaxonomyName"}}
+		{{#ifContainsAnyRoles roles rolesRequired}}
+														<input
+															type="text"
+															placeholder="Taxonomy Name"
+															id="{{classApiMethodMethod}}_taxonomyName"
+	{{#eq "Page" classApiMethodMethod}}
+																class="setTaxonomyName classTaxonomy inputTaxonomy{{pk}}TaxonomyName w3-input w3-border "
+																name="setTaxonomyName"
+	{{else}}
+		{{#eq "PATCH" classApiMethodMethod}}
+																class="setTaxonomyName classTaxonomy inputTaxonomy{{pk}}TaxonomyName w3-input w3-border "
+																name="setTaxonomyName"
+		{{else}}
+																class="valueTaxonomyName w3-input w3-border classTaxonomy inputTaxonomy{{pk}}TaxonomyName w3-input w3-border "
+																name="taxonomyName"
+		{{/eq}}
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+																onclick="removeGlow($(this)); "
+																onchange="patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:{{pk}}' }], 'setTaxonomyName', $(this).val(), function() { addGlow($('#{{classApiMethodMethod}}_taxonomyName')); }, function() { addError($('#{{classApiMethodMethod}}_taxonomyName')); }); "
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+															value="{{taxonomy_.taxonomyName}}"
+	{{/eq}}
+														/>
+
+													{{else}}
+															<span class="varTaxonomy{{pk}}TaxonomyName ">{{taxonomy_.taxonomyName}}</span>
+		{{/ifContainsAnyRoles}}
+{{/inline}}
+
+{{#*inline "htmTaxonomyUniqueName"}}
+								<div class="w3-cell w3-cell-top w3-center w3-mobile ">
+									<div class="w3-padding ">
+										<div id="suggest{{classApiMethodMethod}}TaxonomyTaxonomyUniqueName">
+											<div class="w3-card ">
+												<div class="w3-cell-row w3-pale-green">
+													<label for="{{classApiMethodMethod}}_taxonomyUniqueName">Taxonomy Unique Name</label>
+												</div>
+												<div class="w3-cell-row w3-padding ">
+													<div class="w3-cell ">
+														{{> "inputTaxonomyUniqueName"}}
+													</div>
+	{{#ifContainsAnyRoles roles rolesRequired}}
+		{{#eq 'Page' classApiMethodMethod}}
+															<div class="w3-cell w3-left-align w3-cell-top ">
+																<button
+																		tabindex="-1"
+																		class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-bar-item w3-pale-green "
+																		onclick="removeGlow($('#{{classApiMethodMethod}}_taxonomyUniqueName')); $('#{{classApiMethodMethod}}_taxonomyUniqueName').val(null); patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + $('#TaxonomyForm :input[name=pk]').val() }], 'setTaxonomyUniqueName', null, function() { addGlow($('#{{classApiMethodMethod}}_taxonomyUniqueName')); }, function() { addError($('#{{classApiMethodMethod}}_taxonomyUniqueName')); }); "
+																		>
+																	<i class="far fa-eraser "></i>
+																</button>
+															</div>
+														{{/eq}}
+	{{/ifContainsAnyRoles}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+{{/inline}}
+
+{{#*inline "inputTaxonomyUniqueName"}}
+		{{#ifContainsAnyRoles roles rolesRequired}}
+														<input
+															type="text"
+															placeholder="Taxonomy Unique Name"
+															id="{{classApiMethodMethod}}_taxonomyUniqueName"
+	{{#eq "Page" classApiMethodMethod}}
+																class="setTaxonomyUniqueName classTaxonomy inputTaxonomy{{pk}}TaxonomyUniqueName w3-input w3-border "
+																name="setTaxonomyUniqueName"
+	{{else}}
+		{{#eq "PATCH" classApiMethodMethod}}
+																class="setTaxonomyUniqueName classTaxonomy inputTaxonomy{{pk}}TaxonomyUniqueName w3-input w3-border "
+																name="setTaxonomyUniqueName"
+		{{else}}
+																class="valueTaxonomyUniqueName w3-input w3-border classTaxonomy inputTaxonomy{{pk}}TaxonomyUniqueName w3-input w3-border "
+																name="taxonomyUniqueName"
+		{{/eq}}
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+																onclick="removeGlow($(this)); "
+																onchange="patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:{{pk}}' }], 'setTaxonomyUniqueName', $(this).val(), function() { addGlow($('#{{classApiMethodMethod}}_taxonomyUniqueName')); }, function() { addError($('#{{classApiMethodMethod}}_taxonomyUniqueName')); }); "
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+															value="{{taxonomy_.taxonomyUniqueName}}"
+	{{/eq}}
+														/>
+
+													{{else}}
+															<span class="varTaxonomy{{pk}}TaxonomyUniqueName ">{{taxonomy_.taxonomyUniqueName}}</span>
+		{{/ifContainsAnyRoles}}
+{{/inline}}
+
+{{#*inline "htmTaxonomyNameClass"}}
+								<div class="w3-cell w3-cell-top w3-center w3-mobile ">
+									<div class="w3-padding ">
+										<div id="suggest{{classApiMethodMethod}}TaxonomyTaxonomyNameClass">
+											<div class="w3-card ">
+												<div class="w3-cell-row w3-pale-green">
+													<label for="{{classApiMethodMethod}}_taxonomyNameClass">Taxonomy Name Class</label>
+												</div>
+												<div class="w3-cell-row w3-padding ">
+													<div class="w3-cell ">
+														{{> "inputTaxonomyNameClass"}}
+													</div>
+	{{#ifContainsAnyRoles roles rolesRequired}}
+		{{#eq 'Page' classApiMethodMethod}}
+															<div class="w3-cell w3-left-align w3-cell-top ">
+																<button
+																		tabindex="-1"
+																		class="w3-btn w3-round w3-border w3-border-black w3-ripple w3-padding w3-bar-item w3-pale-green "
+																		onclick="removeGlow($('#{{classApiMethodMethod}}_taxonomyNameClass')); $('#{{classApiMethodMethod}}_taxonomyNameClass').val(null); patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + $('#TaxonomyForm :input[name=pk]').val() }], 'setTaxonomyNameClass', null, function() { addGlow($('#{{classApiMethodMethod}}_taxonomyNameClass')); }, function() { addError($('#{{classApiMethodMethod}}_taxonomyNameClass')); }); "
+																		>
+																	<i class="far fa-eraser "></i>
+																</button>
+															</div>
+														{{/eq}}
+	{{/ifContainsAnyRoles}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+{{/inline}}
+
+{{#*inline "inputTaxonomyNameClass"}}
+		{{#ifContainsAnyRoles roles rolesRequired}}
+														<input
+															type="text"
+															placeholder="Taxonomy Name Class"
+															id="{{classApiMethodMethod}}_taxonomyNameClass"
+	{{#eq "Page" classApiMethodMethod}}
+																class="setTaxonomyNameClass classTaxonomy inputTaxonomy{{pk}}TaxonomyNameClass w3-input w3-border "
+																name="setTaxonomyNameClass"
+	{{else}}
+		{{#eq "PATCH" classApiMethodMethod}}
+																class="setTaxonomyNameClass classTaxonomy inputTaxonomy{{pk}}TaxonomyNameClass w3-input w3-border "
+																name="setTaxonomyNameClass"
+		{{else}}
+																class="valueTaxonomyNameClass w3-input w3-border classTaxonomy inputTaxonomy{{pk}}TaxonomyNameClass w3-input w3-border "
+																name="taxonomyNameClass"
+		{{/eq}}
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+																onclick="removeGlow($(this)); "
+																onchange="patch{{classSimpleName}}Val([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:{{pk}}' }], 'setTaxonomyNameClass', $(this).val(), function() { addGlow($('#{{classApiMethodMethod}}_taxonomyNameClass')); }, function() { addError($('#{{classApiMethodMethod}}_taxonomyNameClass')); }); "
+	{{/eq}}
+	{{#eq "Page" classApiMethodMethod}}
+															value="{{taxonomy_.taxonomyNameClass}}"
+	{{/eq}}
+														/>
+
+													{{else}}
+															<span class="varTaxonomy{{pk}}TaxonomyNameClass ">{{taxonomy_.taxonomyNameClass}}</span>
+		{{/ifContainsAnyRoles}}
+{{/inline}}

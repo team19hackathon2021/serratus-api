@@ -72,9 +72,50 @@ CREATE TABLE SequenceRun(
 	, projectId text
 	, bioSampleId text
 	);
+CREATE TABLE Taxonomy(
+	pk bigserial primary key
+	, inheritPk text
+	, created timestamp with time zone
+	, archived boolean
+	, deleted boolean
+	, sessionId text
+	, userKey bigint
+	, taxonomyId text
+	, taxonomyName text
+	, taxonomyUniqueName text
+	, taxonomyNameClass text
+	);
+CREATE TABLE BioSample(
+	pk bigserial primary key
+	, inheritPk text
+	, created timestamp with time zone
+	, archived boolean
+	, deleted boolean
+	, sessionId text
+	, userKey bigint
+	, bioSampleId text
+	, bioSampleIsolate text
+	, bioSampleHost text
+	, bioSampleLabHost text
+	, bioSampleIsolationSource text
+	, bioSampleGeographicLocation text
+	, bioSampleLatitudeLongitude text
+	, bioSampleReferenceForBioMaterial text
+	, bioSampleMaterialProcessing text
+	, bioSampleMaterialIdentifiers text
+	, bioSampleDisease text
+	, bioSampleHostTissueSampled text
+	, bioSampleCollectedBy text
+	, taxonomyId text
+	, taxonomyName text
+	, taxonomyUniqueName text
+	, taxonomyNameClass text
+	);
 
 DROP TABLE SiteUser CASCADE;
 DROP TABLE SequenceRun CASCADE;
+DROP TABLE Taxonomy CASCADE;
+DROP TABLE BioSample CASCADE;
 */
 
 	protected static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);

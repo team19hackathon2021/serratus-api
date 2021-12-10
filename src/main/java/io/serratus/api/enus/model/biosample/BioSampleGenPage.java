@@ -1,21 +1,22 @@
-package io.serratus.api.enus.model.run;
+package io.serratus.api.enus.model.biosample;
 
 import java.lang.String;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import io.serratus.api.enus.search.SearchList;
+import io.serratus.api.enus.model.taxonomy.Taxonomy;
 import io.serratus.api.enus.base.BaseModelPage;
 import io.serratus.api.enus.request.SiteRequestEnUS;
 import io.serratus.api.enus.user.SiteUser;
 import java.io.IOException;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
-import io.serratus.api.enus.search.SearchList;
 import io.serratus.api.enus.wrap.Wrap;
 import io.serratus.api.enus.page.PageLayout;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.api.service.ServiceRequest;
 import io.vertx.core.json.JsonArray;
@@ -41,42 +42,42 @@ import io.serratus.api.enus.config.ConfigKeys;
 
 
 /**
- * Map.hackathonMission: to create the a new base Java backend class to render the page for RNA sequence runs. 
- * Map.hackathonColumn: Develop SequenceRun UI
+ * Map.hackathonMission: to create the a new base Java backend class to render the page for BioSamples related to RNA seqence runs. 
+ * Map.hackathonColumn: Develop BioSample UI
  * Map.hackathonLabels: Java,Vert.x,Handlebars
- * Map.hackathonMissionGen: to create the a new base Java backend class to render the page for RNA sequence runs. 
- * Map.hackathonColumnGen: Develop SequenceRun UI
+ * Map.hackathonMissionGen: to create the a new base Java backend class to render the page for BioSamples related to RNA seqence runs. 
+ * Map.hackathonColumnGen: Develop BioSample UI
  * Map.hackathonLabelsGen: Java,Vert.x,Handlebars
  * Translate: false
  **/
-public class SequenceRunGenPage extends SequenceRunGenPageGen<BaseModelPage> {
+public class BioSampleGenPage extends BioSampleGenPageGen<BaseModelPage> {
 
 	/**
 	 * {@inheritDoc}
 	 * Ignore: true
 	 **/
-	protected void _searchListSequenceRun_(Wrap<SearchList<SequenceRun>> w) {
+	protected void _searchListBioSample_(Wrap<SearchList<BioSample>> w) {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 **/
-	protected void _listSequenceRun(JsonArray l) {
-		Optional.ofNullable(searchListSequenceRun_).map(o -> o.getList()).orElse(Arrays.asList()).stream().map(o -> JsonObject.mapFrom(o)).forEach(o -> l.add(o));
+	protected void _listBioSample(JsonArray l) {
+		Optional.ofNullable(searchListBioSample_).map(o -> o.getList()).orElse(Arrays.asList()).stream().map(o -> JsonObject.mapFrom(o)).forEach(o -> l.add(o));
 	}
 
-	protected void _sequenceRunCount(Wrap<Integer> w) {
-		w.o(searchListSequenceRun_ == null ? 0 : searchListSequenceRun_.size());
+	protected void _bioSampleCount(Wrap<Integer> w) {
+		w.o(searchListBioSample_ == null ? 0 : searchListBioSample_.size());
 	}
 
-	protected void _sequenceRun_(Wrap<SequenceRun> w) {
-		if(sequenceRunCount == 1)
-			w.o(searchListSequenceRun_.get(0));
+	protected void _bioSample_(Wrap<BioSample> w) {
+		if(bioSampleCount == 1)
+			w.o(searchListBioSample_.get(0));
 	}
 
 	protected void _pk(Wrap<Long> w) {
-		if(sequenceRunCount == 1)
-			w.o(sequenceRun_.getPk());
+		if(bioSampleCount == 1)
+			w.o(bioSample_.getPk());
 	}
 
 	@Override
@@ -86,24 +87,24 @@ public class SequenceRunGenPage extends SequenceRunGenPageGen<BaseModelPage> {
 
 	@Override
 	protected void _classSimpleName(Wrap<String> w) {
-		w.o("SequenceRun");
+		w.o("BioSample");
 	}
 
 	@Override
 	protected void _pageTitle(Wrap<String> c) {
-		if(sequenceRun_ != null && sequenceRun_.getObjectTitle() != null)
-			c.o(sequenceRun_.getObjectTitle());
-		else if(sequenceRun_ != null)
-			c.o("sequence runs");
-		else if(searchListSequenceRun_ == null || sequenceRunCount == 0)
-			c.o("no sequence run found");
+		if(bioSample_ != null && bioSample_.getObjectTitle() != null)
+			c.o(bioSample_.getObjectTitle());
+		else if(bioSample_ != null)
+			c.o("biosamples");
+		else if(searchListBioSample_ == null || bioSampleCount == 0)
+			c.o("no biosample found");
 		else
-			c.o("sequence runs");
+			c.o("biosamples");
 	}
 
 	@Override
 	protected void _pageUri(Wrap<String> c) {
-		c.o("/api/run");
+		c.o("/api/biosample");
 	}
 
 	@Override
@@ -115,15 +116,15 @@ public class SequenceRunGenPage extends SequenceRunGenPageGen<BaseModelPage> {
 
 	@Override
 	protected void _rolesRequired(List<String> l) {
-		l.addAll(Optional.ofNullable(siteRequest_.getConfig().getJsonArray(ConfigKeys.AUTH_ROLES_REQUIRED + "_SequenceRun")).orElse(new JsonArray()).stream().map(o -> o.toString()).collect(Collectors.toList()));
+		l.addAll(Optional.ofNullable(siteRequest_.getConfig().getJsonArray(ConfigKeys.AUTH_ROLES_REQUIRED + "_BioSample")).orElse(new JsonArray()).stream().map(o -> o.toString()).collect(Collectors.toList()));
 	}
 
 	@Override
 	protected void _pagination(JsonObject pagination) {
 		JsonArray pages = new JsonArray();
-		Long start = searchListSequenceRun_.getStart().longValue();
-		Long rows = searchListSequenceRun_.getRows().longValue();
-		Long foundNum = searchListSequenceRun_.getQueryResponse().getResults().getNumFound();
+		Long start = searchListBioSample_.getStart().longValue();
+		Long rows = searchListBioSample_.getRows().longValue();
+		Long foundNum = searchListBioSample_.getQueryResponse().getResults().getNumFound();
 		Long startNum = start + 1L;
 		Long endNum = start + rows;
 		Long floorMod = Math.floorMod(foundNum, rows);
@@ -169,7 +170,7 @@ public class SequenceRunGenPage extends SequenceRunGenPageGen<BaseModelPage> {
 		JsonObject params = serviceRequest.getParams();
 
 		JsonObject queryParams = Optional.ofNullable(serviceRequest).map(ServiceRequest::getParams).map(or -> or.getJsonObject("query")).orElse(new JsonObject());
-		Long num = searchListSequenceRun_.getQueryResponse().getResults().getNumFound();
+		Long num = searchListBioSample_.getQueryResponse().getResults().getNumFound();
 		String q = "*:*";
 		String q1 = "objectText";
 		String q2 = "";
@@ -197,15 +198,15 @@ public class SequenceRunGenPage extends SequenceRunGenPageGen<BaseModelPage> {
 		}
 		query.put("q", q);
 
-		Integer rows1 = Optional.ofNullable(searchListSequenceRun_).map(l -> l.getRows()).orElse(10);
-		Integer start1 = Optional.ofNullable(searchListSequenceRun_).map(l -> l.getStart()).orElse(1);
+		Integer rows1 = Optional.ofNullable(searchListBioSample_).map(l -> l.getRows()).orElse(10);
+		Integer start1 = Optional.ofNullable(searchListBioSample_).map(l -> l.getStart()).orElse(1);
 		Integer start2 = start1 - rows1;
 		Integer start3 = start1 + rows1;
 		Integer rows2 = rows1 / 2;
 		Integer rows3 = rows1 * 2;
 		start2 = start2 < 0 ? 0 : start2;
 		JsonArray fqs = new JsonArray();
-		for(String fq : Optional.ofNullable(searchListSequenceRun_).map(l -> l.getFilterQueries()).orElse(new String[0])) {
+		for(String fq : Optional.ofNullable(searchListBioSample_).map(l -> l.getFilterQueries()).orElse(new String[0])) {
 			if(!StringUtils.contains(fq, "(")) {
 				String fq1 = StringUtils.substringBefore(fq, "_");
 				String fq2 = StringUtils.substringAfter(fq, ":");
@@ -216,7 +217,7 @@ public class SequenceRunGenPage extends SequenceRunGenPageGen<BaseModelPage> {
 		query.put("fq", fqs);
 
 		JsonArray sorts = new JsonArray();
-		for(SortClause sort : Optional.ofNullable(searchListSequenceRun_).map(l -> l.getSorts()).orElse(Arrays.asList())) {
+		for(SortClause sort : Optional.ofNullable(searchListBioSample_).map(l -> l.getSorts()).orElse(Arrays.asList())) {
 			sorts.add(new JsonObject().put("var", StringUtils.substringBefore(sort.getItem(), "_")).put("order", sort.getOrder().name()));
 		}
 		query.put("sort", sorts);
@@ -229,7 +230,7 @@ public class SequenceRunGenPage extends SequenceRunGenPageGen<BaseModelPage> {
 
 	@Override
 	protected void _pageImageUri(Wrap<String> c) {
-			c.o("/png/api/run-999.png");
+			c.o("/png/api/biosample-999.png");
 	}
 
 	@Override
@@ -239,6 +240,6 @@ public class SequenceRunGenPage extends SequenceRunGenPageGen<BaseModelPage> {
 
 	@Override
 	protected void _contextIconName(Wrap<String> c) {
-			c.o("dna");
+			c.o("map-pin");
 	}
 }

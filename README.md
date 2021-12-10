@@ -3,14 +3,16 @@
 ## Install Ansible dependencies on Linux
 
 ```bash
-sudo yum install -y git python3 python3-pip python3-virtualenv python3-libselinux python3-libsemanage python3-policycoreutils
+pkcon install -y git
+pkcon install -y python3-pip
+pkcon install -y python3-virtualenv
 ```
 
 ## Install Ansible dependencies on MacOSX
 
 ```bash
 brew install git python gnu-tar
-pip3 install virtualenv
+pip3 install virtualenv openshift
 ```
 
 ## Install the latest Python and setup a new Python virtualenv
@@ -28,13 +30,28 @@ echo "source ~/python/bin/activate" | tee -a ~/.bash_profile
 ```bash
 pip install setuptools_rust wheel
 pip install --upgrade pip
-pip install ansible selinux setools
 ```
 
 ## Install dependencies on Linux
 
 ```bash
-sudo yum install -y maven
+pkcon install -y maven
+pkcon install -y gcc
+pkcon install -y make
+pkcon install -y git
+pkcon install -y bison
+pkcon install -y flex
+pkcon install -y readline-devel
+pkcon install -y zlib-devel
+pkcon install -y systemd-devel
+pkcon install -y libxml2-devel
+pkcon install -y libxslt-devel
+pkcon install -y openssl-devel
+pkcon install -y perl-core
+pkcon install -y libselinux-devel
+pkcon install -y container-selinux
+pkcon install -y java-1.8.0-openjdk
+pkcon install -y java-11-openjdk
 ```
 
 ## Install dependencies on MacOSX
@@ -48,26 +65,41 @@ brew install maven
 ## Install python3 application dependencies
 
 ```bash
-sudo pip3 install psycopg2-binary
+pip3 install psycopg2-binary openshift
 ```
 
 ## Setup the directory for the project and clone the git repository into it 
 
 ```bash
-sudo install -d -o $USER -g $USER /usr/local/src/serratus-api
-git clone git@github.com:team19hackathon2021/serratus-api.git /usr/local/src/serratus-api
+install -d ~/.local/src/serratus-api
+git clone git@github.com:team19hackathon2021/serratus-api.git ~/.local/src/serratus-api
 ```
 
-## Setup the environment using the requirements.yml file
+## Setup the Ansible Galaxy roles for installing the complete project locally. 
 
 ```bash
-ansible-galaxy install -r /usr/local/src/serratus-api/ansible/roles/requirements.yml
+install -d ~/.ansible/roles
+git clone git@github.com:computate-org/computate_postgres.git ~/.ansible/roles/computate.computate_postgres
+git clone git@github.com:computate-org/computate_zookeeper.git ~/.ansible/roles/computate.computate_zookeeper
+git clone git@github.com:computate-org/computate_solr.git ~/.ansible/roles/computate.computate_solr
+git clone git@github.com:computate-org/computate_project.git ~/.ansible/roles/computate.computate_project
 ```
 
-## Install the 4 required roles using the main ansible playbook
+## Run the Ansible Galaxy roles to install the complete project locally. 
 
 ```bash
-cd /usr/local/src/serratus-api && ansible-playbook install.yml -K
+
+cd ~/.ansible/roles/computate.computate_postgres
+ansible-playbook install.yml
+
+cd ~/.ansible/roles/computate.computate_zookeeper
+ansible-playbook install.yml
+
+cd ~/.ansible/roles/computate.computate_solr
+ansible-playbook install.yml
+
+cd ~/.ansible/roles/computate.computate_project
+ansible-playbook install.yml -e SITE_NAME=serratus-api -e ENABLE_CODE_GENERATION_SERVICE=true
 ```
 
 # Configure Eclipse
@@ -82,7 +114,7 @@ cd /usr/local/src/serratus-api && ansible-playbook install.yml -K
 * In Eclipse, go to File -> Import...
 * Select Maven -> Existing Maven Projects
 * Click [ Next > ]
-* Browse to the directory: /usr/local/src/serratus-api
+* Browse to the directory: ~/.local/src/serratus-api
 * Click [ Finish ]
 
 ## Setup an Eclipse Debug/Run configuration to run and debug serratus-api
@@ -106,7 +138,7 @@ Setup the following VM arguments to disable caching for easier web development:
 Setup the following variables to setup the Vert.x verticle. 
 
 * CLUSTER_PORT: 10991
-* CONFIG_PATH: /usr/local/src/serratus-api/config/serratus-api.yml
+* CONFIG_PATH: ~/.local/src/serratus-api/config/serratus-api.yml
 * SITE_INSTANCES: 5
 * VERTXWEB_ENVIRONMENT: dev
 * WORKER_POOL_SIZE: 2
@@ -142,10 +174,10 @@ You can create and edit an encrypted ansible vault with a password for the host 
 It will have you create a password when you save the file for the first time, like using vim to exit. 
 
 ```bash
-sudo install -d -o $USER /usr/local/src/serratus-api-ansible
-install -d /usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault
-ansible-vault create /usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault
-ansible-vault edit /usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault
+sudo install -d -o $USER ~/.local/src/serratus-api-ansible
+install -d ~/.local/src/serratus-api-ansible/vaults/$USER-staging/vault
+ansible-vault create ~/.local/src/serratus-api-ansible/vaults/$USER-staging/vault
+ansible-vault edit ~/.local/src/serratus-api-ansible/vaults/$USER-staging/vault
 ```
 
 The contents of the vault will contain the secrets needed to override any default values you want to change in the app defaults defined here.
@@ -190,13 +222,13 @@ AUTH_TOKEN_URI: "/auth/realms/{{ AUTH_REALM }}/protocol/openid-connect/token"
 
 ```bash
 
-ansible-playbook --vault-id @prompt -e @/usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_postgres_openshift/install.yml
+ansible-playbook --vault-id @prompt -e @~/.local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_postgres_openshift/install.yml
 
-ansible-playbook --vault-id @prompt -e @/usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_zookeeper_openshift/install.yml
+ansible-playbook --vault-id @prompt -e @~/.local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_zookeeper_openshift/install.yml
 
-ansible-playbook --vault-id @prompt -e @/usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_solr_openshift/install.yml
+ansible-playbook --vault-id @prompt -e @~/.local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_solr_openshift/install.yml
 
-ansible-playbook --vault-id @prompt -e @/usr/local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_project_openshift/install.yml
+ansible-playbook --vault-id @prompt -e @~/.local/src/serratus-api-ansible/vaults/$USER-staging/vault ~/.ansible/roles/computate.computate_project_openshift/install.yml
 ```
 
 ## See the serratus-api application staged here in OpenShift
