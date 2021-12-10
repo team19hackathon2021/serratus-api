@@ -224,7 +224,7 @@ public class AppSwagger2 extends AppSwagger2Gen<Object> {
 			SolrQuery searchClasses = new SolrQuery();
 			searchClasses.setQuery("*:*");
 			searchClasses.setRows(1000000);
-			searchClasses.addFilterQuery("appliChemin_indexed_string:" + ClientUtils.escapeQueryChars(appPath));
+			searchClasses.addFilterQuery("siteChemin_indexed_string:" + ClientUtils.escapeQueryChars(appPath));
 			searchClasses.addFilterQuery("classeApi_indexed_boolean:true");
 			searchClasses.addFilterQuery("partEstClasse_indexed_boolean:true");
 			searchClasses.addSort("classeNomCanonique_enUS_indexed_string", ORDER.asc);
@@ -273,7 +273,7 @@ public class AppSwagger2 extends AppSwagger2Gen<Object> {
 					SolrQuery searchEntites = new SolrQuery();
 					searchEntites.setQuery("*:*");
 					searchEntites.setRows(1000000);
-					searchEntites.addFilterQuery("appliChemin_indexed_string:" + ClientUtils.escapeQueryChars(appPath));
+					searchEntites.addFilterQuery("siteChemin_indexed_string:" + ClientUtils.escapeQueryChars(appPath));
 					searchEntites.addFilterQuery("classeCheminAbsolu_indexed_string:" + ClientUtils.escapeQueryChars(classAbsolutePath));
 					searchEntites.addFilterQuery("partEstEntite_indexed_boolean:true");
 					searchEntites.addSort("partNumero_indexed_int", ORDER.asc);

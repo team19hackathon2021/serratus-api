@@ -205,24 +205,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       requestBody:
         description: >+
         required: true
@@ -362,24 +344,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -516,24 +480,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       requestBody:
         description: >+
         required: true
@@ -704,24 +650,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -861,24 +789,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -1039,24 +949,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       requestBody:
         description: >+
         required: true
@@ -1196,24 +1088,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -1350,24 +1224,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       requestBody:
         description: >+
         required: true
@@ -1538,24 +1394,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -1695,24 +1533,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -1873,24 +1693,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       requestBody:
         description: >+
         required: true
@@ -2030,24 +1832,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -2184,24 +1968,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       requestBody:
         description: >+
         required: true
@@ -2372,24 +2138,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -2529,24 +2277,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -2683,24 +2413,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -2836,24 +2548,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       requestBody:
         description: >+
         required: true
@@ -3021,24 +2715,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -3181,24 +2857,6 @@ paths:
             type: array
             items:
               type: string
-        - in: query
-          name: cursorMark
-          description: 'To use a cursor with the API, specify a cursorMark parameter with the value of *. In addition to returning the top N sorted results (where you can control N using the rows parameter) the API response will also include an encoded String named nextCursorMark. You then take the nextCursorMark String value from the response, and pass it back to API as the cursorMark parameter for your next request. You can repeat this process until you’ve fetched as many docs as you want, or until the nextCursorMark returned matches the cursorMark you’ve already specified — indicating that there are no more results. '
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: softCommit
-          description: 'Solr performs a soft commit, meaning that Solr will commit the changes to the data structures quickly, but not guarantee that the Lucene index files are written to stable storage. '
-          required: false
-          schema:
-            type: boolean
-        - in: query
-          name: commitWithin
-          description: 'The commit within setting allows forcing document commits to happen in a defined time period. '
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
           description: >+
@@ -3213,7 +2871,7 @@ components:
       scheme: basic
     openIdConnect:
       type: openIdConnect
-      openIdConnectUrl: https://sso.computate.org/auth/realms/COMPUTATE.ORG/.well-known/openid-configuration
+      openIdConnectUrl: https://sso.computate.org/auth/realms/TEAM19/.well-known/openid-configuration
   requestBodies:
     POSTBioSampleRequest:
       content:
@@ -3868,43 +3526,13 @@ components:
               type: string
             runReleaseDate:
               type: string
+              format: date-time
             runLoadDate:
               type: string
+              format: date-time
             projectId:
               type: string
             bioSampleId:
-              type: string
-            bioSampleIsolate:
-              type: string
-            bioSampleHost:
-              type: string
-            bioSampleLabHost:
-              type: string
-            bioSampleIsolationSource:
-              type: string
-            bioSampleGeographicLocation:
-              type: string
-            bioSampleLatitudeLongitude:
-              type: string
-            bioSampleReferenceForBioMaterial:
-              type: string
-            bioSampleMaterialProcessing:
-              type: string
-            bioSampleMaterialIdentifiers:
-              type: string
-            bioSampleDisease:
-              type: string
-            bioSampleHostTissueSampled:
-              type: string
-            bioSampleCollectedBy:
-              type: string
-            taxonomyId:
-              type: string
-            taxonomyName:
-              type: string
-            taxonomyUniqueName:
-              type: string
-            taxonomyNameClass:
               type: string
     POSTSequenceRunResponse:
       allOf:
@@ -3914,43 +3542,13 @@ components:
               type: string
             runReleaseDate:
               type: string
+              format: date-time
             runLoadDate:
               type: string
+              format: date-time
             projectId:
               type: string
             bioSampleId:
-              type: string
-            bioSampleIsolate:
-              type: string
-            bioSampleHost:
-              type: string
-            bioSampleLabHost:
-              type: string
-            bioSampleIsolationSource:
-              type: string
-            bioSampleGeographicLocation:
-              type: string
-            bioSampleLatitudeLongitude:
-              type: string
-            bioSampleReferenceForBioMaterial:
-              type: string
-            bioSampleMaterialProcessing:
-              type: string
-            bioSampleMaterialIdentifiers:
-              type: string
-            bioSampleDisease:
-              type: string
-            bioSampleHostTissueSampled:
-              type: string
-            bioSampleCollectedBy:
-              type: string
-            taxonomyId:
-              type: string
-            taxonomyName:
-              type: string
-            taxonomyUniqueName:
-              type: string
-            taxonomyNameClass:
               type: string
     PATCHSequenceRunRequest:
       allOf:
@@ -3966,17 +3564,23 @@ components:
             setRunReleaseDate:
               type: string
               nullable: true
+              format: date-time
             removeRunReleaseDate:
               type: string
+              format: date-time
             removeAllRunReleaseDate:
               type: string
+              format: date-time
             setRunLoadDate:
               type: string
               nullable: true
+              format: date-time
             removeRunLoadDate:
               type: string
+              format: date-time
             removeAllRunLoadDate:
               type: string
+              format: date-time
             setProjectId:
               type: string
               nullable: true
@@ -3990,118 +3594,6 @@ components:
             removeBioSampleId:
               type: string
             removeAllBioSampleId:
-              type: string
-            setBioSampleIsolate:
-              type: string
-              nullable: true
-            removeBioSampleIsolate:
-              type: string
-            removeAllBioSampleIsolate:
-              type: string
-            setBioSampleHost:
-              type: string
-              nullable: true
-            removeBioSampleHost:
-              type: string
-            removeAllBioSampleHost:
-              type: string
-            setBioSampleLabHost:
-              type: string
-              nullable: true
-            removeBioSampleLabHost:
-              type: string
-            removeAllBioSampleLabHost:
-              type: string
-            setBioSampleIsolationSource:
-              type: string
-              nullable: true
-            removeBioSampleIsolationSource:
-              type: string
-            removeAllBioSampleIsolationSource:
-              type: string
-            setBioSampleGeographicLocation:
-              type: string
-              nullable: true
-            removeBioSampleGeographicLocation:
-              type: string
-            removeAllBioSampleGeographicLocation:
-              type: string
-            setBioSampleLatitudeLongitude:
-              type: string
-              nullable: true
-            removeBioSampleLatitudeLongitude:
-              type: string
-            removeAllBioSampleLatitudeLongitude:
-              type: string
-            setBioSampleReferenceForBioMaterial:
-              type: string
-              nullable: true
-            removeBioSampleReferenceForBioMaterial:
-              type: string
-            removeAllBioSampleReferenceForBioMaterial:
-              type: string
-            setBioSampleMaterialProcessing:
-              type: string
-              nullable: true
-            removeBioSampleMaterialProcessing:
-              type: string
-            removeAllBioSampleMaterialProcessing:
-              type: string
-            setBioSampleMaterialIdentifiers:
-              type: string
-              nullable: true
-            removeBioSampleMaterialIdentifiers:
-              type: string
-            removeAllBioSampleMaterialIdentifiers:
-              type: string
-            setBioSampleDisease:
-              type: string
-              nullable: true
-            removeBioSampleDisease:
-              type: string
-            removeAllBioSampleDisease:
-              type: string
-            setBioSampleHostTissueSampled:
-              type: string
-              nullable: true
-            removeBioSampleHostTissueSampled:
-              type: string
-            removeAllBioSampleHostTissueSampled:
-              type: string
-            setBioSampleCollectedBy:
-              type: string
-              nullable: true
-            removeBioSampleCollectedBy:
-              type: string
-            removeAllBioSampleCollectedBy:
-              type: string
-            setTaxonomyId:
-              type: string
-              nullable: true
-            removeTaxonomyId:
-              type: string
-            removeAllTaxonomyId:
-              type: string
-            setTaxonomyName:
-              type: string
-              nullable: true
-            removeTaxonomyName:
-              type: string
-            removeAllTaxonomyName:
-              type: string
-            setTaxonomyUniqueName:
-              type: string
-              nullable: true
-            removeTaxonomyUniqueName:
-              type: string
-            removeAllTaxonomyUniqueName:
-              type: string
-            setTaxonomyNameClass:
-              type: string
-              nullable: true
-            removeTaxonomyNameClass:
-              type: string
-            removeAllTaxonomyNameClass:
               type: string
     PATCHSequenceRunResponse:
       allOf:
@@ -4117,17 +3609,23 @@ components:
             setRunReleaseDate:
               type: string
               nullable: true
+              format: date-time
             removeRunReleaseDate:
               type: string
+              format: date-time
             removeAllRunReleaseDate:
               type: string
+              format: date-time
             setRunLoadDate:
               type: string
               nullable: true
+              format: date-time
             removeRunLoadDate:
               type: string
+              format: date-time
             removeAllRunLoadDate:
               type: string
+              format: date-time
             setProjectId:
               type: string
               nullable: true
@@ -4142,118 +3640,6 @@ components:
               type: string
             removeAllBioSampleId:
               type: string
-            setBioSampleIsolate:
-              type: string
-              nullable: true
-            removeBioSampleIsolate:
-              type: string
-            removeAllBioSampleIsolate:
-              type: string
-            setBioSampleHost:
-              type: string
-              nullable: true
-            removeBioSampleHost:
-              type: string
-            removeAllBioSampleHost:
-              type: string
-            setBioSampleLabHost:
-              type: string
-              nullable: true
-            removeBioSampleLabHost:
-              type: string
-            removeAllBioSampleLabHost:
-              type: string
-            setBioSampleIsolationSource:
-              type: string
-              nullable: true
-            removeBioSampleIsolationSource:
-              type: string
-            removeAllBioSampleIsolationSource:
-              type: string
-            setBioSampleGeographicLocation:
-              type: string
-              nullable: true
-            removeBioSampleGeographicLocation:
-              type: string
-            removeAllBioSampleGeographicLocation:
-              type: string
-            setBioSampleLatitudeLongitude:
-              type: string
-              nullable: true
-            removeBioSampleLatitudeLongitude:
-              type: string
-            removeAllBioSampleLatitudeLongitude:
-              type: string
-            setBioSampleReferenceForBioMaterial:
-              type: string
-              nullable: true
-            removeBioSampleReferenceForBioMaterial:
-              type: string
-            removeAllBioSampleReferenceForBioMaterial:
-              type: string
-            setBioSampleMaterialProcessing:
-              type: string
-              nullable: true
-            removeBioSampleMaterialProcessing:
-              type: string
-            removeAllBioSampleMaterialProcessing:
-              type: string
-            setBioSampleMaterialIdentifiers:
-              type: string
-              nullable: true
-            removeBioSampleMaterialIdentifiers:
-              type: string
-            removeAllBioSampleMaterialIdentifiers:
-              type: string
-            setBioSampleDisease:
-              type: string
-              nullable: true
-            removeBioSampleDisease:
-              type: string
-            removeAllBioSampleDisease:
-              type: string
-            setBioSampleHostTissueSampled:
-              type: string
-              nullable: true
-            removeBioSampleHostTissueSampled:
-              type: string
-            removeAllBioSampleHostTissueSampled:
-              type: string
-            setBioSampleCollectedBy:
-              type: string
-              nullable: true
-            removeBioSampleCollectedBy:
-              type: string
-            removeAllBioSampleCollectedBy:
-              type: string
-            setTaxonomyId:
-              type: string
-              nullable: true
-            removeTaxonomyId:
-              type: string
-            removeAllTaxonomyId:
-              type: string
-            setTaxonomyName:
-              type: string
-              nullable: true
-            removeTaxonomyName:
-              type: string
-            removeAllTaxonomyName:
-              type: string
-            setTaxonomyUniqueName:
-              type: string
-              nullable: true
-            removeTaxonomyUniqueName:
-              type: string
-            removeAllTaxonomyUniqueName:
-              type: string
-            setTaxonomyNameClass:
-              type: string
-              nullable: true
-            removeTaxonomyNameClass:
-              type: string
-            removeAllTaxonomyNameClass:
-              type: string
     SearchSequenceRunResponse:
       allOf:
         - type: array
@@ -4264,43 +3650,13 @@ components:
                 type: string
               runReleaseDate:
                 type: string
+                format: date-time
               runLoadDate:
                 type: string
+                format: date-time
               projectId:
                 type: string
               bioSampleId:
-                type: string
-              bioSampleIsolate:
-                type: string
-              bioSampleHost:
-                type: string
-              bioSampleLabHost:
-                type: string
-              bioSampleIsolationSource:
-                type: string
-              bioSampleGeographicLocation:
-                type: string
-              bioSampleLatitudeLongitude:
-                type: string
-              bioSampleReferenceForBioMaterial:
-                type: string
-              bioSampleMaterialProcessing:
-                type: string
-              bioSampleMaterialIdentifiers:
-                type: string
-              bioSampleDisease:
-                type: string
-              bioSampleHostTissueSampled:
-                type: string
-              bioSampleCollectedBy:
-                type: string
-              taxonomyId:
-                type: string
-              taxonomyName:
-                type: string
-              taxonomyUniqueName:
-                type: string
-              taxonomyNameClass:
                 type: string
     PUTImportSequenceRunRequest:
       allOf:
@@ -4310,43 +3666,13 @@ components:
               type: string
             runReleaseDate:
               type: string
+              format: date-time
             runLoadDate:
               type: string
+              format: date-time
             projectId:
               type: string
             bioSampleId:
-              type: string
-            bioSampleIsolate:
-              type: string
-            bioSampleHost:
-              type: string
-            bioSampleLabHost:
-              type: string
-            bioSampleIsolationSource:
-              type: string
-            bioSampleGeographicLocation:
-              type: string
-            bioSampleLatitudeLongitude:
-              type: string
-            bioSampleReferenceForBioMaterial:
-              type: string
-            bioSampleMaterialProcessing:
-              type: string
-            bioSampleMaterialIdentifiers:
-              type: string
-            bioSampleDisease:
-              type: string
-            bioSampleHostTissueSampled:
-              type: string
-            bioSampleCollectedBy:
-              type: string
-            taxonomyId:
-              type: string
-            taxonomyName:
-              type: string
-            taxonomyUniqueName:
-              type: string
-            taxonomyNameClass:
               type: string
     PUTImportSequenceRunResponse:
       allOf:
@@ -4356,43 +3682,13 @@ components:
               type: string
             runReleaseDate:
               type: string
+              format: date-time
             runLoadDate:
               type: string
+              format: date-time
             projectId:
               type: string
             bioSampleId:
-              type: string
-            bioSampleIsolate:
-              type: string
-            bioSampleHost:
-              type: string
-            bioSampleLabHost:
-              type: string
-            bioSampleIsolationSource:
-              type: string
-            bioSampleGeographicLocation:
-              type: string
-            bioSampleLatitudeLongitude:
-              type: string
-            bioSampleReferenceForBioMaterial:
-              type: string
-            bioSampleMaterialProcessing:
-              type: string
-            bioSampleMaterialIdentifiers:
-              type: string
-            bioSampleDisease:
-              type: string
-            bioSampleHostTissueSampled:
-              type: string
-            bioSampleCollectedBy:
-              type: string
-            taxonomyId:
-              type: string
-            taxonomyName:
-              type: string
-            taxonomyUniqueName:
-              type: string
-            taxonomyNameClass:
               type: string
     GETSequenceRunResponse:
       allOf:
@@ -4402,43 +3698,13 @@ components:
               type: string
             runReleaseDate:
               type: string
+              format: date-time
             runLoadDate:
               type: string
+              format: date-time
             projectId:
               type: string
             bioSampleId:
-              type: string
-            bioSampleIsolate:
-              type: string
-            bioSampleHost:
-              type: string
-            bioSampleLabHost:
-              type: string
-            bioSampleIsolationSource:
-              type: string
-            bioSampleGeographicLocation:
-              type: string
-            bioSampleLatitudeLongitude:
-              type: string
-            bioSampleReferenceForBioMaterial:
-              type: string
-            bioSampleMaterialProcessing:
-              type: string
-            bioSampleMaterialIdentifiers:
-              type: string
-            bioSampleDisease:
-              type: string
-            bioSampleHostTissueSampled:
-              type: string
-            bioSampleCollectedBy:
-              type: string
-            taxonomyId:
-              type: string
-            taxonomyName:
-              type: string
-            taxonomyUniqueName:
-              type: string
-            taxonomyNameClass:
               type: string
     SearchPageSequenceRunResponse:
       allOf:
