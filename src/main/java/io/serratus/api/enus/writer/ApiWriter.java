@@ -589,7 +589,7 @@ public class ApiWriter extends ApiWriterGen<Object> implements Comparable<ApiWri
 			wPaths.tl(3, "security:");
 //			wPaths.tl(4, "- basicAuth: []");
 			wPaths.tl(4, "- openIdConnect:");
-			wPaths.tl(5, "- DefaultAuthScope");
+			wPaths.tl(5, "- profile");
 		}
 
 		wPaths.t(3, "description: ").yamlStr(4, "");

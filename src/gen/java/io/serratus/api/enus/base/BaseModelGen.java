@@ -1784,11 +1784,28 @@ public abstract class BaseModelGen<DEV> extends Object {
 	public void storeBaseModel(SolrDocument solrDocument) {
 		BaseModel oBaseModel = (BaseModel)this;
 
+		oBaseModel.setPk(Optional.ofNullable(solrDocument.get("pk_docvalues_long")).map(v -> v.toString()).orElse(null));
+		oBaseModel.setInheritPk(Optional.ofNullable(solrDocument.get("inheritPk_docvalues_string")).map(v -> v.toString()).orElse(null));
 		String id = (String)solrDocument.get("id");
 		oBaseModel.setId(id);
+		oBaseModel.setCreated(Optional.ofNullable(solrDocument.get("created_docvalues_date")).map(v -> v.toString()).orElse(null));
+		oBaseModel.setModified(Optional.ofNullable(solrDocument.get("modified_docvalues_date")).map(v -> v.toString()).orElse(null));
+		oBaseModel.setArchived(Optional.ofNullable(solrDocument.get("archived_docvalues_boolean")).map(v -> v.toString()).orElse(null));
+		oBaseModel.setDeleted(Optional.ofNullable(solrDocument.get("deleted_docvalues_boolean")).map(v -> v.toString()).orElse(null));
+		oBaseModel.setClassCanonicalName(Optional.ofNullable(solrDocument.get("classCanonicalName_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBaseModel.setClassSimpleName(Optional.ofNullable(solrDocument.get("classSimpleName_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBaseModel.setSessionId(Optional.ofNullable(solrDocument.get("sessionId_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBaseModel.setUserKey(Optional.ofNullable(solrDocument.get("userKey_docvalues_long")).map(v -> v.toString()).orElse(null));
+		Optional.ofNullable((List<?>)solrDocument.get("saves_docvalues_strings")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+			oBaseModel.addSaves(v.toString());
+		});
+		oBaseModel.setObjectTitle(Optional.ofNullable(solrDocument.get("objectTitle_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBaseModel.setObjectId(Optional.ofNullable(solrDocument.get("objectId_docvalues_string")).map(v -> v.toString()).orElse(null));
 		String objectSuggest = (String)solrDocument.get("objectSuggest_suggested");
 		oBaseModel.setObjectSuggest(objectSuggest);
 		oBaseModel.setObjectText(Optional.ofNullable(solrDocument.get("objectText_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBaseModel.setPageUrlId(Optional.ofNullable(solrDocument.get("pageUrlId_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBaseModel.setPageUrlPk(Optional.ofNullable(solrDocument.get("pageUrlPk_docvalues_string")).map(v -> v.toString()).orElse(null));
 	}
 
 	//////////////////

@@ -58,7 +58,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-BioSample
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -82,7 +82,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-BioSample
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -357,7 +357,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-BioSample
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -802,7 +802,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-SequenceRun
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -826,7 +826,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-SequenceRun
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -1101,7 +1101,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-SequenceRun
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -1546,7 +1546,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-Taxonomy
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -1570,7 +1570,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-Taxonomy
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -1845,7 +1845,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-Taxonomy
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -2290,7 +2290,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-SiteUser
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -2425,7 +2425,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-SiteUser
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -2567,7 +2567,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-SiteUser
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -2592,7 +2592,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-SiteUser
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:
@@ -2728,7 +2728,7 @@ paths:
       x-vertx-event-bus: serratus-api-enUS-SiteUser
       security:
         - openIdConnect:
-          - DefaultAuthScope
+          - profile
       description: >+
       summary: >+
       tags:

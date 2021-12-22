@@ -621,6 +621,10 @@ public abstract class TaxonomyGen<DEV> extends BaseModel {
 	public void storeTaxonomy(SolrDocument solrDocument) {
 		Taxonomy oTaxonomy = (Taxonomy)this;
 
+		oTaxonomy.setTaxonomyId(Optional.ofNullable(solrDocument.get("taxonomyId_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oTaxonomy.setTaxonomyName(Optional.ofNullable(solrDocument.get("taxonomyName_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oTaxonomy.setTaxonomyUniqueName(Optional.ofNullable(solrDocument.get("taxonomyUniqueName_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oTaxonomy.setTaxonomyNameClass(Optional.ofNullable(solrDocument.get("taxonomyNameClass_docvalues_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeBaseModel(solrDocument);
 	}

@@ -392,11 +392,11 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			String authUrl = String.format("%s://%s%s/auth", (authSsl ? "https" : "http"), authHostName, (authPort == 443 || authPort == 80 ? "" : ":" + authPort));
 			oauth2ClientOptions.setSite(authUrl + "/realms/" + config().getString(ConfigKeys.AUTH_REALM));
 			oauth2ClientOptions.setTenant(config().getString(ConfigKeys.AUTH_REALM));
-			oauth2ClientOptions.setClientID(config().getString(ConfigKeys.AUTH_RESOURCE));
+			oauth2ClientOptions.setClientId(config().getString(ConfigKeys.AUTH_RESOURCE));
 			oauth2ClientOptions.setClientSecret(config().getString(ConfigKeys.AUTH_SECRET));
 			oauth2ClientOptions.setFlow(OAuth2FlowType.AUTH_CODE);
 			JsonObject extraParams = new JsonObject();
-			extraParams.put("scope", "DefaultAuthScope");
+			extraParams.put("scope", "profile");
 			oauth2ClientOptions.setExtraParameters(extraParams);
 
 			OpenIDConnectAuth.discover(vertx, oauth2ClientOptions, a -> {
@@ -443,7 +443,7 @@ public class MainVerticle extends MainVerticleGen<AbstractVerticle> {
 			
 								final JsonObject config = new JsonObject().put("code", code);
 			
-								config.put("redirect_uri", siteBaseUrl + "/callback");
+								config.put("redirectUri", siteBaseUrl + "/callback");
 			
 								oauth2AuthenticationProvider.authenticate(config, res -> {
 									if (res.failed()) {

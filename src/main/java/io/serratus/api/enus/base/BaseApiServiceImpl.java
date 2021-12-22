@@ -143,11 +143,12 @@ public class BaseApiServiceImpl {
 			} else {
 				User token = User.create(userJson);
 				oauth2AuthenticationProvider.authenticate(token.principal()).onSuccess(user -> {
+					user.attributes().put("accessToken", user.principal());
 					authorizationProvider.getAuthorizations(user).onSuccess(b -> {
 						try {
 							JsonObject userAttributes = user.attributes();
 							JsonObject accessToken = userAttributes.getJsonObject("accessToken");
-							String userId = userAttributes.getString("sub");
+							String userId = accessToken.getString("sub");
 							SiteRequestEnUS siteRequest = generateSiteRequestEnUS(user, serviceRequest);
 							SearchList<SiteUser> searchList = new SearchList<SiteUser>();
 							searchList.setQuery("*:*");

@@ -870,6 +870,15 @@ public abstract class SiteUserGen<DEV> extends BaseModel {
 	public void storeSiteUser(SolrDocument solrDocument) {
 		SiteUser oSiteUser = (SiteUser)this;
 
+		Optional.ofNullable((List<?>)solrDocument.get("userKeys_docvalues_longs")).orElse(Arrays.asList()).stream().filter(v -> v != null).forEach(v -> {
+			oSiteUser.addUserKeys(v.toString());
+		});
+		oSiteUser.setUserId(Optional.ofNullable(solrDocument.get("userId_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oSiteUser.setUserName(Optional.ofNullable(solrDocument.get("userName_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oSiteUser.setUserEmail(Optional.ofNullable(solrDocument.get("userEmail_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oSiteUser.setUserFirstName(Optional.ofNullable(solrDocument.get("userFirstName_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oSiteUser.setUserLastName(Optional.ofNullable(solrDocument.get("userLastName_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oSiteUser.setUserFullName(Optional.ofNullable(solrDocument.get("userFullName_docvalues_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeBaseModel(solrDocument);
 	}

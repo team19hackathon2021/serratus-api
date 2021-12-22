@@ -588,6 +588,15 @@ public class TaxonomyEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						num++;
 						bParams.add(o2.sqlInheritPk());
 						break;
+					case Taxonomy.VAR_created:
+						o2.setCreated(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(Taxonomy.VAR_created + "=$" + num);
+						num++;
+						bParams.add(o2.sqlCreated());
+						break;
 					case Taxonomy.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
 						if(bParams.size() > 0) {
@@ -605,6 +614,24 @@ public class TaxonomyEnUSGenApiServiceImpl extends BaseApiServiceImpl implements
 						bSql.append(Taxonomy.VAR_deleted + "=$" + num);
 						num++;
 						bParams.add(o2.sqlDeleted());
+						break;
+					case Taxonomy.VAR_sessionId:
+						o2.setSessionId(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(Taxonomy.VAR_sessionId + "=$" + num);
+						num++;
+						bParams.add(o2.sqlSessionId());
+						break;
+					case Taxonomy.VAR_userKey:
+						o2.setUserKey(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(Taxonomy.VAR_userKey + "=$" + num);
+						num++;
+						bParams.add(o2.sqlUserKey());
 						break;
 					case Taxonomy.VAR_taxonomyId:
 						o2.setTaxonomyId(jsonObject.getString(entityVar));

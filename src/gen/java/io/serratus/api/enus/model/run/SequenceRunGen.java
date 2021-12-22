@@ -748,6 +748,11 @@ public abstract class SequenceRunGen<DEV> extends BaseModel {
 	public void storeSequenceRun(SolrDocument solrDocument) {
 		SequenceRun oSequenceRun = (SequenceRun)this;
 
+		oSequenceRun.setRunId(Optional.ofNullable(solrDocument.get("runId_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oSequenceRun.setRunReleaseDate(Optional.ofNullable(solrDocument.get("runReleaseDate_docvalues_date")).map(v -> v.toString()).orElse(null));
+		oSequenceRun.setRunLoadDate(Optional.ofNullable(solrDocument.get("runLoadDate_docvalues_date")).map(v -> v.toString()).orElse(null));
+		oSequenceRun.setProjectId(Optional.ofNullable(solrDocument.get("projectId_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oSequenceRun.setBioSampleId(Optional.ofNullable(solrDocument.get("bioSampleId_docvalues_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeBaseModel(solrDocument);
 	}

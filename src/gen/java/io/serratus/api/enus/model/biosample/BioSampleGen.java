@@ -1696,6 +1696,23 @@ public abstract class BioSampleGen<DEV> extends BaseModel {
 	public void storeBioSample(SolrDocument solrDocument) {
 		BioSample oBioSample = (BioSample)this;
 
+		oBioSample.setBioSampleId(Optional.ofNullable(solrDocument.get("bioSampleId_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleIsolate(Optional.ofNullable(solrDocument.get("bioSampleIsolate_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleHost(Optional.ofNullable(solrDocument.get("bioSampleHost_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleLabHost(Optional.ofNullable(solrDocument.get("bioSampleLabHost_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleIsolationSource(Optional.ofNullable(solrDocument.get("bioSampleIsolationSource_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleGeographicLocation(Optional.ofNullable(solrDocument.get("bioSampleGeographicLocation_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleLatitudeLongitude(Optional.ofNullable(solrDocument.get("bioSampleLatitudeLongitude_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleReferenceForBioMaterial(Optional.ofNullable(solrDocument.get("bioSampleReferenceForBioMaterial_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleMaterialProcessing(Optional.ofNullable(solrDocument.get("bioSampleMaterialProcessing_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleMaterialIdentifiers(Optional.ofNullable(solrDocument.get("bioSampleMaterialIdentifiers_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleDisease(Optional.ofNullable(solrDocument.get("bioSampleDisease_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleHostTissueSampled(Optional.ofNullable(solrDocument.get("bioSampleHostTissueSampled_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setBioSampleCollectedBy(Optional.ofNullable(solrDocument.get("bioSampleCollectedBy_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setTaxonomyId(Optional.ofNullable(solrDocument.get("taxonomyId_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setTaxonomyName(Optional.ofNullable(solrDocument.get("taxonomyName_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setTaxonomyUniqueName(Optional.ofNullable(solrDocument.get("taxonomyUniqueName_docvalues_string")).map(v -> v.toString()).orElse(null));
+		oBioSample.setTaxonomyNameClass(Optional.ofNullable(solrDocument.get("taxonomyNameClass_docvalues_string")).map(v -> v.toString()).orElse(null));
 
 		super.storeBaseModel(solrDocument);
 	}

@@ -588,6 +588,15 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						num++;
 						bParams.add(o2.sqlInheritPk());
 						break;
+					case SequenceRun.VAR_created:
+						o2.setCreated(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(SequenceRun.VAR_created + "=$" + num);
+						num++;
+						bParams.add(o2.sqlCreated());
+						break;
 					case SequenceRun.VAR_archived:
 						o2.setArchived(jsonObject.getBoolean(entityVar));
 						if(bParams.size() > 0) {
@@ -605,6 +614,24 @@ public class SequenceRunEnUSGenApiServiceImpl extends BaseApiServiceImpl impleme
 						bSql.append(SequenceRun.VAR_deleted + "=$" + num);
 						num++;
 						bParams.add(o2.sqlDeleted());
+						break;
+					case SequenceRun.VAR_sessionId:
+						o2.setSessionId(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(SequenceRun.VAR_sessionId + "=$" + num);
+						num++;
+						bParams.add(o2.sqlSessionId());
+						break;
+					case SequenceRun.VAR_userKey:
+						o2.setUserKey(jsonObject.getString(entityVar));
+						if(bParams.size() > 0) {
+							bSql.append(", ");
+						}
+						bSql.append(SequenceRun.VAR_userKey + "=$" + num);
+						num++;
+						bParams.add(o2.sqlUserKey());
 						break;
 					case SequenceRun.VAR_runId:
 						o2.setRunId(jsonObject.getString(entityVar));
