@@ -446,6 +446,11 @@ public class ConfigKeys {
 	/**
 	 * 
 	 **/
+	public static final String ENABLE_ZOOKEEPER_CLUSTER = "ENABLE_ZOOKEEPER_CLUSTER";
+
+	/**
+	 * 
+	 **/
 	public static final String ZOOKEEPER_HOST_NAME = "ZOOKEEPER_HOST_NAME";
 
 	/**

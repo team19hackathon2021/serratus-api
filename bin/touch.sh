@@ -18,6 +18,7 @@ touch ~/.local/src/serratus-api/src/main/java/io/serratus/api/enus/vertx/AppOpen
 touch ~/.local/src/serratus-api/src/main/java/io/serratus/api/enus/vertx/AppSwagger2.java
 touch ~/.local/src/serratus-api/src/main/java/io/serratus/api/enus/vertx/MainVerticle.java
 touch ~/.local/src/serratus-api/src/main/java/io/serratus/api/enus/vertx/WorkerVerticle.java
+touch ~/.local/src/serratus-api/src/main/java/io/serratus/api/enus/quarkus/QuarkusApp.java
 touch ~/.local/src/serratus-api/src/main/java/io/serratus/api/enus/page/PageLayout.java
 touch ~/.local/src/serratus-api/src/main/java/io/serratus/api/enus/user/SiteUser.java
 touch ~/.local/src/serratus-api/src/main/java/io/serratus/api/enus/base/BaseModel.java

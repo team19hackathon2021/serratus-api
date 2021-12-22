@@ -5,7 +5,7 @@ SITE_SERVICES:
     SITE_SRC: "{{ lookup('env', 'HOME') }}/.local/src/serratus-api"
 LANGUAGE_NAME: "enUS"
 SITE_JAVA_PACKAGE: io.serratus.api
-SITE_PORT: 12080
+SITE_PORT: 13080
 AUTH_REALM: TEAM19
 AUTH_RESOURCE: team19
 AUTH_SECRET: 0518f65a-f86d-42e8-ad65-00f46920443d

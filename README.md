@@ -89,18 +89,40 @@ git clone git@github.com:computate-org/computate_project.git ~/.ansible/roles/co
 
 ```bash
 
-cd ~/.ansible/roles/computate.computate_postgres
-ansible-playbook install.yml
+ansible-playbook ~/.ansible/roles/computate.computate_postgres/install.yml
 
-cd ~/.ansible/roles/computate.computate_zookeeper
-ansible-playbook install.yml
+ansible-playbook ~/.ansible/roles/computate.computate_zookeeper/install.yml
 
-cd ~/.ansible/roles/computate.computate_solr
-ansible-playbook install.yml
+ansible-playbook ~/.ansible/roles/computate.computate_solr/install.yml
 
-cd ~/.ansible/roles/computate.computate_project
-ansible-playbook install.yml -e SITE_NAME=serratus-api -e ENABLE_CODE_GENERATION_SERVICE=true
+ansible-playbook ~/.ansible/roles/computate.computate_project/install.yml -e SITE_NAME=serratus-api -e ENABLE_CODE_GENERATION_SERVICE=true
 ```
+
+## About the code generation
+
+Much of the getters, setters, initialization code, API code, and page code is generated using this open source library: 
+
+https://github.com/computate-org/computate
+
+It can be confusing how it works, so you can disable it by removing ` -e ENABLE_CODE_GENERATION_SERVICE=true` in the command above. If you do wish to use the code generation service, then you will need to run the `touch.sh` script 4 times to initialize the code records in the Solr search engine. Every piece of the code is read and stored in the search engine, and the code *learns* about itself as it is modified. In order to link together the generated code between 2 foreign key related classes, first all of the base classes must be read into the search engine which might take a couple of passes of running the `touch.sh` script, followed by one of the model classes, followed by the other model class. 
+
+So to see the code generation working, open one terminal and watch the logs: 
+
+```
+journalctl -f --user-unit watch-serratus-api
+```
+
+And in the other terminal, run the touch script at least 4 times, waiting for the logs to stop each time, until there are no more errors in the logs, or in the code: 
+
+```
+~/.local/src/serratus-api/bin/touch.sh
+```
+
+You can view the code in the Solr search engine here: 
+
+http://localhost:8983/solr/#/computate/query?q=*:*&q.op=OR
+
+For questions, please reach out with work-in-progress pull requests in Github in the project here. 
 
 # Configure Eclipse
 
@@ -137,7 +159,7 @@ Setup the following VM arguments to disable caching for easier web development:
 
 Setup the following variables to setup the Vert.x verticle. 
 
-* CLUSTER_PORT: 10991
+* CLUSTER_PORT: 13081
 * CONFIG_PATH: ~/.local/src/serratus-api/config/serratus-api.yml
 * SITE_INSTANCES: 5
 * VERTXWEB_ENVIRONMENT: dev

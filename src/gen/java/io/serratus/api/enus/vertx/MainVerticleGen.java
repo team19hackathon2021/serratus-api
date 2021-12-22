@@ -128,9 +128,9 @@ DROP TABLE BioSample CASCADE;
 	public static final String configureDataConnectionError = configureDataConnectionError1;
 	public static final String configureDataConnectionSuccess1 = "The database client connection was successful. ";
 	public static final String configureDataConnectionSuccess = configureDataConnectionSuccess1;
-	public static final String configureDataInitError1 = "Could not initialize the database tables. ";
+	public static final String configureDataInitError1 = "Could not initialize the database. ";
 	public static final String configureDataInitError = configureDataInitError1;
-	public static final String configureDataInitSuccess1 = "The database tables were created successfully. ";
+	public static final String configureDataInitSuccess1 = "The database was initialized successfully. ";
 	public static final String configureDataInitSuccess = configureDataInitSuccess1;
 
 	public static final String configureOpenApiError1 = "Could not configure the auth server and API. ";
